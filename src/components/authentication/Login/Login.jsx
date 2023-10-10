@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as auth from '../utils/Auth';
-import '../styles/Login.css';
+import * as auth from '../../../utils/Auth';
+import './Login.css';
 
 export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) => {
   const navigate = useNavigate();

@@ -1,9 +1,9 @@
-// Попап редактирования профиля
+// Профиль
 import React from "react";
-import { PopupWithForm } from "./PopupWithForm"
-import { CurrentUserContext } from "../context/CurrentUserContext"
+import { PopupWithForm } from "../../PopupWithForm"
+import { CurrentUserContext } from "../../../context/CurrentUserContext"
 
-export const EditProfilePopup = ({ onUpdateUser, isOpen, onClose }) => { // Передаётся текущее значение свойств onUpdateUser, isOpen и onClose
+export const Profile = ({ onUpdateUser, isOpen, onClose }) => { // Передаётся текущее значение свойств onUpdateUser, isOpen и onClose
   const currentUser = React.useContext(CurrentUserContext); // Подписка на контекст пользователя
   const [name, setName] = React.useState(''); // Состояние имени
   const [description, setDescription] = React.useState(''); // Состояние описания

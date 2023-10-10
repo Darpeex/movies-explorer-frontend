@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import * as auth from '../../utils/Auth';
-import '../styles/Register.css';
+import * as auth from '../../../utils/Auth';
+import './Register.css';
 
 export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
   const [formValue, setFormValue] = useState({

@@ -1,23 +1,22 @@
 import React from 'react'; // Библиотеки реакт
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'; // Routes для роутов
-import { ProtectedRouteElement } from "../ProtectedRoute"; // импортируем HOC
+import Cookies from 'js-cookie'; // Импорт Cookies
+
+// import { ProtectedRouteElement } from "../ProtectedRoute"; // импортируем HOC
 import { api } from '../../utils/Api'; // Запросы на сервер
 import { useState, useEffect } from 'react'; // Хуки реакт
-import { Header } from '../Header/Header';
-import { Main } from '../Main/Main';
-import { Login } from './Login';
-import { Register } from './Register';
-import { InfoTooltip } from '../InfoTooltip';
-import { Footer } from '../Footer/Footer';
-import { ImagePopup } from '../ImagePopup';
-import { EditAvatarPopup } from '../EditAvatarPopup';
-import { EditProfilePopup } from '../EditProfilePopup';
-import { AddPlacePopup } from '../AddPlacePopup';
+import { Header } from '../shared/Header/Header';
+import { Main } from '../Main/Main.jsx';
+import { Movies } from '../Movies/Movies';
+import { SavedMovies } from '../SavedMovies/SavedMovies';
+import { Profile  } from '../authentication/Profile/Profile';
+import { Login } from '../authentication/Login/Login';
+import { Register } from '../authentication/Register/Register';
+import { Footer } from '../shared/Footer/Footer';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
-import { CardsContext } from '../../context/CardsContext';
+import { MoviesContext } from '../../context/MoviesContext';
 import * as auth from '../../utils/Auth';
-import Cookies from 'js-cookie'; // Импорт Cookies
-import '../index.css'; // Файлы со стилями
+import '../../index.css'; // Стили
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -188,48 +187,41 @@ function App() {
       <div className="page">
         {/* Оборачиваем в провайдер всё содержимое */}
         <CurrentUserContext.Provider value={currentUser}> {/* контекст становится доступен всем компонентам */}
-        <CardsContext.Provider value={cards}> {/* ... глобальный контекст */}
+        <MoviesContext.Provider value={cards}> {/* ... глобальный контекст */}
 {/* Шапка сайта */}
           <Header location={location} userData={userData} onSignOut={handleDeleteTocken} />
 
           <Routes>
-            <Route path="/" element={loggedIn ? <Navigate to="/main" replace /> : <Navigate to="/sign-in" replace />} />
-            <Route path="/*" element={loggedIn ? <Navigate to="/main" replace /> : <Navigate to="/sign-in" replace />} />
+            <Route path="/" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/sign-in" replace />} /> {/* О проекте */}
+            <Route path="/*" element={loggedIn ? <Navigate to="/404" replace /> : <Navigate to="/sign-in" replace />} /> {/* 404 */}
 {/* Основное содержимое страницы */}
-            <Route path="/main" element={<ProtectedRouteElement
+            {/* <Route path="/main" element={<ProtectedRouteElement
               element={ Main }  
               onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
               onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
-              onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
               onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
               onCardLike={handleCardLike} // Прокидываем в Card обработчик handleCardLike, через компонент Main
               onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
-              loggedIn={loggedIn} />} />
-            <Route path="/sign-in" element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} />
-            <Route path="/sign-up" element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} />
+              loggedIn={loggedIn} />} /> */}
+            <Route path="/movies" element={ Movies } /> {/* Фильмы */}
+            <Route path="/saved-movies" element={ SavedMovies } /> {/* Сохранённые фильмы */}
+            <Route path="/profile" element={ Profile } /> {/* Профиль */}
+            <Route path="/signin" element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
+            <Route path="/signup" element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
           </Routes>
     
 {/* Подвал сайта */}
           <Footer />
 
-{/* Попап редактирования аватарки. isOpen и onClose - пропсы компонента попапа (булево значение: true или false) */}
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-
 {/* Попап редактирования профиля */}
-			    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-
-{/* Попап добавления карточки */}
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+			    <Profile isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
 {/* Попап подтверждения удаления */}
           {/* <ConfirmationPopup open={isConfirmationPopupOpen} /> */}
 
-{/* Попап открытия карточки */}
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
 {/* Попап результата регистрации */}
-          <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} result={result} error={error} />
-        </CardsContext.Provider>
+          {/* <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} result={result} error={error} /> */}
+        </MoviesContext.Provider>
         </CurrentUserContext.Provider>
 
       </div>
