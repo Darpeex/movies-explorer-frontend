@@ -1,0 +1,124 @@
+.header {
+	width: 100%;
+	padding: 0 70px;
+	min-height: 74px;
+	max-width: 1280px;
+	box-sizing: border-box;
+	background-color: #073042;
+
+	display: grid;
+	align-items: center;
+	justify-content: space-between;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.header a {
+	list-style: none;
+	text-decoration: none;
+}
+
+.header a:hover {
+	opacity: 0.7;
+	cursor: pointer;
+}
+
+.header_position {
+	margin: 0 auto;
+}
+
+.header__navigation {
+	display: grid;
+}
+
+.header__navigation-links {
+	align-items: center;
+	grid-column-end: 4;
+	grid-column-start: 2;
+	grid-template-columns: 1fr 1fr;
+}
+
+.header__logo {
+	width: 38px;
+	height: 38px;
+	background: url(../../../images/logo.svg) no-repeat;
+}
+
+.header__navigation ul {
+	padding: 0;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1.38462;
+	display: flex;
+	justify-self: center;
+}
+
+.header__navigation li {
+	list-style: none;
+}
+
+.header__films {
+	color: #FFF;
+	margin-right: 18px;
+}
+
+.header__saved-films {
+	color: #FFF;
+}
+
+.header__profile-btn {
+	width: 100px;
+	height: 32px;
+	border-radius: 40px;
+	padding: 0 3px 0 11px;
+	box-sizing: border-box;
+	background-color: #2BE080;
+
+	display: flex;
+	justify-self: end;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.header__profile-btn p {
+	margin: 0;
+	color: #000;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 0.92308;
+}
+
+.header__profile-btn_circle {
+	width: 26px;
+	height: 26px;
+	border-radius: 50px;
+	background: #F9F9F9;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header__profile-btn_icon {
+	width: 10.383px;
+	height: 10.669px;
+	background: url(../../../images/profileIcon.svg);
+}
+
+.header__navigation-buttons {
+	justify-self: end;
+	grid-column-end: 4;
+	grid-column-start: 3;
+	grid-template-columns: 1fr;
+}
+
+.header__signup-btn {
+	color: #FFF;
+	margin-right: 30px;
+}
+
+.header__signin-btn {
+	color: #000;
+	padding: 8px 20px;
+	border-radius: 3px;
+	background-color: #2BE080;
+}
