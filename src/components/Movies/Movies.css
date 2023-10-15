@@ -1,0 +1,24 @@
+.content {
+  margin: 0 auto;
+}
+
+.content__button_more {
+  padding: 0;
+  height: 35px;
+  width: 320px;
+  color: #000;
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  line-height: normal;
+  margin: 50px auto 60px;
+
+  border: none;
+  border-radius: 6px;
+}
+
+.content__button_more:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

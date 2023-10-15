@@ -21,10 +21,10 @@
   font-family: 'Inter', Arial, sans-serif;
 }
 
-.page__elements-position {
+/* .page__elements-position {
   padding-top: 50px;
   padding-bottom: 67px;
-}
+} */
 
 @media screen and (max-width: 849px) {
   .page__elements-position {

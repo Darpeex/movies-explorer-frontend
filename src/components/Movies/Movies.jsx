@@ -9,6 +9,7 @@ export function Movies() {  // Передаются функции из App.js
     <main className="content">
       <SearchForm />
       <MoviesCardList />
+      <button className="content__button_more">Ещё</button>
     </main>
   )
 };
