@@ -5,14 +5,16 @@
   margin: 0 auto;
   color: white;
   min-width: 320px;
-	font-style: normal;
+  font-style: normal;
   background-color: #ffffff;
   font-family: 'Inter', Arial, sans-serif;
 
-  min-height: 100vh; /* Для липкого футера */
-  display: flex; /* Для липкого футера */
-  flex-direction: column; /* Для липкого футера */
-  
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  /* display: grid; - Для липкого футера */
+  /* grid-template-rows: auto 1fr auto; */
+
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
