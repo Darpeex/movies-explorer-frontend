@@ -54,5 +54,8 @@
 }
 
 .portfolio__line {
+  height: 1px;
+  border: none;
   margin: 19px 0 20px;
+  background-color: #E8E8E8;
 }

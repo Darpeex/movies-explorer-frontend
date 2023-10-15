@@ -18,7 +18,10 @@
 }
 
 .about-me__line {
+  height: 1px;
+  border: none;
   margin: 23px 0 66px;
+  background-color: black;
 }
 
 .about-me__wrapper {

@@ -21,7 +21,10 @@
 }
 
 .techs__line {
+  height: 1px;
+  border: none;
   margin: 23px 0 90px;
+  background-color: black;
 }
 
 .techs__title-technologies {

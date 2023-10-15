@@ -25,6 +25,7 @@
 
 .footer__line {
   height: 1px;
+  border: none;
   max-width: 1140px;
   margin: 19px 0 20px;
   background: #E8E8E8;

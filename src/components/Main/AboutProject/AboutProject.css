@@ -18,7 +18,10 @@
 }
 
 .about-project__line {
+  height: 1px;
+  border: none;
   margin: 23px 0 70px;
+  background-color: #000;
 }
 
 .about-project__description {

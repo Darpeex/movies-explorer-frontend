@@ -46,6 +46,7 @@
 
 .serch-form__underline {
   height: 1px;
+  border: none;
   max-width: 1140px;
   margin: 13px 0 33px;
   background: #E8E8E8;
