@@ -1,1 +1,66 @@
+.search-form {
+  margin: 0 auto;
+  max-width: 1140px;
+  padding: 70px 0 32px;
+}
 
+.search-form__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-form__input {
+  padding: 0;
+  color: #000; /* Не нашел, где указано. Или как в placeholder #A0A0A0 ? */
+  border: none;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.search-form__input:focus {
+  outline-width: 0;
+}
+
+.search-form__input::placeholder {
+  color: #A0A0A0;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.search-form__button {
+  height: 34px;
+  border: none;
+  width: 58.65px;
+  flex-shrink: 0;
+  border-radius: 48px;
+  background: #3456F3;
+
+  color: #FFF;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.63636;
+}
+
+.serch-form__underline {
+  height: 1px;
+  max-width: 1140px;
+  margin: 13px 0 33px;
+  background: #E8E8E8;
+}
+
+.search-form__wrapper {
+  display: flex;
+  padding: 0 0 48px;
+  align-items: center;
+}
+
+.serch-form__short-film {
+  color: #000;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 14px;
+  line-height: 1.38462;
+}
