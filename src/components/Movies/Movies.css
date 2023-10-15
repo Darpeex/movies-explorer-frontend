@@ -12,7 +12,7 @@
   font-weight: 500;
   text-align: center;
   line-height: normal;
-  margin: 50px auto 60px;
+  margin: 50px auto 80px;
 
   border: none;
   border-radius: 6px;
@@ -21,4 +21,22 @@
 .content__button_more:hover {
   opacity: 0.8;
   cursor: pointer;
+}
+
+.content__additional-block {
+  height: 140px;
+  max-width: 1280px;
+  margin-top: 100px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content__additional-block_result_empty {
+  font-size: 23px;
+  font-weight: 500;
+  line-height: normal;
+  color: rgb(70, 100, 250);
 }
