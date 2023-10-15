@@ -65,6 +65,14 @@
 	color: #FFF;
 }
 
+.header__links_color_black {
+	color: #000;
+}
+
+.header__links-active {
+	font-weight: 500;
+}
+
 .header__profile-btn {
 	width: 100px;
 	height: 32px;
@@ -72,6 +80,7 @@
 	padding: 0 3px 0 11px;
 	box-sizing: border-box;
 	background-color: #2BE080;
+	box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
 
 	display: flex;
 	justify-self: end;
@@ -121,4 +130,8 @@
 	padding: 8px 20px;
 	border-radius: 3px;
 	background-color: #2BE080;
+}
+
+.header_background-white {
+	background-color: white;
 }

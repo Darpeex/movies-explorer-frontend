@@ -17,4 +17,4 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onC
       <Portfolio />
     </main>
   )
-}
+};
