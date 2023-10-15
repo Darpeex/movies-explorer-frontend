@@ -39,7 +39,7 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
 
   return (
     <div className="login">
-      <p className="login__welcome">Вход</p>
+      <p className="login__welcome">Рады видеть!</p>
       <form onSubmit={handleSubmit} className="login__form">
         <input required id="email" name="email" type="text" value={formValue.email} onChange={handleChange} placeholder="Email" />
         <input required id="password" name="password" type="password" value={formValue.password} onChange={handleChange} placeholder="Пароль" />

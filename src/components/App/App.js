@@ -1,12 +1,13 @@
 import React from 'react'; // Библиотеки реакт
-import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'; // Routes для роутов
 import Cookies from 'js-cookie'; // Импорт Cookies
+import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'; // Routes для роутов
 
-// import { ProtectedRouteElement } from "../ProtectedRoute"; // импортируем HOC
+import { ProtectedRouteElement } from "../ProtectedRoute"; // импортируем HOC
 import { api } from '../../utils/Api'; // Запросы на сервер
+import { mainApi } from '../../utils/MainApi'; // Запросы на сервер
 import { useState, useEffect } from 'react'; // Хуки реакт
 import { Header } from '../shared/Header/Header';
-import { Main } from '../Main/Main.jsx';
+import { Main } from '../Main/Main';
 import { Movies } from '../Movies/Movies';
 import { SavedMovies } from '../SavedMovies/SavedMovies';
 import { Profile  } from '../authentication/Profile/Profile';
@@ -26,7 +27,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [userData, setUserData] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [cards, setCards] = useState([]);
   const [result, setResult] = useState();
   const [error, setError] = useState('');
@@ -53,63 +54,63 @@ function App() {
       };
   }, [isAnyPopupOpened]);
 
-  const tokenCheck = () => { // если у пользователя есть токен в cookie, эта функция проверит валидность токена
-      auth.checkToken().then((res) => { // проверим токен - комменты поправлю, понять бы как правильно
-        if (res){
-          const userData = { // здесь можем получить данные пользователя!
-            email: res.email
-          }
-          setLoggedIn(true); // авторизуем пользователя
-          setUserData(userData)
-          navigate("/main", {replace: true})
-        }
-      }).catch((err) => console.log(`Ошибка: ${err}`)); 
-  }
+  // const tokenCheck = () => { // если у пользователя есть токен в cookie, эта функция проверит валидность токена
+  //     auth.checkToken().then((res) => { // проверим токен - комменты поправлю, понять бы как правильно
+  //       if (res){
+  //         const userData = { // здесь можем получить данные пользователя!
+  //           email: res.email
+  //         }
+  //         setLoggedIn(true); // авторизуем пользователя
+  //         setUserData(userData)
+  //         navigate("/main", {replace: true})
+  //       }
+  //     }).catch((err) => console.log(`Ошибка: ${err}`)); 
+  // }
 
-// Проверка наличия токена у пользователя
-  useEffect(() => {
-    tokenCheck();
-  }, [loggedIn])
+// // Проверка наличия токена у пользователя
+//   useEffect(() => {
+//     tokenCheck();
+//   }, [loggedIn])
 
-// Получение данных пользователя с сервера
-  useEffect(() => {
-    if (loggedIn) {
-      api.getUserInfo() // Запрос данных пользователя с сервера
-      .then((userInfo) => {
-        setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-    }
-  }, [loggedIn]);
+// // Получение данных пользователя с сервера
+//   useEffect(() => {
+//     if (loggedIn) {
+//       api.getUserInfo() // Запрос данных пользователя с сервера
+//       .then((userInfo) => {
+//         setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
+//       })
+//       .catch((err) => console.log(`Ошибка: ${err}`));
+//     }
+//   }, [loggedIn]);
 
-// Обновление данных пользователя на сервере
-  function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
-    api.setUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
-      setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
-      closeAllPopups();
-    })
-    .catch((err) => console.log(`Ошибка: ${err}`)); 
-  }
+// // Обновление данных пользователя на сервере
+//   function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
+//     api.setUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
+//       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
+//       closeAllPopups();
+//     })
+//     .catch((err) => console.log(`Ошибка: ${err}`)); 
+//   }
 
-// Обновление аватарки профиля
-  function handleUpdateAvatar({ avatar }) { // данные берутся из поля попапа после отправки формы (submit)
-    api.editAvatar({ avatar }).then((userInfo) => { // передаётся обновлённые данные userInfo
-      setCurrentUser(userInfo);
-      closeAllPopups();
-    })
-    .catch((err) => console.log(`Ошибка: ${err}`)); 
-  }
+// // Обновление аватарки профиля
+//   function handleUpdateAvatar({ avatar }) { // данные берутся из поля попапа после отправки формы (submit)
+//     api.editAvatar({ avatar }).then((userInfo) => { // передаётся обновлённые данные userInfo
+//       setCurrentUser(userInfo);
+//       closeAllPopups();
+//     })
+//     .catch((err) => console.log(`Ошибка: ${err}`)); 
+//   }
 
-// Получение данных карточек с сервера
-  useEffect(() => {
-    if (loggedIn) {
-      api.getInitialCards() // получаем карточки с сервера
-      .then((userInfo) => {
-        setCards(userInfo); // обновляем стейт карточек
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-    }
-  }, [loggedIn]);
+// // Получение данных фильмов с сервера
+//   useEffect(() => {
+//     if (loggedIn) {
+//       mainApi.getInitialMovies() // получаем фильмы с сервера
+//       .then((userInfo) => {
+//         setCards(userInfo); // обновляем стейт карточек
+//       })
+//       .catch((err) => console.log(`Ошибка: ${err}`));
+//     }
+//   }, [loggedIn]);
 
   // Функции, меняющие состояния попапов (true - открыт, false - закрыт)
   const handleEditAvatarClick = () => {
@@ -189,32 +190,32 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}> {/* контекст становится доступен всем компонентам */}
         <MoviesContext.Provider value={cards}> {/* ... глобальный контекст */}
 {/* Шапка сайта */}
-          <Header location={location} userData={userData} onSignOut={handleDeleteTocken} />
+          <Header location={location} userData={userData}  /> {/* onSignOut={handleDeleteTosignacken} */}
 
           <Routes>
-            <Route path="/" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/sign-in" replace />} /> {/* О проекте */}
-            <Route path="/*" element={loggedIn ? <Navigate to="/404" replace /> : <Navigate to="/sign-in" replace />} /> {/* 404 */}
+            {/* <Route path="/" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/signin" replace />} /> */}
+            <Route path="/*" element={loggedIn ? <Navigate to="/404" replace /> : <Navigate to="/signin" replace />} /> {/* 404 */}
 {/* Основное содержимое страницы */}
-            {/* <Route path="/main" element={<ProtectedRouteElement
-              element={ Main }  
+            <Route path="/" element={<ProtectedRouteElement
+              element={ Main }
               onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
               onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
               onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
               onCardLike={handleCardLike} // Прокидываем в Card обработчик handleCardLike, через компонент Main
               onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
-              loggedIn={loggedIn} />} /> */}
-            <Route path="/movies" element={ Movies } /> {/* Фильмы */}
-            <Route path="/saved-movies" element={ SavedMovies } /> {/* Сохранённые фильмы */}
-            <Route path="/profile" element={ Profile } /> {/* Профиль */}
+              loggedIn={loggedIn} />} />
+            <Route path="/movies" element={ <Movies/> } /> {/* Фильмы */}
+            <Route path="/saved-movies" element={ <SavedMovies/> } /> Сохранённые фильмы
+            <Route path="/profile" element={ <Profile/> } /> {/* Профиль */}
             <Route path="/signin" element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
             <Route path="/signup" element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
           </Routes>
     
 {/* Подвал сайта */}
-          <Footer />
+          {<Footer />}
 
 {/* Попап редактирования профиля */}
-			    <Profile isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+			    {/* <Profile isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} /> onUpdateUser={handleUpdateUser} */}
 
 {/* Попап подтверждения удаления */}
           {/* <ConfirmationPopup open={isConfirmationPopupOpen} /> */}

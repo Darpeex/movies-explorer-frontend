@@ -1,6 +1,6 @@
 // Профиль
 import React from "react";
-import { PopupWithForm } from "../../PopupWithForm"
+import { PopupWithForm } from "../PopupWithForm"
 import { CurrentUserContext } from "../../../context/CurrentUserContext"
 
 export const Profile = ({ onUpdateUser, isOpen, onClose }) => { // Передаётся текущее значение свойств onUpdateUser, isOpen и onClose
