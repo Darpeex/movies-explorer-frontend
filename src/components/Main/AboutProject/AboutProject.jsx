@@ -1,9 +1,9 @@
 // Описание дипломного проекта
 import './AboutProject.css';
 
-export function AboutProject() {
+export function AboutProject({scrollToRef}) {
 	return (	// Секция AboutProject
-		<section className="about-project about-project_position section">
+		<section className="about-project about-project_position section" ref={scrollToRef}>
 			<h2 className="about-project__title">О проекте</h2>
 			<hr className="about-project__line" />
 			<div className="about-project__description">

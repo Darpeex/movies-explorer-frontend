@@ -40,10 +40,10 @@
 	text-decoration: none;
 
 	display: block;
-	max-width: 130px;
-	padding: 9px 19px;
+	padding: 10px 20px;
 	border-radius: 3px;
 	box-sizing: border-box;
+	background: transparent;
 	border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
