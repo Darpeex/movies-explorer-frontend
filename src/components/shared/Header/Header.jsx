@@ -20,12 +20,12 @@ const SignInAndUp = () => (
 
 const HeaderNavigation = ({ headerClass, checkActiveLink }) => (
   <nav className="header__navigation header__navigation-links">
-    <ul>
-      <li><NavLink className={checkActiveLink} to={ROUTES.MOVIES}>Фильмы</NavLink></li>
-      <li><NavLink className={checkActiveLink} to={ROUTES.SAVED_MOVIES}>Сохраненные фильмы</NavLink></li>
+    <ul className="header__navigation-list">
+      <li className="header__navigation-item"><NavLink className={checkActiveLink} to={ROUTES.MOVIES}>Фильмы</NavLink></li>
+      <li className="header__navigation-item"><NavLink className={checkActiveLink} to={ROUTES.SAVED_MOVIES}>Сохраненные фильмы</NavLink></li>
     </ul>
     <Link className={`header__profile-btn ${headerClass}`} to={ROUTES.PROFILE}>
-      <p>Аккаунт</p>
+      <p className="header__profile-btn_text">Аккаунт</p>
       <div className="header__profile-btn_circle">
         <div className="header__profile-btn_icon"></div>
       </div>

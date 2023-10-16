@@ -9,7 +9,7 @@ const portfolioWorks = [
 
 function PortfolioItem({ url, name, isLast }) {
   return (
-    <li>
+    <li className="portfolio__works-item">
       <a className="portfolio__works-element" href={url} target="_blank" rel="noopener noreferrer">
         <p className="portfolio__site">{name}</p>
         <span className="portfolio__arrow">↗</span>
@@ -24,7 +24,7 @@ export function Portfolio() {
     <section className="portfolio portfolio_position section">
       <h2 className="portfolio__title">Портфолио</h2>
       <article className="portfolio__works">
-        <ul>
+        <ul className="portfolio__works-list">
           {portfolioWorks.map((work, i) => // i - текущий индекс в цикле (0, 1, 2)
             <PortfolioItem
               key={work.num}

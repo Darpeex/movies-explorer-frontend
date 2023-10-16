@@ -43,7 +43,7 @@
 	background: url(../../../images/logo.svg) no-repeat;
 }
 
-.header__navigation ul {
+.header__navigation-list {
 	padding: 0;
 	font-size: 13px;
 	font-weight: 400;
@@ -52,7 +52,7 @@
 	justify-self: center;
 }
 
-.header__navigation li {
+.header__navigation-item {
 	list-style: none;
 }
 
@@ -88,7 +88,7 @@
 	justify-content: space-between;
 }
 
-.header__profile-btn p {
+.header__profile-btn_text {
 	margin: 0;
 	color: #000;
 	font-size: 13px;

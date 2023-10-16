@@ -21,11 +21,11 @@
   margin: 50px 0 125px;
 }
 
-.portfolio__works ul {
+.portfolio__works-list {
   padding: 0;
 }
 
-.portfolio__works li {
+.portfolio__works-item {
   list-style: none;
 }
 
