@@ -1,8 +1,9 @@
 // Компонент регистрации
 import './Register.css';
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import * as auth from '../../../utils/Auth';
+import { Link, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../constants/constants';
 
 export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
   const [isError, setIsError] = useState(true)
@@ -50,7 +51,6 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           type="name"
           value={formValue.name}
           onChange={handleChange}
-          placeholder="Введите имя"
           required
         />
         <span className="register__form_field_name">E-mail</span>
@@ -63,7 +63,6 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           type="email"
           value={formValue.email}
           onChange={handleChange}
-          placeholder="Введите e-mail"
           required
         />
         <span className="register__form_field_name">Пароль</span>
@@ -76,7 +75,6 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           type="password"
           value={formValue.password}
           onChange={handleChange}
-          placeholder="Введите пароль"
           required
         />
         {isError && <span className="register__form_error">Что-то пошло не так...</span>}
@@ -86,7 +84,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
       </form>
       <div className="register__signup">
         <p className="register__signup_text">Уже зарегистрированны?</p>
-        <Link to="/signin" className="signup__button">Войти</Link>
+        <Link to={ROUTES.SIGNIN} className="signup__button">Войти</Link>
       </div>
     </div>
   )
