@@ -1,11 +1,16 @@
 /* normalize.css */
 @import url(./vendor/normalize.css);
 
+.page * {
+  margin: 0;
+}
+
 .page {
   margin: 0 auto;
   color: white;
   min-width: 320px;
   font-style: normal;
+  line-height: normal;
   background-color: #ffffff;
   font-family: 'Inter', Arial, sans-serif;
 
