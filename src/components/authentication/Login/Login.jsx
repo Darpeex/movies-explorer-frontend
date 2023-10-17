@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as auth from '../../../utils/Auth';
 import './Login.css';
+import React, { useState } from 'react';
+import * as auth from '../../../utils/Auth';
+import { Link, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../constants/constants';
 
 export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) => {
+  const [isError, setIsError] = useState(true)
   const navigate = useNavigate();
 
   const [formValue, setFormValue] = useState({
@@ -41,12 +43,39 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
     <div className="login">
       <p className="login__welcome">Рады видеть!</p>
       <form onSubmit={handleSubmit} className="login__form">
-        <input required id="email" name="email" type="text" value={formValue.email} onChange={handleChange} placeholder="Email" />
-        <input required id="password" name="password" type="password" value={formValue.password} onChange={handleChange} placeholder="Пароль" />
+        <span className="login__form_field_name">E-mail</span>
+        <input
+          className="login__form-input"
+          minLength="8"
+          maxLength="30"
+          id="email"
+          name="email"
+          type="email"
+          value={formValue.email}
+          onChange={handleChange}
+          required
+        />
+        <span className="login__form_field_name">Пароль</span>
+        <input
+          className={`login__form-input ${isError ? "login__form_field_error" : ""}`}
+          minLength="8"
+          maxLength="30"
+          id="password"
+          name="password"
+          type="password"
+          value={formValue.password}
+          onChange={handleChange}
+          required
+        />
+        {isError && <span className="login__form_error">Что-то пошло не так...</span>}
         <div className="login__button-container">
-          <button type="submit" className="login__link">Войти</button>
+          <button type="submit" className="login__button">Зарегистрироваться</button>
         </div>
       </form>
+      <div className="login__signup">
+        <p className="login__signup_text">Ещё не зарегистрированы?</p>
+        <Link to={ROUTES.SIGNUP} className="signup__button">Регистрация</Link>
+      </div>
     </div>
   )
 }
