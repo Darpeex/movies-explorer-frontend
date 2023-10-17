@@ -27,8 +27,8 @@ function App() {
   const [isInfoTooltip, setIsInfoTooltip] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false); // Здесь можно проверить вёрстку
   const [userData, setUserData] = useState('');
-  const [loggedIn, setLoggedIn] = useState(true);
   const [cards, setCards] = useState([]);
   const [result, setResult] = useState();
   const [error, setError] = useState('');
@@ -186,11 +186,12 @@ function App() {
   
   const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN, ERROR } = ROUTES;
   const withoutFooterComponentsPaths = [
-    MOVIES,
-    SAVED_MOVIES,
     PROFILE,
+    SIGNIN,
+    SIGNUP,
+    ERROR,
   ];
-    const footerClass = !withoutFooterComponentsPaths.includes(location.pathname) // Белый фон
+    const footerClass = !withoutFooterComponentsPaths.includes(location.pathname) // не отрисовываем Footer
       ? <Footer />
       : <></>;
 
@@ -202,20 +203,21 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}> {/* контекст становится доступен всем компонентам */}
         <MoviesContext.Provider value={cards}> {/* ... глобальный контекст */}
 {/* Шапка сайта */}
-          <Header location={location} userData={userData}  /> {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
+          <Header location={location} userData={userData} loggedIn={loggedIn} /> {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
 
           <Routes>
             {/* <Route path="/" element={loggedIn ? <Navigate to={HOME} replace /> : <Navigate to={SIGNIN} replace />} /> */}
-            <Route path="/*" element={loggedIn ? <Navigate to={ERROR} replace /> : <Navigate to={SIGNIN} replace />} /> {/* 404 */}
+            {/*<Route path="/*" element={<Navigate to={ERROR}/>} />  404 */}
 {/* Основное содержимое страницы */}
-            <Route path={HOME} element={<ProtectedRouteElement
+            {/* <Route path={HOME} element={<ProtectedRouteElement
               element={ Main }
               onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
               onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
               onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
               onCardLike={handleCardLike} // Прокидываем в Card обработчик handleCardLike, через компонент Main
               onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
-              loggedIn={loggedIn} />} />
+              loggedIn={loggedIn} />} /> */}
+            <Route path={HOME} element={ <Main/> } /> {/* Фильмы */}
             <Route path={MOVIES} element={ <Movies/> } /> {/* Фильмы */}
             <Route path={SAVED_MOVIES} element={ <SavedMovies/> } /> {/* Сохранённые фильмы */}
             <Route path={PROFILE} element={ <Profile /> } /> {/* Профиль */}
