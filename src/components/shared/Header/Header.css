@@ -12,6 +12,12 @@
 	grid-template-columns: 1fr 1fr 1fr;
 }
 
+.header_authorization {
+	padding: 70px 0 0;
+	display: flex;
+	max-width: 396px;
+}
+
 .header a {
 	list-style: none;
 	text-decoration: none;

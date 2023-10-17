@@ -2,29 +2,27 @@
 import './Header.css';
 import { ROUTES } from '../../../constants/constants.js';
 import { Routes, Route, NavLink, Link } from 'react-router-dom';
+const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN } = ROUTES;
 
-const whiteBackgroundPaths = [
-  ROUTES.MOVIES,
-  ROUTES.SAVED_MOVIES,
-  ROUTES.PROFILE,
-];
+const whiteBackgroundPaths = [MOVIES, SAVED_MOVIES, PROFILE, SIGNIN, SIGNUP];
+const headerOnlyHomeLogo = [SIGNIN, SIGNUP];
 
-const SignInAndUp = () => (
+const Unauthorized = () => (
   <nav className="header__navigation header__navigation-buttons">
     <ul className="header__navigation-list">
-      <li className="header__navigation-item"><Link className="header__signup-btn" to={ROUTES.SIGNUP}>Регистрация</Link></li>
-      <li className="header__navigation-item"><Link className="header__signin-btn" to={ROUTES.SIGNIN}>Войти</Link></li>
+      <li className="header__navigation-item"><Link className="header__signup-btn" to={SIGNUP}>Регистрация</Link></li>
+      <li className="header__navigation-item"><Link className="header__signin-btn" to={SIGNIN}>Войти</Link></li>
     </ul>
   </nav>
 )
 
-const HeaderNavigation = ({ headerClass, isActiveLink }) => (
+const HeaderNavigation = ({ headerBackgroundWhiteClass, isActiveLink }) => (
   <nav className="header__navigation header__navigation-links">
     <ul className="header__navigation-list">
-      <li className="header__navigation-item"><NavLink className={isActiveLink} to={ROUTES.MOVIES}>Фильмы</NavLink></li>
-      <li className="header__navigation-item"><NavLink className={isActiveLink} to={ROUTES.SAVED_MOVIES}>Сохраненные фильмы</NavLink></li>
+      <li className="header__navigation-item"><NavLink className={isActiveLink} to={MOVIES}>Фильмы</NavLink></li>
+      <li className="header__navigation-item"><NavLink className={isActiveLink} to={SAVED_MOVIES}>Сохраненные фильмы</NavLink></li>
     </ul>
-    <Link className={`header__profile-btn ${headerClass}`} to={ROUTES.PROFILE}>
+    <Link className={`header__profile-btn ${headerBackgroundWhiteClass}`} to={PROFILE}>
       <p className="header__profile-btn_text">Аккаунт</p>
       <div className="header__profile-btn_circle">
         <div className="header__profile-btn_icon"></div>
@@ -33,31 +31,32 @@ const HeaderNavigation = ({ headerClass, isActiveLink }) => (
   </nav>
 )
 
-export function Header({ location }) {
-  const headerClass = whiteBackgroundPaths.includes(location.pathname) // Белый фон
-    ? "header_background-white"
+export function Header({ location, loggedIn }) {
+  const isPathIncluded = (paths) => paths.includes(location.pathname);
+  const headerOnlyHomeLogoClass = isPathIncluded(headerOnlyHomeLogo) // Только логотип в Header
+    ? "header_authorization"
     : "";
 
-  const headerLinksClass = whiteBackgroundPaths.includes(location.pathname) // Чёрный текст
-    ? "header__links_color_black"
+  const headerBackgroundWhiteClass = isPathIncluded(whiteBackgroundPaths) // Белый фон 
+    ? "header_background-white header__links_color_black"
     : "";
 
   const isActiveLink = ({ isActive }) => isActive // Проверка активной ссылки + 'header__links-active'
-    ? `header__films ${headerLinksClass} header__links-active`
-    : `header__films ${headerLinksClass}`;
+    ? `header__films ${headerBackgroundWhiteClass} header__links-active`
+    : `header__films ${headerBackgroundWhiteClass}`;
 
-  const headerNav = <HeaderNavigation headerClass={headerClass} isActiveLink={isActiveLink} />;
+  const headerNav = <HeaderNavigation headerBackgroundWhiteClass={headerBackgroundWhiteClass} isActiveLink={isActiveLink} />;
 
   return (
-    <header className={`header header_position ${headerClass}`}>
-      <Link className="header__logo" to={ROUTES.HOME} aria-label="Главная"></Link>
+    <header className={`header header_position ${headerBackgroundWhiteClass} ${headerOnlyHomeLogoClass}`}>
+      <Link className="header__logo" to={HOME} aria-label="Главная"></Link>
       <Routes>
-        <Route path={ROUTES.HOME} element={headerNav} />
-        <Route path={ROUTES.MOVIES} element={headerNav} />
-        <Route path={ROUTES.SAVED_MOVIES} element={headerNav} />
-        <Route path={ROUTES.PROFILE} element={headerNav} />
-        <Route path={ROUTES.SIGNIN} element={<SignInAndUp />} /> {/* Проверить этот роут можно по path="SIGNIN" */}
-        <Route path={ROUTES.SIGNUP} element={<SignInAndUp />} /> {/* Проверить этот роут можно по path="SIGNUP" */}
+        <Route path={HOME} element={loggedIn ? headerNav : <Unauthorized />} />
+        <Route path={MOVIES} element={headerNav} />
+        <Route path={SAVED_MOVIES} element={headerNav} />
+        <Route path={PROFILE} element={headerNav} />
+        <Route path={SIGNIN} element={<></>} />
+        <Route path={SIGNUP} element={<></>} />
       </Routes>
     </header>
   );
