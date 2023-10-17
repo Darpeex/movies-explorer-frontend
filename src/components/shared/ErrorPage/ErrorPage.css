@@ -21,3 +21,8 @@
   color: #3456F3;
   background: transparent;
 }
+
+.error-page__navigate:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
