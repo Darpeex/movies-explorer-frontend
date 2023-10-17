@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as auth from '../../../utils/Auth';
 
 export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
-  const [isError, setIsError] = useState(false)
+  const [isError, setIsError] = useState(true)
   const [formValue, setFormValue] = useState({
     password: '',
     email: '',
@@ -68,7 +68,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
         />
         <span className="register__form_field_name">Пароль</span>
         <input
-          className={`register__form-input ${isError ? "register__form_field_margin_off" : "" }`}
+          className={`register__form-input ${isError ? "register__form_field_error" : "" }`}
           minLength="8"
           maxLength="30"
           id="password"
