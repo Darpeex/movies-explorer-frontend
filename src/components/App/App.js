@@ -1,5 +1,6 @@
 import React from 'react'; // Библиотеки реакт
 import Cookies from 'js-cookie'; // Импорт Cookies
+import { ROUTES } from '../../constants/constants';
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'; // Routes для роутов
 
 import { ProtectedRouteElement } from "../ProtectedRoute"; // импортируем HOC
@@ -182,6 +183,17 @@ function App() {
     setError(error)
   }
 
+  
+  const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN, ERROR } = ROUTES;
+  const withoutFooterComponentsPaths = [
+    MOVIES,
+    SAVED_MOVIES,
+    PROFILE,
+  ];
+    const footerClass = !withoutFooterComponentsPaths.includes(location.pathname) // Белый фон
+      ? <Footer />
+      : <></>;
+
 // Происходит отрисовка компонентов
   return (
     <div className="App">
@@ -190,13 +202,13 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}> {/* контекст становится доступен всем компонентам */}
         <MoviesContext.Provider value={cards}> {/* ... глобальный контекст */}
 {/* Шапка сайта */}
-          <Header location={location} userData={userData}  /> {/* onSignOut={handleDeleteTosignacken} */}
+          <Header location={location} userData={userData}  /> {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
 
           <Routes>
-            {/* <Route path="/" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/signin" replace />} /> */}
-            <Route path="/*" element={loggedIn ? <Navigate to="/404" replace /> : <Navigate to="/signin" replace />} /> {/* 404 */}
+            {/* <Route path="/" element={loggedIn ? <Navigate to={HOME} replace /> : <Navigate to={SIGNIN} replace />} /> */}
+            <Route path="/*" element={loggedIn ? <Navigate to={ERROR} replace /> : <Navigate to={SIGNIN} replace />} /> {/* 404 */}
 {/* Основное содержимое страницы */}
-            <Route path="/" element={<ProtectedRouteElement
+            <Route path={HOME} element={<ProtectedRouteElement
               element={ Main }
               onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
               onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
@@ -204,15 +216,16 @@ function App() {
               onCardLike={handleCardLike} // Прокидываем в Card обработчик handleCardLike, через компонент Main
               onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
               loggedIn={loggedIn} />} />
-            <Route path="/movies" element={ <Movies/> } /> {/* Фильмы */}
-            <Route path="/saved-movies" element={ <SavedMovies/> } /> Сохранённые фильмы
-            <Route path="/profile" element={ <Profile/> } /> {/* Профиль */}
-            <Route path="/signin" element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
-            <Route path="/signup" element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
+            <Route path={MOVIES} element={ <Movies/> } /> {/* Фильмы */}
+            <Route path={SAVED_MOVIES} element={ <SavedMovies/> } /> Сохранённые фильмы
+            <Route path={PROFILE} element={ <Profile /> } /> {/* Профиль */}
+            <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
+            <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
           </Routes>
     
 {/* Подвал сайта */}
-          {<Footer />}
+          {footerClass} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
+           {/* {<Footer />} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
 
 {/* Попап редактирования профиля */}
 			    {/* <Profile isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} /> onUpdateUser={handleUpdateUser} */}
