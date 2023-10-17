@@ -11,18 +11,18 @@ const whiteBackgroundPaths = [
 
 const SignInAndUp = () => (
   <nav className="header__navigation header__navigation-buttons">
-    <ul>
-      <li><Link className="header__signup-btn" to={ROUTES.SIGNUP}>Регистрация</Link></li>
-      <li><Link className="header__signin-btn" to={ROUTES.SIGNIN}>Войти</Link></li>
+    <ul className="header__navigation-list">
+      <li className="header__navigation-item"><Link className="header__signup-btn" to={ROUTES.SIGNUP}>Регистрация</Link></li>
+      <li className="header__navigation-item"><Link className="header__signin-btn" to={ROUTES.SIGNIN}>Войти</Link></li>
     </ul>
   </nav>
 )
 
-const HeaderNavigation = ({ headerClass, checkActiveLink }) => (
+const HeaderNavigation = ({ headerClass, isActiveLink }) => (
   <nav className="header__navigation header__navigation-links">
     <ul className="header__navigation-list">
-      <li className="header__navigation-item"><NavLink className={checkActiveLink} to={ROUTES.MOVIES}>Фильмы</NavLink></li>
-      <li className="header__navigation-item"><NavLink className={checkActiveLink} to={ROUTES.SAVED_MOVIES}>Сохраненные фильмы</NavLink></li>
+      <li className="header__navigation-item"><NavLink className={isActiveLink} to={ROUTES.MOVIES}>Фильмы</NavLink></li>
+      <li className="header__navigation-item"><NavLink className={isActiveLink} to={ROUTES.SAVED_MOVIES}>Сохраненные фильмы</NavLink></li>
     </ul>
     <Link className={`header__profile-btn ${headerClass}`} to={ROUTES.PROFILE}>
       <p className="header__profile-btn_text">Аккаунт</p>
@@ -42,11 +42,11 @@ export function Header({ location }) {
     ? "header__links_color_black"
     : "";
 
-  const checkActiveLink = ({ isActive }) => isActive // Проверка активной ссылки + 'header__links-active'
+  const isActiveLink = ({ isActive }) => isActive // Проверка активной ссылки + 'header__links-active'
     ? `header__films ${headerLinksClass} header__links-active`
     : `header__films ${headerLinksClass}`;
 
-  const headerNav = <HeaderNavigation headerClass={headerClass} checkActiveLink={checkActiveLink} />;
+  const headerNav = <HeaderNavigation headerClass={headerClass} isActiveLink={isActiveLink} />;
 
   return (
     <header className={`header header_position ${headerClass}`}>
@@ -56,8 +56,8 @@ export function Header({ location }) {
         <Route path={ROUTES.MOVIES} element={headerNav} />
         <Route path={ROUTES.SAVED_MOVIES} element={headerNav} />
         <Route path={ROUTES.PROFILE} element={headerNav} />
-        <Route path={ROUTES.SIGNIN} element={<SignInAndUp />} />
-        <Route path={ROUTES.SIGNUP} element={<SignInAndUp />} />
+        <Route path={ROUTES.SIGNIN} element={<SignInAndUp />} /> {/* Проверить этот роут можно по path="SIGNIN" */}
+        <Route path={ROUTES.SIGNUP} element={<SignInAndUp />} /> {/* Проверить этот роут можно по path="SIGNUP" */}
       </Routes>
     </header>
   );
