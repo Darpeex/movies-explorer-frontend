@@ -217,7 +217,7 @@ function App() {
               onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
               loggedIn={loggedIn} />} />
             <Route path={MOVIES} element={ <Movies/> } /> {/* Фильмы */}
-            <Route path={SAVED_MOVIES} element={ <SavedMovies/> } /> Сохранённые фильмы
+            <Route path={SAVED_MOVIES} element={ <SavedMovies/> } /> {/* Сохранённые фильмы */}
             <Route path={PROFILE} element={ <Profile /> } /> {/* Профиль */}
             <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
             <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
