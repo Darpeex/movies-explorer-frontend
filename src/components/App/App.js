@@ -8,6 +8,7 @@ import { api } from '../../utils/Api'; // Запросы на сервер
 import { mainApi } from '../../utils/MainApi'; // Запросы на сервер
 import { useState, useEffect } from 'react'; // Хуки реакт
 import { Header } from '../shared/Header/Header';
+import { ErrorPage } from '../shared/ErrorPage/ErrorPage';
 import { Main } from '../Main/Main';
 import { Movies } from '../Movies/Movies';
 import { SavedMovies } from '../SavedMovies/SavedMovies';
@@ -184,16 +185,15 @@ function App() {
   }
 
   
-  const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN, ERROR } = ROUTES;
-  const withoutFooterComponentsPaths = [
-    PROFILE,
-    SIGNIN,
-    SIGNUP,
-    ERROR,
-  ];
-    const footerClass = !withoutFooterComponentsPaths.includes(location.pathname) // не отрисовываем Footer
-      ? <Footer />
-      : <></>;
+  const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN, ERROR, UNKNOWN } = ROUTES;
+  const footerComponentsPaths = [HOME, MOVIES, SAVED_MOVIES];
+  const footerClass = footerComponentsPaths.includes(location.pathname) // не отрисовываем Footer
+    ? <Footer />
+    : <></>;
+  const headerComponentsPaths = [ERROR];
+  const headerClass = headerComponentsPaths.includes(location.pathname) // не отрисовываем Footer
+    ? <></>
+    : <Header location={location} userData={userData} loggedIn={loggedIn} />;
 
 // Происходит отрисовка компонентов
   return (
@@ -203,20 +203,12 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}> {/* контекст становится доступен всем компонентам */}
         <MoviesContext.Provider value={cards}> {/* ... глобальный контекст */}
 {/* Шапка сайта */}
-          <Header location={location} userData={userData} loggedIn={loggedIn} /> {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
+          {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
 
-          <Routes>
-            {/* <Route path="/" element={loggedIn ? <Navigate to={HOME} replace /> : <Navigate to={SIGNIN} replace />} /> */}
-            {/*<Route path="/*" element={<Navigate to={ERROR}/>} />  404 */}
 {/* Основное содержимое страницы */}
-            {/* <Route path={HOME} element={<ProtectedRouteElement
-              element={ Main }
-              onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
-              onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
-              onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
-              onCardLike={handleCardLike} // Прокидываем в Card обработчик handleCardLike, через компонент Main
-              onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
-              loggedIn={loggedIn} />} /> */}
+          <Routes>
+            <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />}/> {/* Неизвестный путь */}
+            <Route path={ERROR} element={<ErrorPage/>}/> {/* Стравница с ошибкой */}
             <Route path={HOME} element={ <Main/> } /> {/* Фильмы */}
             <Route path={MOVIES} element={ <Movies/> } /> {/* Фильмы */}
             <Route path={SAVED_MOVIES} element={ <SavedMovies/> } /> {/* Сохранённые фильмы */}
@@ -227,7 +219,7 @@ function App() {
     
 {/* Подвал сайта */}
           {footerClass} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
-           {/* {<Footer />} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
+          {/* {<Footer />} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
 
 {/* Попап редактирования профиля */}
 			    {/* <Profile isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} /> onUpdateUser={handleUpdateUser} */}
