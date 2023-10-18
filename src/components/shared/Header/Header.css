@@ -7,14 +7,10 @@
 	background-color: #073042;
 
 	display: grid;
-	align-items: center;
-	justify-content: space-between;
-	grid-template-columns: 1fr 1fr 1fr;
 }
 
 .header_authorization {
 	padding: 70px 0 0;
-	display: flex;
 	max-width: 396px;
 }
 
@@ -38,12 +34,11 @@
 
 .header__navigation-links {
 	align-items: center;
-	grid-column-end: 4;
-	grid-column-start: 2;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
 .header__logo {
+	align-items: left;
 	width: 38px;
 	height: 38px;
 	background: url(../../../images/logo.svg) no-repeat;
@@ -120,10 +115,12 @@
 }
 
 .header__navigation-buttons {
+	align-items: center;
+	grid-template-columns: 1fr 1fr;
+}
+
+.header__navigation-list_buttons {
 	justify-self: end;
-	grid-column-end: 4;
-	grid-column-start: 3;
-	grid-template-columns: 1fr;
 }
 
 .header__signup-btn {

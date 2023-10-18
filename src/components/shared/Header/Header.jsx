@@ -6,10 +6,12 @@ const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN } = ROUTES;
 
 const whiteBackgroundPaths = [MOVIES, SAVED_MOVIES, PROFILE, SIGNIN, SIGNUP];
 const headerOnlyHomeLogo = [SIGNIN, SIGNUP];
+const linkLogoHome = <Link className="header__logo" to={HOME} aria-label="Главная"></Link>
 
 const Unauthorized = () => (
   <nav className="header__navigation header__navigation-buttons">
-    <ul className="header__navigation-list">
+    {linkLogoHome}
+    <ul className="header__navigation-list  header__navigation-list_buttons">
       <li className="header__navigation-item"><Link className="header__signup-btn" to={SIGNUP}>Регистрация</Link></li>
       <li className="header__navigation-item"><Link className="header__signin-btn" to={SIGNIN}>Войти</Link></li>
     </ul>
@@ -18,6 +20,7 @@ const Unauthorized = () => (
 
 const HeaderNavigation = ({ headerBackgroundWhiteClass, isActiveLink }) => (
   <nav className="header__navigation header__navigation-links">
+    {linkLogoHome}
     <ul className="header__navigation-list">
       <li className="header__navigation-item"><NavLink className={isActiveLink} to={MOVIES}>Фильмы</NavLink></li>
       <li className="header__navigation-item"><NavLink className={isActiveLink} to={SAVED_MOVIES}>Сохраненные фильмы</NavLink></li>
@@ -49,14 +52,13 @@ export function Header({ location, loggedIn }) {
 
   return (
     <header className={`header header_position ${headerBackgroundWhiteClass} ${headerOnlyHomeLogoClass}`}>
-      <Link className="header__logo" to={HOME} aria-label="Главная"></Link>
       <Routes>
         <Route path={HOME} element={loggedIn ? headerNav : <Unauthorized />} />
         <Route path={MOVIES} element={headerNav} />
         <Route path={SAVED_MOVIES} element={headerNav} />
         <Route path={PROFILE} element={headerNav} />
-        <Route path={SIGNIN} element={<></>} />
-        <Route path={SIGNUP} element={<></>} />
+        <Route path={SIGNIN} element={linkLogoHome} />
+        <Route path={SIGNUP} element={linkLogoHome} />
       </Routes>
     </header>
   );
