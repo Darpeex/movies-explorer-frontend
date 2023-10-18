@@ -1,7 +1,7 @@
 .search-form {
   margin: 0 auto;
   max-width: 1140px;
-  padding: 70px 0 32px;
+  padding: 70px 70px 32px;
 }
 
 .search-form__container {
@@ -11,8 +11,8 @@
 
 .search-form__input {
   padding: 0;
-  color: #000; /* Не нашел, где указано. Или как в placeholder #A0A0A0 ? */
   border: none;
+  color: #000;
   font-size: 28px;
   font-weight: 500;
   line-height: normal;
