@@ -51,6 +51,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           type="name"
           value={formValue.name}
           onChange={handleChange}
+          placeholder="Ваше имя"
           required
         />
         <span className="register__form_field_name">E-mail</span>
@@ -63,6 +64,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           type="email"
           value={formValue.email}
           onChange={handleChange}
+          placeholder="example@email.ru"
           required
         />
         <span className="register__form_field_name">Пароль</span>
@@ -75,6 +77,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           type="password"
           value={formValue.password}
           onChange={handleChange}
+          placeholder="Введите пароль"
           required
         />
         {isError && <span className="register__form_error">Что-то пошло не так...</span>}
@@ -89,3 +92,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
     </div>
   )
 }
+
+// Ошибки ниже отображаются не под инпутами, а при получении ошибки после отправки запроса
+// Пользователь с таким email уже существует.
+// При регистрации пользователя произошла ошибка.

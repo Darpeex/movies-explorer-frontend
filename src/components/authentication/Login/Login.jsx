@@ -53,11 +53,12 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
           type="email"
           value={formValue.email}
           onChange={handleChange}
+          placeholder="Введите почту"
           required
         />
         <span className="login__form_field_name">Пароль</span>
         <input
-          className={`login__form-input ${isError ? "login__form_field_error" : ""}`}
+          className={`login__form-input ${isError ? "login__form_field_error" : ""}`} // демонстрация верстки
           minLength="8"
           maxLength="30"
           id="password"
@@ -65,9 +66,10 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
           type="password"
           value={formValue.password}
           onChange={handleChange}
+          placeholder="Введите пароль"
           required
         />
-        {isError && <span className="login__form_error">Что-то пошло не так...</span>}
+        {isError && <span className="login__form_error">Что-то пошло не так...</span>} {/* демонстрация верстки */}
         <div className="login__button-container">
           <button type="submit" className="login__button">Зарегистрироваться</button>
         </div>
@@ -79,3 +81,8 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
     </div>
   )
 }
+
+// Ошибки ниже отображаются не под инпутами, а при получении ошибки после отправки запроса
+// Вы ввели неправильный логин или пароль. 
+// При авторизации произошла ошибка. Токен не передан или передан не в том формате.
+// При авторизации произошла ошибка. Переданный токен некорректен.

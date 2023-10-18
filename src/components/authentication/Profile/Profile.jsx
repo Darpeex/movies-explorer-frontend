@@ -43,10 +43,10 @@ export const Profile = ({ onUpdateUser }) => {
             id="user-name"
             className="profile__form-text profile__form-input profile__form-input_field_name"
             type="text"
-            placeholder="Ваше имя"
             minLength="2"
             maxLength="40"
             disabled={!isEditProfileActive && 'disabled'}
+            placeholder="Ваше имя"
             required />
         </div>
         <hr className="profile__underline" />
@@ -74,3 +74,7 @@ export const Profile = ({ onUpdateUser }) => {
     </section>
   )
 }
+
+// Ошибки ниже отображаются не под инпутами, а при получении ошибки после отправки запроса
+// Пользователь с таким email уже существует.
+// При обновлении профиля произошла ошибка.
