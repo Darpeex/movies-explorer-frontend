@@ -1,5 +1,6 @@
 // Баннер страницы «О проекте»
 import './Promo.css';
+import promoImage from '../../../images/promoImage.svg'
 
 export function Promo({scrollToRef}) {
 	return ( // Секция Promo
@@ -9,7 +10,7 @@ export function Promo({scrollToRef}) {
 				<p className="promo__description-paragraph">Листайте ниже, чтобы узнать больше про этот проект и&nbsp;его создателя.</p>
 				<button className="promo__navigate" onClick={() => scrollToRef.current.scrollIntoView({ behavior: 'smooth' })}>Узнать больше</button>
 			</div>
-			<div className="promo__image"></div>
+			<img className="promo__image" src={promoImage} alt="Промо картинка"></img>
 		</section>
 	)
 }
