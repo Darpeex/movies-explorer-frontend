@@ -30,28 +30,16 @@
   padding: 0;
   width: 100%;
   border: none;
-  background: transparent;
-
-  text-align: right;
-  font-weight: 400;
-  color: #000;
-}
-
-.profile__form-input {
-  padding: 0;
   border: none;
-  outline: none;
   background: transparent;
 
   text-align: right;
   font-weight: 400;
-  color: #000;
 }
 
 .profile__form-input::placeholder {
   color: #505050;
 }
-
 
 .profile__underline {
   height: 1px;
@@ -68,6 +56,10 @@
   width: fit-content;
   margin: 220px auto 0;
   flex-direction: column;
+}
+
+.profile__saved-button_margin_less {
+  margin-top: 188px;
 }
 
 .profile__button {
@@ -92,14 +84,32 @@
   color: #FF3055;
 }
 
+.profile__button_error-text {
+  font-size: 11px;
+  font-weight: 400;
+  color: #FF004C;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .profile__saved-button {
+  color: #fff;
   width: 320px;
   height: 36px;
   flex-shrink: 0;
   border-radius: 6px;
-  background: #F8F8F8;
+  background: #3456F3;
+}
+
+.profile__saved-button:hover {
+  opacity: 0.8;
 }
 
 .profile__saved-button_inactive {
-  color: rgba(80, 80, 80, 0.6);
+  color: #C2C2C2;
+  background: #F8F8F8;
+}
+
+.profile__saved-button_inactive:hover {
+  opacity: 1;
 }

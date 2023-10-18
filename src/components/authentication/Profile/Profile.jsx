@@ -5,7 +5,8 @@ import { CurrentUserContext } from "../../../context/CurrentUserContext";
 
 export const Profile = ({ onUpdateUser }) => {
   const [isEditProfileActive, setIsEditProfileActive] = React.useState(false);
-  const [isValid, setIsValid] = React.useState(true); // Для демонстрации верстки
+  const [isActive, setIsActive] = React.useState(false); // Для демонстрации верстки
+  const [isValid, setIsValid] = React.useState(false); // Для демонстрации верстки
   const handleEditProfile = () => {
     setIsEditProfileActive(true);
   }
@@ -66,10 +67,11 @@ export const Profile = ({ onUpdateUser }) => {
             required />
         </div>
       </div>
-      <div className="profile__container">
+      <div className={`profile__container ${!isValid ? "profile__saved-button_margin_less" : ""}`}>
         {!isEditProfileActive && <button className="profile__button profile__edit-button" onClick={handleEditProfile}>Редактировать</button>}
         {!isEditProfileActive && <button className="profile__button profile__signout-button">Выйти из аккаунта</button>}
-        {isEditProfileActive && <button className={`profile__button profile__saved-button ${isValid ? "" : "profile__saved-button_inactive"}`}>Сохранить</button>}
+        {isEditProfileActive && !isValid && <span className="profile__button_error-text">При обновлении профиля произошла ошибка.</span>}
+        {isEditProfileActive && <button className={`profile__button profile__saved-button ${isActive ? "" : "profile__saved-button_inactive"}`}>Сохранить</button>}
       </div>
     </section>
   )

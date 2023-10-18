@@ -71,7 +71,7 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
         />
         {isError && <span className="login__form_error">Что-то пошло не так...</span>} {/* демонстрация верстки */}
         <div className="login__button-container">
-          <button type="submit" className="login__button">Зарегистрироваться</button>
+          <button type="submit" className="login__button">Войти</button>
         </div>
       </form>
       <div className="login__signup">
