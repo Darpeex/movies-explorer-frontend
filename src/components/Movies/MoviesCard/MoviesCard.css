@@ -53,15 +53,6 @@
   cursor: pointer;
 }
 
-.elements-block__like-button_active {
-  opacity: 1;
-  background: url(../../../images/like.svg) no-repeat;
-}
-
-.elements-block__like-button_active:hover {
-  opacity: 1;
-}
-
 .elements-block__underline {
   height: 1px;
   border: none;
