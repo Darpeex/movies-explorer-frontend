@@ -15,7 +15,8 @@
   min-height: 151px;
   object-fit: cover;
   object-position: center;
-  aspect-ratio: 2.7 / 1.51; /* задаём соотношение сторон */
+  aspect-ratio: 2.7 / 1.51;
+  /* задаём соотношение сторон */
   transition: all 0.5s ease;
 }
 
@@ -37,12 +38,14 @@
   font-weight: 500;
   line-height: normal;
 }
+
 .elements-block__like-button {
   border: 0;
   padding: 0;
   width: 24px;
   height: 24px;
-  background: url(../../../images/unactive-like.svg) no-repeat;
+  border-radius: 50%;
+  background: #F9F9F9;
   /* Если правильно понял, лайк как кнопка целиком идёт - одной иконкой */
 }
 
@@ -52,7 +55,7 @@
 
 .elements-block__like-button_active {
   opacity: 1;
-  background: url(../../../images/active-like.svg) no-repeat;
+  background: url(../../../images/like.svg) no-repeat;
 }
 
 .elements-block__like-button_active:hover {
