@@ -1,12 +1,32 @@
 // Шапка сайта
 import './Header.css';
+import { useState } from 'react';
+import { BurgerMenu } from './BurgerMenu/BurgerMenu';
 import { ROUTES } from '../../../constants/constants.js';
 import { Routes, Route, NavLink, Link } from 'react-router-dom';
 const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN } = ROUTES;
-
 const whiteBackgroundPaths = [MOVIES, SAVED_MOVIES, PROFILE, SIGNIN, SIGNUP];
 const headerOnlyHomeLogo = [SIGNIN, SIGNUP];
 const linkLogoHome = <Link className="header__logo" to={HOME} aria-label="Главная"></Link>
+
+const Burger = ({ accountButton }) => {
+  const items = [
+    { key: 1, value: "Главная", href: HOME },
+    { key: 2, value: "Фильмы", href: MOVIES },
+    { key: 3, value: "Сохраненные фильмы", href: SAVED_MOVIES },
+  ]
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (<>
+    <nav className="header__navigation-burger">
+      {linkLogoHome}
+      <div className="header__burger-btn" onClick={() => setIsOpen(!isOpen)}>
+        <span className="header__burger-btn_middle-line"></span>
+      </div>
+    </nav>
+    <BurgerMenu items={items} accountButton={accountButton} isOpen={isOpen} setIsOpen={setIsOpen} />
+  </>)
+}
 
 const Unauthorized = () => (
   <nav className="header__navigation header__navigation-buttons">
@@ -18,19 +38,14 @@ const Unauthorized = () => (
   </nav>
 )
 
-const HeaderNavigation = ({ headerBackgroundWhiteClass, isActiveLink }) => (
+const HeaderNavigation = ({ isActiveLink, accountButton }) => (
   <nav className="header__navigation header__navigation-links">
     {linkLogoHome}
     <ul className="header__navigation-list">
       <li className="header__navigation-item"><NavLink className={isActiveLink} to={MOVIES}>Фильмы</NavLink></li>
-      <li className="header__navigation-item"><NavLink className={isActiveLink} to={SAVED_MOVIES}>Сохраненные фильмы</NavLink></li>
+      <li className="header__navigation-item"><NavLink className={isActiveLink} to={SAVED_MOVIES}>Сохраненные&nbsp;фильмы</NavLink></li>
     </ul>
-    <Link className={`header__profile-btn ${headerBackgroundWhiteClass}`} to={PROFILE}>
-      <p className="header__profile-btn_text">Аккаунт</p>
-      <div className="header__profile-btn_circle">
-        <div className="header__profile-btn_icon"></div>
-      </div>
-    </Link>
+    {accountButton}
   </nav>
 )
 
@@ -48,7 +63,16 @@ export function Header({ location, loggedIn }) {
     ? `header__films ${headerBackgroundWhiteClass} header__links-active`
     : `header__films ${headerBackgroundWhiteClass}`;
 
-  const headerNav = <HeaderNavigation headerBackgroundWhiteClass={headerBackgroundWhiteClass} isActiveLink={isActiveLink} />;
+  const accountButton = (
+    <Link className={`header__profile-btn ${headerBackgroundWhiteClass}`} to={PROFILE}>
+      <p className="header__profile-btn_text">Аккаунт</p>
+      <div className="header__profile-btn_circle">
+        <div className="header__profile-btn_icon"></div>
+      </div>
+    </Link>
+  )
+
+  const headerNav = <HeaderNavigation accountButton={accountButton} headerBackgroundWhiteClass={headerBackgroundWhiteClass} isActiveLink={isActiveLink} />;
 
   return (
     <header className={`header header_position ${headerBackgroundWhiteClass} ${headerOnlyHomeLogoClass}`}>
@@ -59,6 +83,7 @@ export function Header({ location, loggedIn }) {
         <Route path={PROFILE} element={headerNav} />
         <Route path={SIGNIN} element={linkLogoHome} />
         <Route path={SIGNUP} element={linkLogoHome} />
+        <Route path={'/burger'} element={<Burger accountButton={accountButton} />} /> {/* test string */}
       </Routes>
     </header>
   );

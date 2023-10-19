@@ -32,16 +32,18 @@
 	display: grid;
 }
 
-.header__navigation-links {
-	align-items: center;
-	grid-template-columns: 1fr 1fr 1fr;
-}
-
 .header__logo {
 	align-items: left;
 	width: 38px;
 	height: 38px;
 	background: url(../../../images/logo.svg) no-repeat;
+}
+
+/* Aftorized */
+
+.header__navigation-links {
+	align-items: center;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
 .header__navigation-list {
@@ -114,6 +116,8 @@
 	background: url(../../../images/profileIcon.svg);
 }
 
+/* Unaftorized */
+
 .header__navigation-buttons {
 	align-items: center;
 	grid-template-columns: 1fr 1fr;
@@ -137,4 +141,55 @@
 
 .header_background-white {
 	background-color: white;
+}
+
+/* Burger */
+
+.header__navigation-burger {
+	height: 74px;
+	padding: 0 38px;
+	max-width: 768px;
+	box-shadow: none;
+	background-color: #FFF;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.header__burger-btn {
+	width: 28px;
+	height: 22px;
+	cursor: pointer;
+	position: relative;
+}
+
+.header__burger-btn:hover {
+	opacity: 0.7;
+}
+
+.header__burger-btn::before {
+	top: 0;
+	width: 28px;
+	height: 3px;
+	content: '';
+	position: absolute;
+	background-color: #000;
+}
+
+.header__burger-btn::after {
+	bottom: 0;
+	width: 28px;
+	height: 3px;
+	content: '';
+	position: absolute;
+	background-color: #000;
+}
+
+.header__burger-btn_middle-line {
+	top: 9.5px;
+	width: 28px;
+	height: 3px;
+	position: absolute;
+	background-color: #000;
 }
