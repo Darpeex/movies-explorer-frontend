@@ -11,7 +11,7 @@ const headerOnlyHomeLogo = [SIGNIN, SIGNUP];
 const linkLogoHome = <Link className="header__logo" to={HOME} aria-label="Главная"></Link>
 
 const useMediaQuery = (query) => { // query - медиа-запрос, который совместим с CSS медиа-запросом
-  const [matches, setMatches] = useState(() => window.matchMedia(query).matches); // инициализируется возвращенным значением `() => window.matchMedia(query).matches` - matches будет true, если ширина экрана = переданному медиа-запросу (query)
+  const [matches, setMatches] = useState(() => window.matchMedia(query).matches); // инициализируется возвращенным значением `window.matchMedia(query).matches` - matches будет true, если ширина экрана = переданному медиа-запросу (query)
   useEffect(() => { // при каждом вызове этого эффектa...
     const media = window.matchMedia(query); // ...создается новый объект являющийся переданным медиа-запросом
     const listener = (event) => { // listener вызывается, когда изменяется медиа-запрос

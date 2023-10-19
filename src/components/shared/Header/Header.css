@@ -193,3 +193,9 @@
 	position: absolute;
 	background-color: #000;
 }
+
+@media screen and (max-width: 768px) {
+  .header {
+		padding: 0;
+	}
+}

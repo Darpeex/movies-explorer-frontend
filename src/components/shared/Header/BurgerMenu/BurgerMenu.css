@@ -1,10 +1,11 @@
 .header__navigation-burger-menu {
   right: 0;
-  width: 100vh;
+  z-index: 50;
+  width: 520px;
   height: 100vh;
   position: fixed;
   transform: translateX(+100%);
-  transition: all 0.4s;
+  transition: all 0.3s;
 }
 
 .header__navigation-burger-menu.isOpen {
@@ -41,7 +42,7 @@
   width: 520px;
   height: 100%;
   padding: 159px 0 90px;
-  transition: all 0.4s;
+  transition: all 0.3s;
   box-sizing: border-box;
   background-color: white;
 
@@ -68,10 +69,10 @@
   margin-bottom: 0;
 }
 
-.header__burger-menu_item:active {
+.header__burger-menu_item.active {
   width: fit-content;
   margin: 0 auto;
-  margin-bottom: 22.5px;
+  margin-bottom: 22px;
   border-bottom: solid 2px black;
 }
 
@@ -79,8 +80,12 @@
   color: black;
 }
 
-/* @media screen and (max-width: 733px) {
+@media screen and (max-width: 768px) {
   .header__burger-menu_content {
     width: 100%;
   }
-} */
+
+  .header__profile-btn {
+    background-color: white;
+  }
+}
