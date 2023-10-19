@@ -88,3 +88,29 @@
 		margin: 22px auto 92px;
 	}
 }
+
+@media screen and (max-width: 320px) {
+	.promo {
+		height: 636px;
+		padding: 70px 55px 30px;
+	}
+
+	.promo__image {
+		width: 210px;
+		height: 206px;
+		margin-bottom: 44px;
+	}
+
+	.promo__description-title {
+		font-size: 30px;
+		line-height: 1.267;
+		text-align: center;
+		letter-spacing: -1.2px;
+	}
+
+	.promo__description-paragraph {
+		max-width: 260px;
+		text-align: center;
+		margin: 24px auto 80px;
+	}
+}

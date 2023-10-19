@@ -229,3 +229,16 @@
 		margin: 232px 186px 0 auto;
 	}
 }
+
+@media screen and (max-width: 320px) {
+	.header {
+		padding: 0 14px;
+	}
+	
+	.header_logo_position {
+		padding: 0;
+		margin: 56px auto 0;
+		justify-content: center;
+		min-height: fit-content;
+	}
+}
