@@ -51,3 +51,9 @@ input:checked+.checkbox_slider:before {
 .checkbox_slider.round:before {
   border-radius: 50%;
 }
+
+@media screen and (max-width: 768px) {
+  .checkbox {
+    grid-column-start: 2;
+  }
+}

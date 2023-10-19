@@ -97,8 +97,10 @@ export function Header({ location, loggedIn }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
-    <header className={`header header_position ${loggedIn ? "header__burger-style" : ""} ${headerBackgroundWhiteClass} ${headerOnlyHomeLogoClass}`}>
+    <header className={`header header_position ${headerOnlyHomeLogoClass ? "header_logo_position" : ""} ${loggedIn ? "header__burger-style" : ""} ${headerBackgroundWhiteClass} ${headerOnlyHomeLogoClass}`}>
       <Routes>
+            <Route path={SIGNIN} element={linkLogoHome} />
+            <Route path={SIGNUP} element={linkLogoHome} />
         {isMobile ? (
           <>
             <Route path={HOME} element={loggedIn ? burgerNav : <Unauthorized />} />
@@ -112,8 +114,6 @@ export function Header({ location, loggedIn }) {
             <Route path={MOVIES} element={headerNav} />
             <Route path={SAVED_MOVIES} element={headerNav} />
             <Route path={PROFILE} element={headerNav} />
-            <Route path={SIGNIN} element={linkLogoHome} />
-            <Route path={SIGNUP} element={linkLogoHome} />
           </>
         )}
       </Routes>

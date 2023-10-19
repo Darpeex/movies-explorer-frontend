@@ -1,7 +1,7 @@
 .search-form {
   margin: 0 auto;
   max-width: 1140px;
-  padding: 70px 70px 32px;
+  padding: 70px 70px 48px;
 }
 
 .search-form__container {
@@ -54,7 +54,6 @@
 
 .search-form__wrapper {
   display: flex;
-  padding: 0 0 48px;
   align-items: center;
 }
 
@@ -64,4 +63,20 @@
   font-weight: 400;
   margin-left: 14px;
   line-height: 1.38462;
+}
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    padding: 80px 30px 61px;
+  }
+
+  .serch-form__underline {
+    margin: 13px 0 30px;
+  }
+
+  .search-form__wrapper {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto auto;
+  }
 }

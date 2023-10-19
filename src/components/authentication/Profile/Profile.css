@@ -113,3 +113,17 @@
 .profile__saved-button_inactive:hover {
   opacity: 1;
 }
+
+@media screen and (max-width: 768px) {
+  .profile {
+    margin: 236px auto 70px;
+  }
+
+  .profile__title {
+    margin-bottom: 96px;
+  }
+
+  .profile__saved-button_margin_less {
+    margin-top: 210px;
+  }
+}

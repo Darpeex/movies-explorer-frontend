@@ -27,16 +27,6 @@
   cursor: pointer;
 }
 
-/* @media screen and (max-width: 599px) {
-  .header__burger-menu_close-button {
-    background-size: 20px auto;
-    width: 20px;
-    height: 20px;
-    top: calc(-20px + -14.5px);
-    right: 0;
-  }
-} */
-
 .header__burger-menu_content {
   position: relative;
   width: 520px;
