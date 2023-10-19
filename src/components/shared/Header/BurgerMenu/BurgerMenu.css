@@ -79,10 +79,8 @@
   color: black;
 }
 
-.header__burger-menu_accaunt-btn {}
-
-@media screen and (max-width: 733px) {
+/* @media screen and (max-width: 733px) {
   .header__burger-menu_content {
     width: 100%;
   }
-}
+} */
