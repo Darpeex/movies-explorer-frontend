@@ -9,7 +9,7 @@ const whiteBackgroundPaths = [MOVIES, SAVED_MOVIES, PROFILE, SIGNIN, SIGNUP];
 const headerOnlyHomeLogo = [SIGNIN, SIGNUP];
 const linkLogoHome = <Link className="header__logo" to={HOME} aria-label="Главная"></Link>
 
-const Burger = ({ accountButton }) => {
+const Burger = ({ location, accountButton }) => {
   const items = [
     { key: 1, value: "Главная", href: HOME },
     { key: 2, value: "Фильмы", href: MOVIES },
@@ -24,7 +24,7 @@ const Burger = ({ accountButton }) => {
         <span className="header__burger-btn_middle-line"></span>
       </div>
     </nav>
-    <BurgerMenu items={items} accountButton={accountButton} isOpen={isOpen} setIsOpen={setIsOpen} />
+    <BurgerMenu items={items} accountButton={accountButton} isOpen={isOpen} setIsOpen={setIsOpen} location={location} />
   </>)
 }
 
@@ -83,7 +83,7 @@ export function Header({ location, loggedIn }) {
         <Route path={PROFILE} element={headerNav} />
         <Route path={SIGNIN} element={linkLogoHome} />
         <Route path={SIGNUP} element={linkLogoHome} />
-        <Route path={'/burger'} element={<Burger accountButton={accountButton} />} /> {/* test string */}
+        <Route path={'/burger'} element={<Burger accountButton={accountButton} location={location} />} /> {/* test string */}
       </Routes>
     </header>
   );
