@@ -241,4 +241,23 @@
 		justify-content: center;
 		min-height: fit-content;
 	}
+
+	.header__navigation-list {
+		font-size: 10px;
+		line-height: 1.6;
+		display: flex;
+		justify-self: right;
+	}
+
+	.header__signup-btn {
+		margin-right: 0px;
+	}
+
+	.header__navigation-item {
+		margin-right: 14px;
+	}
+
+	.header__signin-btn {
+		padding: 5px 12px;
+	}
 }
