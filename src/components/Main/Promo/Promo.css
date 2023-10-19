@@ -87,11 +87,15 @@
 		text-align: center;
 		margin: 22px auto 92px;
 	}
+
+	.promo__navigate {
+		margin: 0 auto;
+	}
 }
 
 @media screen and (max-width: 320px) {
 	.promo {
-		height: 636px;
+		height: fit-content;
 		padding: 70px 55px 30px;
 	}
 
