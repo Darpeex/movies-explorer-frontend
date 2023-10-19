@@ -7,7 +7,7 @@ export function Techs() {
       <h2 className="techs__title">Технологии</h2>
       <hr className="techs__line" />
       <h3 className="techs__title-technologies">7&nbsp;технологий</h3>
-      <p className="techs__description">На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые применили в дипломном&nbsp;проекте.</p>
+      <p className="techs__description">На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые&nbsp;применили в дипломном&nbsp;проекте.</p>
       <ul className="techs__grid">
         <li className="techs__grid-element">HTML</li>
         <li className="techs__grid-element">CSS</li>

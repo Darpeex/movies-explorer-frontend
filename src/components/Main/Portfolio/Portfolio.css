@@ -66,16 +66,48 @@
     padding: 0 50px;
     box-sizing: border-box;
   }
+
   .portfolio__works-element {
     font-size: 28px;
     letter-spacing: -1.12px;
   }
-  
+
   .portfolio__site {
     line-height: 1.78571;
   }
-  
+
   .portfolio__arrow {
     line-height: 2.14286;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .portfolio {
+    padding: 0 14px 70px;
+    box-sizing: border-box;
+  }
+
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 1.42857;
+  }
+
+  .portfolio__works {
+    margin-top: 40px;
+  }
+
+  .portfolio__works-element {
+    height: 28px;
+    font-size: 18px;
+    line-height: 1.55556;
+    letter-spacing: -0.72px;
+  }
+
+  .portfolio__site {
+    line-height: 1.55556;
+  }
+
+  .portfolio__arrow {
+    line-height: 1.55556;
   }
 }

@@ -9,8 +9,8 @@ export function Footer() {
       <div className="footer__wrapper">
         <p className="footer__copyright">&copy;&nbsp;2020&nbsp;</p>
         <ul className="footer__platforms-list">
-          <li><a className="footer__platform" href="https://practicum.yandex.ru/" target='_blank' rel="noopener noreferrer">Яндекс.Практикум</a></li>
-          <li><a className="footer__platform" href="https://github.com/" target='_blank' rel="noopener noreferrer">Github</a></li>
+          <li className="footer__platforms-item"><a className="footer__platform" href="https://practicum.yandex.ru/" target='_blank' rel="noopener noreferrer">Яндекс.Практикум</a></li>
+          <li className="footer__platforms-item"><a className="footer__platform" href="https://github.com/" target='_blank' rel="noopener noreferrer">Github</a></li>
         </ul>
       </div>
     </footer>

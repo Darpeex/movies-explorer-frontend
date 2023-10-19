@@ -93,4 +93,30 @@
     height: 57px;
   }
 }
-	
+
+@media screen and (max-width: 320px) {
+  .techs {
+    padding: 70px 18px;
+  }
+
+  .techs__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .techs__line {
+    margin: 28px 0 60px;
+  }
+
+  .techs__title-technologies {
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+
+  .techs__description {
+    font-size: 11px;
+    line-height: 1.45455;
+    margin: 24px auto 50px;
+    letter-spacing: -0.44px;
+  }
+}

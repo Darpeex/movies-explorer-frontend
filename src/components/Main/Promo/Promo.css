@@ -10,8 +10,8 @@
 }
 
 .promo__image {
+	width: 310px;
 	height: 304px;
-	min-width: 310px;
 	grid-column-end: 3;
 	grid-column-start: 2;
 }
@@ -73,7 +73,9 @@
 	}
 
 	.promo__image {
-		margin-bottom: 48px;
+		width: 310px;
+		height: 304px;
+		margin: 0 auto 48px;
 	}
 
 	.promo__description-title {
@@ -96,13 +98,13 @@
 @media screen and (max-width: 320px) {
 	.promo {
 		height: fit-content;
-		padding: 70px 55px 30px;
+		padding: 70px 10px 30px;
 	}
 
 	.promo__image {
 		width: 210px;
 		height: 206px;
-		margin-bottom: 44px;
+		margin: 0 auto 44px;
 	}
 
 	.promo__description-title {
