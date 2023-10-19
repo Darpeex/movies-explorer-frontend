@@ -5,12 +5,22 @@
 	box-sizing: border-box;
 	background-color: #073042;
 
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
+
+.promo__image {
+	height: 304px;
+	min-width: 310px;
+	grid-column-end: 3;
+	grid-column-start: 2;
 }
 
 .promo__description {
 	max-width: 640px;
+	grid-row-start: 1;
+	grid-column-end: 2;
+	grid-column-start: 1;
 }
 
 .promo__description-title {
@@ -52,7 +62,13 @@
 	cursor: pointer;
 }
 
-.promo__image {
-	min-width: 310px;
-	height: 304px;
+@media screen and (max-width: 768px) {
+	.promo {
+		height: 850px;
+		padding: 75px 70px;
+	
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
 }
