@@ -215,7 +215,11 @@
 }
 
 @media screen and (max-width: 768px) {
-  .header__burger-style {
+  .header__burger-style { /* важно */
 		padding: 0;
+	}
+
+	.header {
+		padding: 0 30px;
 	}
 }

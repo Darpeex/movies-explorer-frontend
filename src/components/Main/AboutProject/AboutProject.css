@@ -32,14 +32,14 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.about-project__description h3 {
+.about-project__description_title {
   font-size: 20px;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.8px;
 }
 
-.about-project__description p {
+.about-project__description_info {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.42857;
@@ -78,4 +78,15 @@
   color: #A0A0A0;
   text-align: center;
   line-height: 1.21429;
+}
+
+@media screen and (max-width: 768px) {
+	.about-project {
+    padding: 90px 50px;
+  }
+
+  .about-project__description {
+    gap: 22px 30px;
+    margin-bottom: 93px;
+  }
 }

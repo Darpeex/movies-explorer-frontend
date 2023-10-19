@@ -49,6 +49,7 @@
 	line-height: 1.33333;
 	text-decoration: none;
 
+	border: none;
 	display: block;
 	padding: 10px 20px;
 	border-radius: 3px;
@@ -65,10 +66,25 @@
 @media screen and (max-width: 768px) {
 	.promo {
 		height: 850px;
-		padding: 75px 70px;
+		padding: 140px 70px 75px;
 	
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+	}
+
+	.promo__image {
+		margin-bottom: 48px;
+	}
+
+	.promo__description-title {
+		font-size: 40px;
+		line-height: 1.25;
+		text-align: center;
+	}
+
+	.promo__description-paragraph {
+		max-width: 260px;
+		text-align: center;
+		margin: 22px auto 92px;
 	}
 }
