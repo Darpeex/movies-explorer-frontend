@@ -57,11 +57,15 @@
 
 .header__navigation-item {
 	list-style: none;
+	margin-right: 18px;
+}
+
+.header__navigation-item:last-of-type {
+	margin: 0;
 }
 
 .header__films {
 	color: #FFF;
-	margin-right: 18px;
 }
 
 .header__saved-films {
@@ -157,6 +161,10 @@
 	justify-content: space-between;
 }
 
+.header__navigation-burger_background_green {
+	background-color: #073042;
+}
+
 .header__burger-btn {
 	width: 28px;
 	height: 22px;
@@ -186,12 +194,24 @@
 	background-color: #000;
 }
 
+.header__burger-btn_white::before {
+	background-color: #fff;
+}
+
+.header__burger-btn_white::after {
+	background-color: #fff;
+}
+
 .header__burger-btn_middle-line {
 	top: 9.5px;
 	width: 28px;
 	height: 3px;
 	position: absolute;
 	background-color: #000;
+}
+
+.header__burger-btn_middle-line_white {
+	background-color: #fff;
 }
 
 @media screen and (max-width: 768px) {

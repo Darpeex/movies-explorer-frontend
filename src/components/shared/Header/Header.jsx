@@ -24,7 +24,7 @@ const useMediaQuery = (query) => { // query - медиа-запрос, кото�
   return matches; // возвращается состояние, по которому и определяется соответствие текущего состояние устройства указанному медиа-запросу
 };
 
-const Burger = ({ location, accountButton }) => {
+const Burger = ({ location, accountButton, headerBurgerBGWhiteClass }) => {
   const items = [
     { key: 1, value: "Главная", href: HOME },
     { key: 2, value: "Фильмы", href: MOVIES },
@@ -33,10 +33,10 @@ const Burger = ({ location, accountButton }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (<>
-    <nav className="header__navigation-burger">
+    <nav className={`header__navigation-burger ${headerBurgerBGWhiteClass ? "" : "header__navigation-burger_background_green"}`}>
       {linkLogoHome}
-      <div className="header__burger-btn" onClick={() => setIsOpen(!isOpen)}>
-        <span className="header__burger-btn_middle-line"></span>
+      <div className={`header__burger-btn ${headerBurgerBGWhiteClass ? "" : "header__burger-btn_white"}`} onClick={() => setIsOpen(!isOpen)}>
+        <span className={`header__burger-btn_middle-line ${headerBurgerBGWhiteClass ? "" : "header__burger-btn_middle-line_white"}`}></span>
       </div>
     </nav>
     <BurgerMenu items={items} accountButton={accountButton} isOpen={isOpen} setIsOpen={setIsOpen} location={location} />
@@ -74,6 +74,10 @@ export function Header({ location, loggedIn }) {
     ? "header_background-white header__links_color_black"
     : "";
 
+  const headerBurgerBGWhiteClass = isPathIncluded(whiteBackgroundPaths) // Белый фон 
+    ? true
+    : false;
+
   const isActiveLink = ({ isActive }) => isActive // Проверка активной ссылки + 'header__links-active'
     ? `header__films ${headerBackgroundWhiteClass} header__links-active`
     : `header__films ${headerBackgroundWhiteClass}`;
@@ -88,7 +92,7 @@ export function Header({ location, loggedIn }) {
   )
 
   const headerNav = <HeaderNavigation accountButton={accountButton} isActiveLink={isActiveLink} />;
-  const burgerNav = <Burger accountButton={accountButton} location={location} />;
+  const burgerNav = <Burger accountButton={accountButton} location={location} headerBurgerBGWhiteClass={headerBurgerBGWhiteClass} />;
 
   const isMobile = useMediaQuery('(max-width: 768px)');
 
