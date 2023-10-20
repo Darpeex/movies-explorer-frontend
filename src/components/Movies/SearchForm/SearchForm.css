@@ -79,6 +79,10 @@
     align-items: center;
     grid-template-columns: 1fr auto auto;
   }
+
+  .search-form__input {
+    max-width: calc(60px + 152px);
+  }
 }
 
 @media screen and (max-width: 320px) {

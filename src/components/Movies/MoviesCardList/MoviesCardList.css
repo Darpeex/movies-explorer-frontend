@@ -15,7 +15,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 320px) {
   .elements {
     gap: 34px;
     padding: 40px 10px 10px;
