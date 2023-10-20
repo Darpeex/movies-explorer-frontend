@@ -67,6 +67,10 @@
 	color: #FFF;
 }
 
+.header__films_space {
+	margin-right: 16px;
+}
+
 .header__saved-films {
 	color: #FFF;
 }

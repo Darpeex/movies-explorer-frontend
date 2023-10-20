@@ -57,8 +57,8 @@ const HeaderNavigation = ({ isActiveLink, accountButton }) => (
   <nav className="header__navigation header__navigation-links">
     {linkLogoHome}
     <ul className="header__navigation-list">
-      <li className="header__navigation-item"><NavLink className={isActiveLink} to={MOVIES}>Фильмы</NavLink></li>
-      <li className="header__navigation-item"><NavLink className={isActiveLink} to={SAVED_MOVIES}>Сохраненные&nbsp;фильмы</NavLink></li>
+      <li className="header__navigation-item header__films_space"><NavLink className={isActiveLink} to={MOVIES}>Фильмы</NavLink></li>
+      <li className="header__navigation-item"><NavLink className={isActiveLink} to={SAVED_MOVIES}>Сохранённые&nbsp;фильмы</NavLink></li>
     </ul>
     {accountButton}
   </nav>
