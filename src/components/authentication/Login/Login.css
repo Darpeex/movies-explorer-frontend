@@ -22,7 +22,7 @@
 .login__form {
   width: 396px;
   display: flex;
-  margin: 40px 0 0;
+  margin: 39px 0 0;
   flex-direction: column;
   justify-content: center;
 }
@@ -63,7 +63,7 @@
   font-size: 10px;
   font-weight: 400;
   color: #FF3055;
-  margin: 6px 0 24px;
+  margin: 6px 0 23px;
 }
 
 .login__button-container {

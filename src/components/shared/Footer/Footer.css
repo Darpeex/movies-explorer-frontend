@@ -27,7 +27,7 @@
   height: 1px;
   border: none;
   max-width: 1140px;
-  margin: 19px 0 20px;
+  margin: 20px 0 17px;
   background: #E8E8E8;
 }
 
@@ -48,7 +48,6 @@
   padding: 0;
   display: flex;
   list-style: none;
-  align-items: center;
 }
 
 .footer__platform {
