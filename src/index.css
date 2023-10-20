@@ -1,6 +1,9 @@
 /* normalize.css */
 @import url(./vendor/normalize.css);
 
+/* fonts.css */
+@import url(./vendor/fonts/fonts.css);
+
 .page * {
   margin: 0;
 }

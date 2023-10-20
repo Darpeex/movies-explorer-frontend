@@ -1,5 +1,6 @@
 // Портфолио
 import './Portfolio.css';
+import diagonalArrow from '../../../images/diagonal-arrow.svg'
 
 const portfolioWorks = [
   { num: 1, url: "https://darpeex.github.io/how-to-learn/", name: 'Статичный сайт' },
@@ -12,7 +13,7 @@ function PortfolioItem({ url, name, isLast }) {
     <li className="portfolio__works-item">
       <a className="portfolio__works-element" href={url} target="_blank" rel="noopener noreferrer">
         <p className="portfolio__site">{name}</p>
-        <span className="portfolio__arrow">↗</span>
+        <img className="portfolio__arrow" src={diagonalArrow} alt="ссылка на проект" />
       </a>
       {!isLast && <hr className="portfolio__line" />}
     </li>
