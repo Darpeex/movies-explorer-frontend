@@ -13,7 +13,7 @@ export function SearchForm() {
       <hr className="serch-form__underline" />
       <div className="search-form__wrapper">
         <FilterChecbox />
-        <span className="serch-form__short-film">Короткометражки</span>
+        <span className="search-form__short-film">Короткометражки</span>
       </div>
     </section>
   )

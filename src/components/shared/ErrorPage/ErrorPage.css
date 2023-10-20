@@ -17,6 +17,7 @@
 }
 
 .error-page__navigate {
+  padding: 0;
   border: none;
   font-size: 14px;
   color: #3456F3;
@@ -26,4 +27,25 @@
 .error-page__navigate:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+  .error-page {
+    margin: 0;
+    padding: 329px 20px 30px;
+  }
+
+  .error-page__title {
+    font-size: 80px;
+    margin-bottom: 10px;
+  }
+
+  .error-page__description {
+    font-size: 12px;
+    margin-bottom: 284px;
+  }
+
+  .error-page__navigate {
+    font-size: 12px;
+  }
 }

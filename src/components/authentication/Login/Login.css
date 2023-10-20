@@ -7,25 +7,13 @@
   justify-content: center;
 }
 
-/* @media screen and (max-width: 849px) {
-  .page__elements-position {
-    padding-top: 36px;
-    padding-bottom: 55px;
-  }
-}
-@media screen and (max-width: 767px) {
-  .page__elements-position {
-    padding-bottom: 48px;
-  }
-} */
-
 .login__welcome {
   font-size: 24px;
   font-weight: 500;
 }
 
 .login__form_field_name {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 400;
   color: #A0A0A0;
   margin-bottom: 5px;
@@ -116,6 +104,7 @@
 
 .login__signup_text {
   margin: 0;
+  color: #A0A0A0;
   margin-right: 7px;
 }
 
@@ -128,4 +117,28 @@
 
 .signup__button:hover {
   opacity: 0.7;
+}
+
+@media screen and (max-width: 320px) {
+  .login {
+    max-width: 260px;
+    margin: 50px auto 65px;
+  }
+
+  .login__form {
+    width: 260px;
+    margin-top: 80px;
+  }
+
+  .login__button {
+    width: 260px;
+  }
+
+  .login__signup_text {
+    font-size: 12px;
+  }
+
+  .login__welcome {
+    text-align: center;
+  }
 }

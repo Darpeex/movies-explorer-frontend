@@ -43,6 +43,7 @@
 }
 
 .header__burger-menu_list {
+  padding: 0;
   list-style: none;
   text-align: center;
 }
@@ -71,11 +72,32 @@
 }
 
 @media screen and (max-width: 768px) {
+  .header__navigation-burger-menu {
+    width: 320px;
+  }
+
   .header__burger-menu_content {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .header__burger-menu_content {
+    padding: 144px 10px 46px;
+    width: 300px;
     width: 100%;
   }
 
   .header__profile-btn {
     background-color: white;
+  }
+  
+  .header__burger-menu_item {
+    margin-bottom: 22px;
   }
 }

@@ -57,7 +57,7 @@
   align-items: center;
 }
 
-.serch-form__short-film {
+.search-form__short-film {
   color: #000;
   font-size: 13px;
   font-weight: 400;
@@ -78,5 +78,20 @@
     display: grid;
     align-items: center;
     grid-template-columns: 1fr auto auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search-form {
+    padding: 90px 14px 51px;
+  }
+
+  .serch-form__underline {
+    margin: 15px 0 41px;
+  }
+
+  .search-form__wrapper {
+    display: flex;
+    justify-content: center;
   }
 }
