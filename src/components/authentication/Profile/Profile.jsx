@@ -33,7 +33,7 @@ export const Profile = ({ onUpdateUser }) => {
   }
   return (
     <section className="profile">
-      <h1 className="profile__title">Привет, user.name!</h1> {/* Подставляем текущее имя пользователя */}
+      <h1 className="profile__title">Привет, Виталий!</h1> {/* Подставляем текущее имя пользователя */}
       <div className="profile__form">
         <div className="profile__form-container">
           <p className="profile__form-text profile__field">Имя</p>
@@ -47,7 +47,7 @@ export const Profile = ({ onUpdateUser }) => {
             minLength="2"
             maxLength="40"
             disabled={!isEditProfileActive && 'disabled'}
-            placeholder="Ваше имя"
+            placeholder="Виталий"
             required />
         </div>
         <hr className="profile__underline" />
@@ -60,7 +60,7 @@ export const Profile = ({ onUpdateUser }) => {
             id="email"
             className="profile__form-text profile__form-input profile__form-input_field_email"
             type="text"
-            placeholder="example@email.ru"
+            placeholder="pochta@yandex.ru"
             minLength="2"
             maxLength="200"
             disabled={!isEditProfileActive && 'disabled'}
