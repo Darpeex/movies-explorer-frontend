@@ -86,7 +86,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
         </div>
       </form>
       <div className="register__signup">
-        <p className="register__signup_text">Уже зарегистрированны?</p>
+        <p className="register__signup_text">Уже зарегистрированы?</p>
         <Link to={ROUTES.SIGNIN} className="signup__button">Войти</Link>
       </div>
     </div>
