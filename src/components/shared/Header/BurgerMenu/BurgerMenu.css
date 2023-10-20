@@ -50,8 +50,8 @@
 
 .header__burger-menu_item {
   outline: none;
-  margin-bottom: 24px;
-  padding-bottom: 4px;
+  margin-bottom: 25px;
+  padding-bottom: 5px;
   text-decoration: none;
   justify-content: block;
 }
@@ -63,15 +63,16 @@
 .header__burger-menu_item.active {
   width: fit-content;
   margin: 0 auto;
-  margin-bottom: 22px;
+  margin-bottom: 23px;
   border-bottom: solid 2px black;
 }
 
 .header__burger-menu_link {
+  font-size: 18px;
   color: black;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 320px) {
   .header__navigation-burger-menu {
     width: 320px;
   }

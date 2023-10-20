@@ -66,7 +66,7 @@
 @media screen and (max-width: 768px) {
 	.promo {
 		height: 850px;
-		padding: 140px 70px 75px;
+		padding: 140px 70px 76px;
 	
 		display: flex;
 		flex-direction: column;
@@ -75,7 +75,7 @@
 	.promo__image {
 		width: 310px;
 		height: 304px;
-		margin: 0 auto 48px;
+		margin: 0 auto 49px;
 	}
 
 	.promo__description-title {
@@ -87,11 +87,12 @@
 	.promo__description-paragraph {
 		max-width: 260px;
 		text-align: center;
-		margin: 22px auto 92px;
+		margin: 22px auto 91px;
 	}
 
 	.promo__navigate {
 		margin: 0 auto;
+		padding: 9px 20px;
 	}
 }
 

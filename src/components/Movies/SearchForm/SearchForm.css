@@ -83,6 +83,13 @@
   .search-form__input {
     max-width: calc(60px + 152px);
   }
+
+  .search-form__short-film {
+    margin-left: 0;
+    margin-right: 16px;
+    grid-row-start: 1;
+    grid-column-start: 2;
+  }
 }
 
 @media screen and (max-width: 320px) {

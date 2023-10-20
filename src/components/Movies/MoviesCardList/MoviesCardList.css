@@ -9,7 +9,7 @@
 
 @media screen and (max-width: 768px) {
   .elements {
-    gap: 38px;
+    gap: 30px 31px;
     padding: 70px 30px 10px;
     grid-template-columns: repeat(2, 1fr);
   }

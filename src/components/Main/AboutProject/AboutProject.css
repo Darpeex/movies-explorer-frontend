@@ -81,12 +81,24 @@
 
 @media screen and (max-width: 768px) {
   .about-project {
-    padding: 90px 50px;
+    padding: 91px 50px;
   }
 
   .about-project__description {
     gap: 22px 30px;
     margin-bottom: 93px;
+  }
+
+  .about-project__description_info {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .about-project__table-grid {
+    display: grid;
+    row-gap: 14px;
+    grid-template-rows: 36px 17px;
+    grid-template-columns: 1fr 3.77fr;
   }
 }
 
