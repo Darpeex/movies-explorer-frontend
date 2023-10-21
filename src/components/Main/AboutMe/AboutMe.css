@@ -118,7 +118,7 @@
   .about-me__image {
     width: 292px;
     height: 352px;
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
     grid-column-start: 1;
     grid-row-start: 1;
     grid-row-end: 2;
