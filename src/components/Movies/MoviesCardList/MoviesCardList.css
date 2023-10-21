@@ -26,7 +26,7 @@
 
 @media screen and (max-width: 550px) {
   .elements {
-    gap: 32px;
+    gap: 34px;
     padding: 42px 10px 10px;
     grid-template-columns: 1fr;
   }

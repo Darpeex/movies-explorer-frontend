@@ -45,3 +45,9 @@
   line-height: normal;
   color: rgb(0, 0, 0);
 }
+
+@media screen and (max-width: 550px) {
+  .content__button_more {
+    width: 240px;
+  }
+}
