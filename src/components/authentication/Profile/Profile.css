@@ -82,6 +82,7 @@
 }
 
 .profile__signout-button {
+  text-decoration: none;
   color: #FF3055;
 }
 
@@ -146,5 +147,9 @@
 
   .profile__container {
     font-size: 12px;
+  }
+
+  .profile__saved-button {
+    width: 260px;
   }
 }

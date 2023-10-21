@@ -1,7 +1,9 @@
 // Профиль
 import './Profile.css';
 import React from "react";
+import { Link } from 'react-router-dom';
 import { CurrentUserContext } from "../../../context/CurrentUserContext";
+import { ROUTES } from '../../../constants/constants';
 
 export const Profile = ({ onUpdateUser }) => {
   const [isEditProfileActive, setIsEditProfileActive] = React.useState(false);
@@ -69,7 +71,7 @@ export const Profile = ({ onUpdateUser }) => {
       </div>
       <div className={`profile__container ${!isValid ? "profile__saved-button_margin_less" : ""}`}>
         {!isEditProfileActive && <button className="profile__button profile__edit-button" onClick={handleEditProfile}>Редактировать</button>}
-        {!isEditProfileActive && <button className="profile__button profile__signout-button">Выйти из аккаунта</button>}
+        {!isEditProfileActive && <Link  to={ROUTES.HOME} className="profile__button profile__signout-button">Выйти из аккаунта</Link>}
         {isEditProfileActive && !isValid && <span className="profile__button_error-text">При обновлении профиля произошла ошибка.</span>}
         {isEditProfileActive && <button className={`profile__button profile__saved-button ${isActive ? "" : "profile__saved-button_inactive"}`}>Сохранить</button>}
       </div>
