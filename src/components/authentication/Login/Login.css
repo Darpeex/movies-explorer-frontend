@@ -12,7 +12,7 @@
   font-weight: 500;
 }
 
-.login__form_field_name {
+.login__field-form_name {
   font-size: 11px;
   font-weight: 400;
   color: #A0A0A0;
@@ -27,7 +27,7 @@
   justify-content: center;
 }
 
-.login__form-input {
+.login__input-form {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -42,24 +42,24 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
-.login__form-input:focus {
+.login__input-form:focus {
   border-bottom: 1px solid #3456F3;
 }
 
-.login__form-input:last-of-type {
+.login__input-form:last-of-type {
   margin-bottom: calc(6px + 12px + 65px);
 }
 
-.login__form_field_error {
+.login__input-form_error {
   color: #FF3055;
   border-bottom: 1px solid #FF3055;
 }
 
-.login__form_field_error:last-of-type {
+.login__input-form_error:last-of-type {
   margin-bottom: 0px;
 }
 
-.login__form_error {
+.login__error-form {
   font-size: 10px;
   font-weight: 400;
   color: #FF3055;
@@ -102,25 +102,25 @@
   justify-content: center;
 }
 
-.login__signup_text {
+.login__text-signup {
   margin: 0;
   color: #A0A0A0;
   margin-right: 7px;
 }
 
-.signup__button {
+.login__button-signup {
   font-size: 12px;
   color: #3456F3;
   font-weight: 500;
   text-decoration: none;
 }
 
-.signup__button:hover {
+.login__button-signup:hover {
   opacity: 0.7;
 }
 
 @media screen and (max-width: 768px) {
-  .login__form_error {
+  .login__error-form {
     margin: 6px 0 25px;
   }
 }
@@ -140,7 +140,7 @@
     width: 260px;
   }
 
-  .login__signup_text {
+  .login__text-signup {
     font-size: 12px;
   }
 
@@ -152,7 +152,7 @@
     margin-top: 227px;
   }
 
-  .login__form_error {
+  .login__error-form {
     margin: 6px 0 65px;
   }
 

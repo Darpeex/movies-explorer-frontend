@@ -44,9 +44,9 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
       <section className="login">
         <p className="login__welcome">Рады видеть!</p>
         <form onSubmit={handleSubmit} className="login__form">
-          <label className="login__form_field_name">E-mail</label>
+          <label className="login__field-form login__field-form_name">E-mail</label>
           <input
-            className="login__form-input"
+            className="login__input-form"
             minLength="8"
             maxLength="30"
             id="email"
@@ -57,9 +57,9 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
             placeholder="Введите почту"
             required
           />
-          <label className="login__form_field_name">Пароль</label>
+          <label className="login__field-form login__field-form_name">Пароль</label>
           <input
-            className={`login__form-input ${isError ? "login__form_field_error" : ""}`} // демонстрация верстки
+            className={`login__input-form ${isError ? "login__input-form_error" : ""}`} // демонстрация верстки
             minLength="8"
             maxLength="30"
             id="password"
@@ -70,14 +70,14 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
             placeholder="Введите пароль"
             required
           />
-          {isError && <label className="login__form_error">Что-то пошло не так...</label>} {/* демонстрация верстки */}
+          {isError && <label className="login__error-form">Что-то пошло не так...</label>} {/* демонстрация верстки */}
           <div className="login__button-container">
             <button type="submit" className="login__button">Войти</button>
           </div>
         </form>
         <div className="login__signup">
-          <p className="login__signup_text">Ещё не зарегистрированы?</p>
-          <Link to={ROUTES.SIGNUP} className="signup__button">Регистрация</Link>
+          <p className="login__text-signup">Ещё не зарегистрированы?</p>
+          <Link to={ROUTES.SIGNUP} className="login__button-signup">Регистрация</Link>
         </div>
       </section></main>
   )
