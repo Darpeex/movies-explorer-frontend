@@ -96,7 +96,7 @@
 
 @media screen and (max-width: 320px) {
   .techs {
-    padding: 70px 18px;
+    padding: 70px 25px;
   }
 
   .techs__title {
@@ -105,7 +105,7 @@
   }
 
   .techs__line {
-    margin: 28px 0 60px;
+    margin: 28px 0 61px;
   }
 
   .techs__title-technologies {

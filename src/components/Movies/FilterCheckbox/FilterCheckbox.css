@@ -58,8 +58,8 @@ input:checked+.checkbox_slider:before {
   }
 }
 
-/* @media screen and (max-width: 768px) {
+@media screen and (max-width: 320px) {
   .checkbox {
-    grid-column-start: 2;
+    grid-column-start: 3;
   }
-} */
+}

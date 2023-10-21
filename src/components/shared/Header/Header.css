@@ -265,6 +265,28 @@
 	}
 
 	.header__signin-btn {
-		padding: 5px 12px;
+		padding: 7px 12px;
+	}
+
+	.header__burger-btn::before {
+		width: 24px;
+		height: 2px;
+	}
+	
+	.header__burger-btn::after {
+		width: 24px;
+		height: 2px;
+	}
+	
+	.header__burger-btn_middle-line {
+		top: 9.5px;
+		width: 24px;
+		height: 2px;
+	}
+
+	.header__burger-btn {
+		width: 28px;
+		height: 20px;
+		margin-right: 4px;
 	}
 }

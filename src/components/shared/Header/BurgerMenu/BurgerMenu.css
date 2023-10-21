@@ -80,12 +80,6 @@
   .header__burger-menu_content {
     transition: all 0.3s;
     box-sizing: border-box;
-    background-color: white;
-
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
   }
 
   .header__burger-menu_content {
@@ -100,5 +94,15 @@
   
   .header__burger-menu_item {
     margin-bottom: 22px;
+  }
+
+  .header__burger-menu_item.active {
+    margin-bottom: 18px;
+    border-bottom: solid 2px black;
+  }
+
+  .header__burger-menu_close-button {
+    top: 13.44px;
+    right: 13.44px;
   }
 }

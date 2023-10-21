@@ -104,6 +104,7 @@
 
 @media screen and (max-width: 320px) {
   .about-project {
+    min-height: calc(500px + 70px + 70px);
     padding: 70px 18px 59px;
   }
 
@@ -151,5 +152,10 @@
     font-size: 11px;
     font-weight: 400;
     line-height: normal;
+  }
+
+  .about-project__table-grid {
+    row-gap: 11px;
+    grid-template-columns: 1fr 1.84fr;
   }
 }

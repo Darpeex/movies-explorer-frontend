@@ -78,8 +78,12 @@
     padding: 79px 10px 20px;
   }
 
+  .footer__title {
+    font-size: 12px;
+  }
+
   .footer__line {
-    margin: 21px 0 30px;
+    margin: 21px 0 26px;
   }
 
   .footer__platforms-list {
@@ -98,7 +102,7 @@
   }
   
   .footer__platforms-item:first-child {
-    margin: 0 0 12px;
+    margin: 0 0 8px;
   }
 
   .footer__platform {

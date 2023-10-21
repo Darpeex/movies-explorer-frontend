@@ -99,7 +99,13 @@
 @media screen and (max-width: 320px) {
 	.promo {
 		height: fit-content;
-		padding: 70px 10px 30px;
+		padding: 70px 10px 31px;
+	}
+
+	.promo__navigate {
+		height: 36px;
+		margin: 0 auto;
+		padding: 9px 19px;
 	}
 
 	.promo__image {

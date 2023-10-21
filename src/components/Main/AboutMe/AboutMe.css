@@ -87,7 +87,7 @@
 @media screen and (max-width: 710px) {
   .about-me__wrapper {
     column-gap: 49px;
-    margin: 66px 0 0;
+    margin: 60px 0 0;
     justify-items: stretch;
     justify-content: space-between;
     grid-template-rows: auto auto 1fr auto;
@@ -106,7 +106,7 @@
 
 @media screen and (max-width: 320px) {
   .about-me {
-    padding: 70px 14px;
+    padding: 71px 14px;
   }
 
   .about-me__title {

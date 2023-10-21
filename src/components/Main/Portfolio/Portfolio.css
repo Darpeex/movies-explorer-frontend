@@ -118,4 +118,16 @@
   .portfolio__arrow {
     line-height: 1.55556;
   }
+
+  .portfolio__arrow {
+    margin-top: 0px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    width: 12px;
+    height: 14px;
+    line-height: 2;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -1.2px;
+  }
 }

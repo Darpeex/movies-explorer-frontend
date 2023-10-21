@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export function ErrorPage({ error }) {
 	const navigate = useNavigate();
 	// const errorType = error.statusCode;
-	const errorType = 404;
+	const errorType = 500;
 	function errorTypeText() {
 		if (errorType === 404) {
 			return "Страница по указанному маршруту не найдена.";

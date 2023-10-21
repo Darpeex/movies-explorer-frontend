@@ -125,6 +125,12 @@
   opacity: 0.7;
 }
 
+@media screen and (max-width: 768px) {
+  .register__form-input {
+    margin-bottom: 25px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .register {
     max-width: 260px;
@@ -137,6 +143,7 @@
   }
 
   .register__button {
+    font-size: 12px;
     width: 260px;
   }
 
@@ -146,5 +153,18 @@
 
   .register__welcome {
     text-align: center;
+  }
+
+  .register__button-container {
+    margin-top: 159px;
+  }
+
+  .register__signup {
+    font-size: 12px;
+    margin-top: 14px;
+  }
+
+  .signup__button {
+    font-size: 12px;
   }
 }

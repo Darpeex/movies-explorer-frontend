@@ -128,3 +128,23 @@
     margin-top: 210px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .profile {
+    width: 260px;
+    padding: 70px 30px 40px;
+    margin: 0 auto;
+  }
+
+  .profile__title {
+    margin-bottom: 80px;
+  }
+
+  .profile__saved-button_margin_less {
+    margin-top: 380px;
+  }
+
+  .profile__container {
+    font-size: 12px;
+  }
+}
