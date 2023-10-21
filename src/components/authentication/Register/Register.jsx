@@ -38,58 +38,60 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
   }
 
   return (
-    <div className="register">
-      <h1 className="register__welcome">Добро пожаловать!</h1>
-      <form onSubmit={handleSubmit} className="register__form">
-        <span className="register__form_field_name">Имя</span>
-        <input
-          className="register__form-input"
-          minLength="2"
-          maxLength="30"
-          id="name"
-          name="name"
-          type="text"
-          value={formValue.name}
-          onChange={handleChange}
-          placeholder="Ваше имя"
-          required
-        />
-        <span className="register__form_field_name">E-mail</span>
-        <input
-          className="register__form-input"
-          minLength="8"
-          maxLength="30"
-          id="email"
-          name="email"
-          type="text"
-          value={formValue.email}
-          onChange={handleChange}
-          placeholder="example@email.ru"
-          required
-        />
-        <span className="register__form_field_name">Пароль</span>
-        <input
-          className={`register__form-input ${isError ? "register__form_field_error" : "" }`}
-          minLength="8"
-          maxLength="30"
-          id="password"
-          name="password"
-          type="text"
-          value={formValue.password}
-          onChange={handleChange}
-          placeholder="Введите пароль"
-          required
-        />
-        {isError && <span className="register__form_error">Что-то пошло не так...</span>}
-        <div className="register__button-container">
-          <button type="submit" className="register__button">Зарегистрироваться</button>
+    <main>
+      <section className="register">
+        <h1 className="register__welcome">Добро пожаловать!</h1>
+        <form onSubmit={handleSubmit} className="register__form">
+          <label className="register__form_field_name">Имя</label>
+          <input
+            className="register__form-input"
+            minLength="2"
+            maxLength="30"
+            id="name"
+            name="name"
+            type="text"
+            value={formValue.name}
+            onChange={handleChange}
+            placeholder="Ваше имя"
+            required
+          />
+          <label className="register__form_field_name">E-mail</label>
+          <input
+            className="register__form-input"
+            minLength="8"
+            maxLength="30"
+            id="email"
+            name="email"
+            type="email"
+            value={formValue.email}
+            onChange={handleChange}
+            placeholder="example@email.ru"
+            required
+          />
+          <label className="register__form_field_name">Пароль</label>
+          <input
+            className={`register__form-input ${isError ? "register__form_field_error" : ""}`}
+            minLength="8"
+            maxLength="30"
+            id="password"
+            name="password"
+            type="password"
+            value={formValue.password}
+            onChange={handleChange}
+            placeholder="Введите пароль"
+            required
+          />
+          {isError && <span className="register__form_error">Что-то пошло не так...</span>}
+          <div className="register__button-container">
+            <button type="submit" className="register__button">Зарегистрироваться</button>
+          </div>
+        </form>
+        <div className="register__signup">
+          <p className="register__signup_text">Уже зарегистрированы?</p>
+          <Link to={ROUTES.SIGNIN} className="signup__button">Войти</Link>
         </div>
-      </form>
-      <div className="register__signup">
-        <p className="register__signup_text">Уже зарегистрированы?</p>
-        <Link to={ROUTES.SIGNIN} className="signup__button">Войти</Link>
-      </div>
-    </div>
+      </section>
+    </main>
   )
 }
 

@@ -44,12 +44,21 @@
   line-height: 1.63636;
 }
 
-.serch-form__underline {
+.search-form__button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.search-form__underline {
   height: 1px;
   border: none;
   max-width: 1140px;
   margin: 13px 0 33px;
   background: #E8E8E8;
+}
+
+.search-form__underline-focused {
+  background: #3456F3;
 }
 
 .search-form__wrapper {
@@ -70,7 +79,7 @@
     padding: 80px 30px 61px;
   }
 
-  .serch-form__underline {
+  .search-form__underline {
     margin: 13px 0 30px;
   }
 
@@ -97,7 +106,7 @@
     padding: 84px 14px 51px;
   }
 
-  .serch-form__underline {
+  .search-form__underline {
     margin: 10px 0 41px;
   }
 

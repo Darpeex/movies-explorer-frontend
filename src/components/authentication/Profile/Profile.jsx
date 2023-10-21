@@ -34,48 +34,50 @@ export const Profile = ({ onUpdateUser }) => {
     setEmail(e.target.value);
   }
   return (
-    <section className="profile">
-      <h1 className="profile__title">Привет, Виталий!</h1> {/* Подставляем текущее имя пользователя */}
-      <div className="profile__form">
-        <div className="profile__form-container">
-          <p className="profile__form-text profile__field">Имя</p>
-          <input
-            name="name"
-            value={name} // значение поля из стейта
-            onChange={handleNameChange} // При изменении вызывается функция, которая изменяет введенное значение в поле
-            id="user-name"
-            className="profile__form-text profile__form-input profile__form-input_field_name"
-            type="text"
-            minLength="2"
-            maxLength="40"
-            disabled={!isEditProfileActive && 'disabled'}
-            placeholder="Виталий"
-            required />
-        </div>
-        <hr className="profile__underline" />
-        <div className="profile__form-container">
-          <p className="profile__form-text profile__field">E&#8209;mail</p>
-          <input
-            name="email"
-            value={email} // значение поля из стейта
-            onChange={handleEmailChange} // Срабатывает каждый раз, когда в поле ввода вносятся изменения
-            id="email"
-            className="profile__form-text profile__form-input profile__form-input_field_email"
-            type="text"
-            placeholder="pochta@yandex.ru"
-            minLength="2"
-            maxLength="200"
-            disabled={!isEditProfileActive && 'disabled'}
-            required />
-        </div>
-      </div>
-      <div className={`profile__container ${!isValid ? "profile__saved-button_margin_less" : ""}`}>
-        {!isEditProfileActive && <button className="profile__button profile__edit-button" onClick={handleEditProfile}>Редактировать</button>}
-        {!isEditProfileActive && <Link  to={ROUTES.HOME} className="profile__button profile__signout-button">Выйти из аккаунта</Link>}
-        {isEditProfileActive && !isValid && <span className="profile__button_error-text">При обновлении профиля произошла ошибка.</span>}
-        {isEditProfileActive && <button className={`profile__button profile__saved-button ${isActive ? "" : "profile__saved-button_inactive"}`}>Сохранить</button>}
-      </div>
-    </section>
+    <main>
+      <section className="profile">
+        <h1 className="profile__title">Привет, Виталий!</h1> {/* Подставляем текущее имя пользователя */}
+        <form className="profile__form">
+          <div className="profile__form-container">
+            <p className="profile__form-text profile__field">Имя</p>
+            <input
+              name="name"
+              value={name} // значение поля из стейта
+              onChange={handleNameChange} // При изменении вызывается функция, которая изменяет введенное значение в поле
+              id="user-name"
+              className="profile__form-text profile__form-input profile__form-input_field_name"
+              type="text"
+              minLength="2"
+              maxLength="40"
+              disabled={!isEditProfileActive && 'disabled'}
+              placeholder="Виталий"
+              required />
+          </div>
+          <hr className="profile__underline" />
+          <div className="profile__form-container">
+            <p className="profile__form-text profile__field">E&#8209;mail</p>
+            <input
+              name="email"
+              value={email} // значение поля из стейта
+              onChange={handleEmailChange} // Срабатывает каждый раз, когда в поле ввода вносятся изменения
+              id="email"
+              className="profile__form-text profile__form-input profile__form-input_field_email"
+              type="text"
+              placeholder="pochta@yandex.ru"
+              minLength="2"
+              maxLength="200"
+              disabled={!isEditProfileActive && 'disabled'}
+              required />
+          </div>
+          <div className={`profile__container ${!isValid ? "profile__saved-button_margin_less" : ""}`}>
+            {!isEditProfileActive && <button type="button" className="profile__button profile__edit-button" onClick={handleEditProfile}>Редактировать</button>}
+            {!isEditProfileActive && <Link to={ROUTES.HOME} className="profile__button profile__signout-button">Выйти из аккаунта</Link>}
+            {isEditProfileActive && !isValid && <span className="profile__button_error-text">При обновлении профиля произошла ошибка.</span>}
+            {isEditProfileActive && <button type="submit" className={`profile__button profile__saved-button ${isActive ? "" : "profile__saved-button_inactive"}`}>Сохранить</button>}
+          </div>
+        </form>
+      </section>
+    </main>
   )
 }
 

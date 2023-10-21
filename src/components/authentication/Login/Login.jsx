@@ -40,49 +40,50 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
   }
 
   return (
-    <div className="login">
-      <p className="login__welcome">Рады видеть!</p>
-      <form onSubmit={handleSubmit} className="login__form">
-        <span className="login__form_field_name">E-mail</span>
-        <input
-          className="login__form-input"
-          minLength="8"
-          maxLength="30"
-          id="email"
-          name="email"
-          type="email"
-          value={formValue.email}
-          onChange={handleChange}
-          placeholder="Введите почту"
-          required
-        />
-        <span className="login__form_field_name">Пароль</span>
-        <input
-          className={`login__form-input ${isError ? "login__form_field_error" : ""}`} // демонстрация верстки
-          minLength="8"
-          maxLength="30"
-          id="password"
-          name="password"
-          type="password"
-          value={formValue.password}
-          onChange={handleChange}
-          placeholder="Введите пароль"
-          required
-        />
-        {isError && <span className="login__form_error">Что-то пошло не так...</span>} {/* демонстрация верстки */}
-        <div className="login__button-container">
-          <button type="submit" className="login__button">Войти</button>
+    <main>
+      <section className="login">
+        <p className="login__welcome">Рады видеть!</p>
+        <form onSubmit={handleSubmit} className="login__form">
+          <label className="login__form_field_name">E-mail</label>
+          <input
+            className="login__form-input"
+            minLength="8"
+            maxLength="30"
+            id="email"
+            name="email"
+            type="email"
+            value={formValue.email}
+            onChange={handleChange}
+            placeholder="Введите почту"
+            required
+          />
+          <label className="login__form_field_name">Пароль</label>
+          <input
+            className={`login__form-input ${isError ? "login__form_field_error" : ""}`} // демонстрация верстки
+            minLength="8"
+            maxLength="30"
+            id="password"
+            name="password"
+            type="password"
+            value={formValue.password}
+            onChange={handleChange}
+            placeholder="Введите пароль"
+            required
+          />
+          {isError && <label className="login__form_error">Что-то пошло не так...</label>} {/* демонстрация верстки */}
+          <div className="login__button-container">
+            <button type="submit" className="login__button">Войти</button>
+          </div>
+        </form>
+        <div className="login__signup">
+          <p className="login__signup_text">Ещё не зарегистрированы?</p>
+          <Link to={ROUTES.SIGNUP} className="signup__button">Регистрация</Link>
         </div>
-      </form>
-      <div className="login__signup">
-        <p className="login__signup_text">Ещё не зарегистрированы?</p>
-        <Link to={ROUTES.SIGNUP} className="signup__button">Регистрация</Link>
-      </div>
-    </div>
+      </section></main>
   )
 }
 
 // Ошибки ниже отображаются не под инпутами, а при получении ошибки после отправки запроса
-// Вы&nbsp;ввели неправильный логин или пароль. 
+// Вы&nbsp;ввели неправильный логин или пароль.
 // При авторизации произошла ошибка. Токен не&nbsp;передан или передан не&nbsp;в&nbsp;том формате.
 // При авторизации произошла ошибка. Переданный токен некорректен.

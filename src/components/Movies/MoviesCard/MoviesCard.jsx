@@ -54,9 +54,9 @@ export function MoviesCard({ card, onCardClick, onCardLike, onCardDelete }) {
   // Генерация шаблона 15 раз
   const oneMoreTestFunction = () => {
     return Array.from({ length: 15 }, (_, i) =>
-      <div key={i}>
+      <React.Fragment key={i}>
         {moviesArticleForTest}
-      </div>
+      </React.Fragment>
     )
   }
 

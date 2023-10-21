@@ -15,12 +15,14 @@ export function ErrorPage({ error }) {
 	}
 
 	return ( // Секция error-page
-		<section className="error-page">
-			<div className="error-page__container">
-				<h1 className="error-page__title">{errorType}</h1> {/* Ошибки могут быть 404 и 500 - {errorType}*/}
-				<p className="error-page__description">{errorTypeText(errorType)}</p>  {/* Тексты, видимо, тоже - {errorTypeText}*/}
-				<button className="error-page__navigate" onClick={() => navigate(-1)}>Назад</button>
-			</div>
-		</section>
+		<main>
+			<section className="error-page">
+				<div className="error-page__container">
+					<h1 className="error-page__title">{errorType}</h1> {/* Ошибки могут быть 404 и 500 - {errorType}*/}
+					<p className="error-page__description">{errorTypeText(errorType)}</p>  {/* Тексты, видимо, тоже - {errorTypeText}*/}
+					<button className="error-page__navigate" type="button" onClick={() => navigate(-1)}>Назад</button>
+				</div>
+			</section>
+		</main>
 	)
 }
