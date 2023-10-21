@@ -76,7 +76,24 @@
 
 @media screen and (max-width: 768px) {
   .about-me {
-    padding: 90px 50px;
+    padding: 90px 50px 91px;
+  }
+
+  .about-me__title-name {
+    font-size: 40px;
+  }
+
+  .about-me__briefly-description {
+    font-size: 12px;
+  }
+
+  .about-me__image {
+    width: 255px;
+    height: 307px;
+  }
+
+  .about-me__line {
+    margin: 23px 0 66px;
   }
 
   .about-me__briefly-description {
@@ -116,7 +133,6 @@
 
   .about-me__line {
     margin: 28px 0 60px;
-    background-color: black;
   }
 
   /* .about-me__wrapper {

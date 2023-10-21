@@ -75,6 +75,10 @@
     padding: 90px 50px;
   }
 
+  .techs__line {
+    margin: 22px 0 81px;
+  }
+
   .techs__description {
     font-size: 12px;
     line-height: 1.5;
@@ -89,6 +93,7 @@
   }
 
   .techs__grid-element {
+    font-size: 12px;
     width: 84px;
     height: 57px;
   }
