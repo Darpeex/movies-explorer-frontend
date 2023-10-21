@@ -1,7 +1,6 @@
 .portfolio {
   color: black;
   max-width: 1280px;
-  max-height: 526px;
   padding: 0 70px 125px;
   box-sizing: border-box;
 }
@@ -30,7 +29,6 @@
 }
 
 .portfolio__works-element {
-  height: 50px;
   color: #000;
   font-size: 30px;
   font-weight: 400;
@@ -89,7 +87,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 550px) {
   .portfolio {
     padding: 0 14px 70px;
     box-sizing: border-box;
@@ -105,7 +103,6 @@
   }
 
   .portfolio__works-element {
-    height: 28px;
     font-size: 18px;
     line-height: 1.55556;
     letter-spacing: -0.72px;

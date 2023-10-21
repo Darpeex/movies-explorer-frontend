@@ -1,7 +1,6 @@
 .about-project {
   color: black;
   max-width: 1280px;
-  max-height: 608px;
   padding: 111px 70px;
   box-sizing: border-box;
 }
@@ -102,9 +101,8 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 550px) {
   .about-project {
-    min-height: calc(500px + 70px + 70px);
     padding: 70px 18px 59px;
   }
 
