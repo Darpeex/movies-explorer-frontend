@@ -6,7 +6,7 @@ export function AboutMe() {
   return (	// Секция AboutMe
     <section className="about-me about-me_position section">
       <h2 className="about-me__title">Студент</h2>
-      <hr className="about-me__line" />
+      <div className="about-me__line line"></div>
       <div className="about-me__wrapper">
         <img className="about-me__image" src={studentImage} alt="Фото студента" />
         <h3 className="about-me__title-name">Сергей</h3>
