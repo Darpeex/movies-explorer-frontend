@@ -7,6 +7,15 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+@media screen and (max-width: 1024px) {
+  .elements {
+    gap: 30px 31px;
+    padding: 70px 30px 10px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
 @media screen and (max-width: 768px) {
   .elements {
     gap: 30px 31px;
@@ -15,7 +24,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 550px) {
   .elements {
     gap: 32px;
     padding: 42px 10px 10px;
