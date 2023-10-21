@@ -30,14 +30,14 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.about-project__description_title {
+.about-project__definition_title {
   font-size: 20px;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.8px;
 }
 
-.about-project__description_info {
+.about-project__definition_info {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.42857;
@@ -88,7 +88,7 @@
     margin-bottom: 93px;
   }
 
-  .about-project__description_info {
+  .about-project__definition_info {
     font-size: 12px;
     line-height: 1.5;
   }
@@ -122,18 +122,18 @@
     grid-template-columns: 1fr;
   }
 
-  .about-project__description_title {
+  .about-project__definition_title {
     font-size: 18px;
     letter-spacing: -0.72px;
   }
 
-  .about-project__description_title:nth-of-type(2) {
+  .about-project__definition_title:nth-of-type(2) {
     margin-top: calc(56px - 16px);
     grid-row-start: 3;
     grid-row-end: 4;
   }
 
-  .about-project__description_info {
+  .about-project__definition_info {
     font-size: 11px;
     line-height: 1.51;
   }
