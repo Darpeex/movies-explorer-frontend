@@ -24,7 +24,7 @@ export function Portfolio() {
   return (	// Секция Portfolio
     <section className="portfolio portfolio_position section">
       <h2 className="portfolio__title">Портфолио</h2>
-      <article className="portfolio__works">
+      <div className="portfolio__works">
         <ul className="portfolio__works-list">
           {portfolioWorks.map((work, i) => // i - текущий индекс в цикле (0, 1, 2)
             <PortfolioItem
@@ -34,7 +34,7 @@ export function Portfolio() {
               isLast={i === portfolioWorks.length - 1} // (portfolioWorks.length - 1) - последний элемент массива (3 - 1 = 2)
             />)}
         </ul>
-      </article>
+      </div>
     </section>
   )
 }

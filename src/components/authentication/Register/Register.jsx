@@ -48,7 +48,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           maxLength="30"
           id="name"
           name="name"
-          type="name"
+          type="text"
           value={formValue.name}
           onChange={handleChange}
           placeholder="Ваше имя"
@@ -61,7 +61,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           maxLength="30"
           id="email"
           name="email"
-          type="email"
+          type="text"
           value={formValue.email}
           onChange={handleChange}
           placeholder="example@email.ru"
@@ -74,7 +74,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
           maxLength="30"
           id="password"
           name="password"
-          type="password"
+          type="text"
           value={formValue.password}
           onChange={handleChange}
           placeholder="Введите пароль"
