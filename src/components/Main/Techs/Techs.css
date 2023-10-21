@@ -101,7 +101,11 @@
 
 @media screen and (max-width: 320px) {
   .techs {
-    padding: 70px 25px;
+    padding: 70px 18px;
+  }
+
+  .techs__grid {
+    padding: 0 7px;
   }
 
   .techs__title {
