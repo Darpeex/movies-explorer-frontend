@@ -58,7 +58,7 @@ input:checked+.checkbox_slider:before {
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 550px) {
   .checkbox {
     grid-column-start: 3;
   }

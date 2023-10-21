@@ -233,11 +233,12 @@
 	.header_logo_position {
 		padding: 0;
 		min-height: fit-content;
-		margin: 232px 186px 0 auto;
+		margin: 232px auto 0;
 	}
 }
 
-@media screen and (max-width: 320px) {
+
+@media screen and (max-width: 550px) {
 	.header {
 		padding: 0 14px;
 	}

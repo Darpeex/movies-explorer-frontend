@@ -3,19 +3,3 @@
 	margin: 0 auto;
   max-width: 1280px;
 }
-
-/* .content {
-  min-height: calc(100vh - (45px + 74px + 1px + 40px + 22px + 60px));
-}
-
-@media screen and (max-width: 849px) {
-  .content {
-    min-height: calc(100vh - (35px + 74px + 1px + 30px + 22px + 50px));
-  }
-}
-@media screen and (max-width: 599px) {
-  .content {
-    min-height: calc(100vh - (28px + 55px + 1px + 42px + 17px + 36px));
-  }
-} */
-/* Так себе способ, но здесь целиком и полностью хватает. Жаль не получилось через flex / grid реализовать */

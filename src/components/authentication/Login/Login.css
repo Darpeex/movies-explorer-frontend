@@ -125,7 +125,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 550px) {
   .login {
     max-width: 260px;
     margin: 50px auto 65px;
