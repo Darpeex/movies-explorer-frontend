@@ -46,7 +46,7 @@ const Burger = ({ location, accountButton, headerBurgerBGWhiteClass }) => {
 const Unauthorized = () => (
   <nav className="header__navigation header__navigation-buttons">
     {linkLogoHome}
-    <ul className="header__navigation-list  header__navigation-list_buttons">
+    <ul className="header__list-navigation  header__list-navigation_buttons">
       <li className="header__navigation-item"><Link className="header__signup-btn" to={SIGNUP}>Регистрация</Link></li>
       <li className="header__navigation-item"><Link className="header__signin-btn" to={SIGNIN}>Войти</Link></li>
     </ul>
@@ -56,23 +56,32 @@ const Unauthorized = () => (
 const HeaderNavigation = ({ isActiveLink, accountButton }) => (
   <nav className="header__navigation header__navigation-links">
     {linkLogoHome}
-    <ul className="header__navigation-list">
-      <li className="header__navigation-item header__films_space header__films_font-size"><NavLink className={isActiveLink} to={MOVIES}>Фильмы</NavLink></li>
-      <li className="header__navigation-item header__films_font-size"><NavLink className={isActiveLink} to={SAVED_MOVIES}>Сохранённые&nbsp;фильмы</NavLink></li>
+    <ul className="header__list-navigation">
+      <li className="header__navigation-item header__navigation-item_space header__navigation-item_font-size"><NavLink className={isActiveLink} to={MOVIES}>Фильмы</NavLink></li>
+      <li className="header__navigation-item header__navigation-item_font-size"><NavLink className={isActiveLink} to={SAVED_MOVIES}>Сохранённые&nbsp;фильмы</NavLink></li>
     </ul>
     {accountButton}
   </nav>
 )
 
 export function Header({ location, loggedIn }) {
-  const isPathIncluded = (paths) => paths.includes(location.pathname);
+  const isPathIncluded = (paths) => paths.includes(location.pathname); // Так много классов, чтобы всё удовлетворяло БЭМу
   const headerOnlyHomeLogoClass = isPathIncluded(headerOnlyHomeLogo) // Только логотип в Header
     ? "header_authorization"
     : "";
 
   const headerBackgroundWhiteClass = isPathIncluded(whiteBackgroundPaths) // Белый фон 
-    ? "header_background-white header__links_color_black"
+    ? "header__films_background_white header__films_color_black"
     : "";
+
+  const profileBackgroundWhiteClass = isPathIncluded(whiteBackgroundPaths) // Белый фон 
+    ? "header__profile-btn_background_white"
+    : "";
+
+  const headerBackgroundWhite = isPathIncluded(whiteBackgroundPaths) // Белый фон 
+    ? "header_background_white header_color_black"
+    : "";
+
 
   const headerBurgerBGWhiteClass = isPathIncluded(whiteBackgroundPaths) // Белый фон 
     ? true
@@ -83,10 +92,10 @@ export function Header({ location, loggedIn }) {
     : `header__films ${headerBackgroundWhiteClass}`;
 
   const accountButton = (
-    <Link className={`header__profile-btn ${headerBackgroundWhiteClass}`} to={PROFILE}>
-      <p className="header__profile-btn_text">Аккаунт</p>
-      <div className="header__profile-btn_circle">
-        <div className="header__profile-btn_icon"></div>
+    <Link className={`header__profile-btn ${profileBackgroundWhiteClass}`} to={PROFILE}>
+      <p className="header__btn-profile header__btn-profile_text">Аккаунт</p>
+      <div className="header__btn-profile header__btn-profile_circle">
+        <div className="header__icon-btn-profile"></div>
       </div>
     </Link>
   )
@@ -97,10 +106,10 @@ export function Header({ location, loggedIn }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
-    <header className={`header header_position ${headerOnlyHomeLogoClass ? "header_logo_position" : ""} ${loggedIn ? "header__burger-style" : ""} ${headerBackgroundWhiteClass} ${headerOnlyHomeLogoClass}`}>
+    <header className={`header header_position ${headerOnlyHomeLogoClass ? "header_logo_position" : ""} ${loggedIn ? "header__burger-style" : ""} ${headerBackgroundWhite} ${headerOnlyHomeLogoClass}`}>
       <Routes>
-            <Route path={SIGNIN} element={linkLogoHome} />
-            <Route path={SIGNUP} element={linkLogoHome} />
+        <Route path={SIGNIN} element={linkLogoHome} />
+        <Route path={SIGNUP} element={linkLogoHome} />
         {isMobile ? (
           <>
             <Route path={HOME} element={loggedIn ? burgerNav : <Unauthorized />} />

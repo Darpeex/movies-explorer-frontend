@@ -46,7 +46,7 @@
 	grid-template-columns: 1fr 1fr 1fr;
 }
 
-.header__navigation-list {
+.header__list-navigation {
 	padding: 0;
 	font-size: 12px;
 	font-weight: 400;
@@ -63,7 +63,7 @@
 	margin: 0;
 }
 
-.header__films_font-size {
+.header__navigation-item_font-size {
 	font-size: 13px;
 }
 
@@ -71,7 +71,7 @@
 	color: #FFF;
 }
 
-.header__films_space {
+.header__navigation-item_space {
 	margin-right: 16px;
 }
 
@@ -79,7 +79,11 @@
 	color: #FFF;
 }
 
-.header__links_color_black {
+.header__films_color_black {
+	color: #000;
+}
+
+.header_color_black {
 	color: #000;
 }
 
@@ -102,7 +106,7 @@
 	justify-content: space-between;
 }
 
-.header__profile-btn_text {
+.header__btn-profile_text {
 	margin: 0;
 	color: #000;
 	font-size: 13px;
@@ -110,7 +114,7 @@
 	line-height: 0.92308;
 }
 
-.header__profile-btn_circle {
+.header__btn-profile_circle {
 	width: 26px;
 	height: 26px;
 	border-radius: 50px;
@@ -121,7 +125,7 @@
 	justify-content: center;
 }
 
-.header__profile-btn_icon {
+.header__icon-btn-profile {
 	width: 10.383px;
 	height: 10.669px;
 	background: url(../../../images/profileIcon.svg);
@@ -134,7 +138,7 @@
 	grid-template-columns: 1fr 1fr;
 }
 
-.header__navigation-list_buttons {
+.header__list-navigation_buttons {
 	justify-self: end;
 }
 
@@ -150,7 +154,16 @@
 	background-color: #2BE080;
 }
 
-.header_background-white {
+.header_background_white {
+	background-color: white;
+}
+
+.header__films_background_white {
+	background-color: white;
+}
+
+
+.header__profile-btn_background_white {
 	background-color: white;
 }
 
@@ -250,7 +263,7 @@
 		min-height: fit-content;
 	}
 
-	.header__navigation-list {
+	.header__list-navigation {
 		font-size: 10px;
 		line-height: 1.6;
 		display: flex;

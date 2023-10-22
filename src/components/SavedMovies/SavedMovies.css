@@ -2,7 +2,7 @@
   margin: 0 auto;
 }
 
-.content__button_more {
+.content__button-more {
   padding: 0;
   height: 35px;
   width: 320px;
@@ -18,7 +18,7 @@
   border-radius: 6px;
 }
 
-.content__button_more:hover {
+.content__button-more:hover {
   opacity: 0.8;
   cursor: pointer;
 }
@@ -46,7 +46,7 @@
 }
 
 @media screen and (max-width: 450px) {
-  .content__button_more {
+  .content__button-more {
     width: 240px;
   }
 }

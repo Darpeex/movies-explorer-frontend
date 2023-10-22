@@ -12,7 +12,7 @@ export function Movies() {  // Передаются функции из App.js
     <main className="content">
       <SearchForm />
       <MoviesCardList />
-      {moreMovies && <button className="content__button_more" type="button">Ещё</button>}
+      {moreMovies && <button className="content__button-more" type="button">Ещё</button>}
       {!moreMovies && <div className={`content__additional-block ${!movieFound ? "content__additional-block_margin_zero" : ""}`}>
         {!movieFound && <p className="content__additional-block_result_empty">Фильм не найден</p>}
       </div>}
