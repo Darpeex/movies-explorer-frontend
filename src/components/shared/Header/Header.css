@@ -222,7 +222,7 @@
 	background-color: #fff;
 }
 
-.header__burger-btn_middle-line {
+.header__burger-button_middle-line {
 	top: 9.5px;
 	width: 28px;
 	height: 3px;
@@ -230,7 +230,7 @@
 	background-color: #000;
 }
 
-.header__burger-btn_middle-line_white {
+.header__burger-button_middle-line_white {
 	background-color: #fff;
 }
 
@@ -292,7 +292,7 @@
 		height: 2px;
 	}
 	
-	.header__burger-btn_middle-line {
+	.header__burger-button_middle-line {
 		top: 9.5px;
 		width: 24px;
 		height: 2px;

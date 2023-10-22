@@ -36,7 +36,7 @@ const Burger = ({ location, accountButton, headerBurgerBGWhiteClass }) => {
     <nav className={`header__navigation-burger ${headerBurgerBGWhiteClass ? "" : "header__navigation-burger_background_green"}`}>
       {linkLogoHome}
       <div className={`header__burger-btn ${headerBurgerBGWhiteClass ? "" : "header__burger-btn_white"}`} onClick={() => setIsOpen(!isOpen)}>
-        <span className={`header__burger-btn_middle-line ${headerBurgerBGWhiteClass ? "" : "header__burger-btn_middle-line_white"}`}></span>
+        <span className={`header__burger-button header__burger-button_middle-line ${headerBurgerBGWhiteClass ? "" : "header__burger-button_middle-line_white"}`}></span>
       </div>
     </nav>
     <BurgerMenu items={items} accountButton={accountButton} isOpen={isOpen} setIsOpen={setIsOpen} location={location} />
