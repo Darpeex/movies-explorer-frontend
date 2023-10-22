@@ -59,7 +59,7 @@
   flex-direction: column;
 }
 
-.profile__saved-button_margin_less {
+.profile__saved-btn {
   margin-top: 221px;
 }
 
@@ -86,7 +86,7 @@
   color: #FF3055;
 }
 
-.profile__button_error-text {
+.profile__error-text {
   font-size: 11px;
   font-weight: 400;
   color: #FF004C;
@@ -125,7 +125,7 @@
     margin-bottom: 96px;
   }
 
-  .profile__saved-button_margin_less {
+  .profile__saved-btn {
     margin-top: 210px;
   }
 }
@@ -148,7 +148,7 @@
     margin-bottom: 80px;
   }
 
-  .profile__saved-button_margin_less {
+  .profile__saved-btn {
     margin-top: 380px;
   }
 
