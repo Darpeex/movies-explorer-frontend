@@ -42,7 +42,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
       <section className="register">
         <h1 className="register__welcome">Добро пожаловать!</h1>
         <form onSubmit={handleSubmit} className="register__form">
-          <label className="register__form_field_name">Имя</label>
+          <label className="register__label">Имя</label>
           <input
             className="register__form-input"
             minLength="2"
@@ -55,7 +55,7 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
             placeholder="Ваше имя"
             required
           />
-          <label className="register__form_field_name">E-mail</label>
+          <label className="register__label">E-mail</label>
           <input
             className="register__form-input"
             minLength="8"
@@ -68,9 +68,9 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
             placeholder="example@email.ru"
             required
           />
-          <label className="register__form_field_name">Пароль</label>
+          <label className="register__label">Пароль</label>
           <input
-            className={`register__form-input ${isError ? "register__form_field_error" : ""}`}
+            className={`register__form-input ${isError ? "register__form-input_error" : ""}`}
             minLength="8"
             maxLength="30"
             id="password"
@@ -81,14 +81,14 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
             placeholder="Введите пароль"
             required
           />
-          {isError && <span className="register__form_error">Что-то пошло не так...</span>}
+          {isError && <span className="register__form-error">Что-то пошло не так...</span>}
           <div className="register__button-container">
             <button type="submit" className="register__button">Зарегистрироваться</button>
           </div>
         </form>
         <div className="register__signup">
-          <p className="register__signup_text">Уже зарегистрированы?</p>
-          <Link to={ROUTES.SIGNIN} className="signup__button">Войти</Link>
+          <p className="register__text-signup">Уже зарегистрированы?</p>
+          <Link to={ROUTES.SIGNIN} className="register__signin-button">Войти</Link>
         </div>
       </section>
     </main>
