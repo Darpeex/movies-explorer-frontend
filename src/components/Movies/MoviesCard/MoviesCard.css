@@ -1,0 +1,73 @@
+.elements-block {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  flex-direction: column;
+}
+
+.elements-block * {
+  margin: 0;
+}
+
+.elements-block__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 2.7 / 1.51;
+  /* задаём соотношение сторон */
+  transition: all 0.5s ease;
+}
+
+.elements-block__image:hover {
+  cursor: pointer;
+  transform: scale(1);
+}
+
+.elements-block__description {
+  display: flex;
+  margin: 10px 0 25px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.elements-block__name {
+  color: #000;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.elements-block__like-button {
+  border: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #F9F9F9;
+  /* Если правильно понял, лайк как кнопка целиком идёт - одной иконкой */
+}
+
+.elements-block__like-button:hover {
+  cursor: pointer;
+}
+
+.elements-block__underline {
+  height: 1px;
+  border: none;
+  margin-bottom: 6px;
+  background-color: #E8E8E8;
+}
+
+.elements-block__film-duration {
+  color: #A0A0A0;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@media screen and (max-width: 550px) {
+  .elements-block__film-duration {
+    font-size: 10px;
+  }
+}

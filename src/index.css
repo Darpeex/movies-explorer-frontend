@@ -1,0 +1,34 @@
+/* normalize.css */
+@import url(./vendor/normalize.css);
+
+/* fonts.css */
+@import url(./vendor/fonts/fonts.css);
+
+.page * {
+  margin: 0;
+}
+
+.page {
+  margin: 0 auto;
+  color: white;
+  min-width: 320px;
+  font-style: normal;
+  line-height: normal;
+  background-color: #ffffff;
+  font-family: 'Inter', Arial, sans-serif;
+
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  /* display: grid; - Для липкого футера */
+  /* grid-template-rows: auto 1fr auto; */
+
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+/* * { outline: 1px solid red; } */

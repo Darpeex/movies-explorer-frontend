@@ -1,0 +1,138 @@
+.search-form {
+  margin: 0 auto;
+  max-width: 1140px;
+  padding: 70px 70px 48px;
+}
+
+.search-form__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-form__input {
+  padding: 0;
+  border: none;
+  color: #000;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.search-form__input:focus {
+  outline-width: 0;
+}
+
+.search-form__input::placeholder {
+  color: #A0A0A0;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.search-form__button {
+  height: 34px;
+  border: none;
+  width: 58.65px;
+  flex-shrink: 0;
+  border-radius: 48px;
+  background: #3456F3;
+
+  color: #FFF;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.63636;
+}
+
+.search-form__button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.search-form__underline {
+  height: 1px;
+  border: none;
+  max-width: 1140px;
+  margin: 13px 0 33px;
+  background: #E8E8E8;
+}
+
+.search-form__underline-focused {
+  background: #3456F3;
+}
+
+.search-form__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.search-form__short-film {
+  color: #000;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 14px;
+  line-height: 1.38462;
+}
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    padding: 80px 30px 61px;
+  }
+
+  .search-form__underline {
+    margin: 13px 0 30px;
+  }
+
+  .search-form__wrapper {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .search-form__input {
+    max-width: calc(60px + 152px);
+  }
+
+  .search-form__short-film {
+    margin-left: 0;
+    margin-right: 16px;
+    grid-row-start: 1;
+    grid-column-start: 2;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .search-form {
+    padding: 84px 14px 51px;
+  }
+
+  .search-form__underline {
+    margin: 10px 0 41px;
+  }
+
+  .search-form__button {
+    height: fit-content;
+    width: fit-content;
+    padding: 8px 13px;
+  }
+
+  .search-form__wrapper {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr auto auto 1fr;
+  }
+
+  .search-form__short-film {
+    font-size: 11px;
+    grid-column-start: 2;
+  }
+
+  .search-form__input {
+    font-size: 18px;
+  }
+  
+  .search-form__input::placeholder {
+    font-size: 18px;
+  }
+}
