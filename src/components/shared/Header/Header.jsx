@@ -106,7 +106,7 @@ export function Header({ location, loggedIn }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
-    <header className={`header header_position ${headerOnlyHomeLogoClass ? "header_logo_position" : ""} ${loggedIn ? "header__burger-style" : ""} ${headerBackgroundWhite} ${headerOnlyHomeLogoClass}`}>
+    <header className={`header header_position ${headerOnlyHomeLogoClass ? "header_logo_position" : ""} ${loggedIn ? "header_burger_style" : ""} ${headerBackgroundWhite} ${headerOnlyHomeLogoClass}`}>
       <Routes>
         <Route path={SIGNIN} element={linkLogoHome} />
         <Route path={SIGNUP} element={linkLogoHome} />
