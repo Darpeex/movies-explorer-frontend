@@ -4,8 +4,8 @@ import { ROUTES } from '../../constants/constants';
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'; // Routes для роутов
 
 import { ProtectedRouteElement } from "../ProtectedRoute"; // импортируем HOC
-import { api } from '../../utils/Api'; // Запросы на сервер
-import { mainApi } from '../../utils/MainApi'; // Запросы на сервер
+import { api } from '../../utils/MainApi'; // Запросы на сервер
+import { moviesApi } from '../../utils/MoviesApi'; // Запросы на сервер
 import { useState, useEffect } from 'react'; // Хуки реакт
 import { Header } from '../shared/Header/Header';
 import { ErrorPage } from '../shared/ErrorPage/ErrorPage';
@@ -28,9 +28,9 @@ function App() {
   const [isInfoTooltip, setIsInfoTooltip] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false); // Здесь можно проверить вёрстку
+  const [loggedIn, setLoggedIn] = useState(true); // Здесь можно проверить вёрстку
   const [userData, setUserData] = useState('');
-  const [cards, setCards] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [result, setResult] = useState();
   const [error, setError] = useState('');
 
@@ -103,16 +103,16 @@ function App() {
 //     .catch((err) => console.log(`Ошибка: ${err}`)); 
 //   }
 
-// // Получение данных фильмов с сервера
-//   useEffect(() => {
-//     if (loggedIn) {
-//       mainApi.getInitialMovies() // получаем фильмы с сервера
-//       .then((userInfo) => {
-//         setCards(userInfo); // обновляем стейт карточек
-//       })
-//       .catch((err) => console.log(`Ошибка: ${err}`));
-//     }
-//   }, [loggedIn]);
+// Получение данных фильмов с сервера
+  useEffect(() => {
+    if (loggedIn) {
+      moviesApi.getInitialMovies() // получаем фильмы с сервера
+      .then((moviesInfo) => {
+        setMovies(moviesInfo); // обновляем стейт фильмов
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
+    }
+  }, [loggedIn]);
 
   // Функции, меняющие состояния попапов (true - открыт, false - закрыт)
   const handleEditAvatarClick = () => {
@@ -146,14 +146,14 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(likerId => likerId === currentUser._id); // Снова проверяем, есть ли уже лайк на этой карточке
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => { // Отправляем запрос в API и получаем обновлённые данные карточки
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        setMovies((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
     .catch((err) => console.log(`Ошибка: ${err}`));
   }
 // Удаление карточки
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id ));
+      setMovies((state) => state.filter((c) => c._id !== card._id ));
     })
     .catch((err) => console.log(`Ошибка: ${err}`));
   }
@@ -161,7 +161,7 @@ function App() {
   function handleAddPlaceSubmit({ name, link }) {
     const data = { name, link }
     api.addNewCard(data).then((newCard) => {
-      setCards([newCard, ...cards]); 
+      setMovies([newCard, ...movies]); 
       closeAllPopups();
     })
     .catch((err) => console.log(`Ошибка: ${err}`)); 
@@ -201,7 +201,7 @@ function App() {
       <div className="page">
         {/* Оборачиваем в провайдер всё содержимое */}
         <CurrentUserContext.Provider value={currentUser}> {/* контекст становится доступен всем компонентам */}
-        <MoviesContext.Provider value={cards}> {/* ... глобальный контекст */}
+        <MoviesContext.Provider value={movies}> {/* ... глобальный контекст */}
 {/* Шапка сайта */}
           {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
 
