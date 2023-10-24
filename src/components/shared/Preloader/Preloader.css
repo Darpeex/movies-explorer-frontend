@@ -16,7 +16,7 @@
 	}
 }
 
-@keyframes preloader-inside-red {
+@keyframes preloader-inside-green {
 	0% {
 		-webkit-transform: scale(0, 0);
 		-moz-transform: scale(0, 0);
@@ -44,6 +44,7 @@
 
 .preloader {
 	display: flex;
+	position: absolute;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
@@ -64,7 +65,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: #FF6838;
+	background: #2BE080;
 	border-radius: 50px;
 }
 
@@ -86,6 +87,6 @@
 
 .preloader__round::before {
 	z-index: 10;
-	background: #FF6838;
-	animation: preloader-inside-red 1s ease-in-out infinite;
+	background: #2BE080;
+	animation: preloader-inside-green 1s ease-in-out infinite;
 }

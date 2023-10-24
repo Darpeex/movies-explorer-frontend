@@ -1,12 +1,12 @@
 // Форма поиска фильмов
 import './SearchForm.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FilterChecbox } from '../FilterCheckbox/FilterCheckbox';
 
-export function SearchForm() {
-  const [isInputFocused, setInputFocus] = React.useState(false); // для подчеркивания input при фокусе
-  const [isEmpty, setIsEmpty] = React.useState(false); // состояние введенной информации
-  const [value, setValue] = React.useState(""); // состояние введенной информации
+export function SearchForm({ loadingFilms }) {
+  const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
+  const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
+  const [value, setValue] = useState(""); // состояние введенной информации
   
   useEffect(() => { // нужно проверить поле после вывода ошибки
     if (value !== "") { // чтобы после ввода текста сообщение убиралось*
@@ -24,6 +24,7 @@ export function SearchForm() {
       setIsEmpty(true);
     } else {
       setIsEmpty(false);
+      loadingFilms(); // загружаем фильмы с сервера
     }
   }
 

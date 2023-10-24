@@ -92,15 +92,17 @@ function App() {
   }
 
   // Получение данных фильмов с сервера
-  useEffect(() => {
+  const loadingFilms = () => {
+    setIsLoading(true);
     if (loggedIn) {
       moviesApi.getInitialMovies() // получаем фильмы с сервера
         .then((moviesInfo) => {
+          setIsLoading(false);
           setMovies(moviesInfo); // обновляем стейт фильмов
         })
         .catch((err) => console.log(`Ошибка: ${err}`));
     }
-  }, [loggedIn]);
+  }
 
   // Функции, меняющие состояния попапов (true - открыт, false - закрыт)
   const handleInfoTooltip = () => {
@@ -162,25 +164,26 @@ function App() {
   const headerClass = headerComponentsPaths.includes(location.pathname) // не отрисовываем Footer
     ? <></>
     : <Header location={location} userData={userData} loggedIn={loggedIn} />;
-  const preloader = isLoading ? <Preloader /> : <></>;
 
   // Отрисовка компонентов
   return (
     <div className="App">
       <div className="page">
         {/* Оборачиваем в провайдер всё содержимое */}
-        <IsLoadingContext.Provider value={{ isLoading }}> {/* контекст загрузки для прелоадера*/}
           <CurrentUserContext.Provider value={currentUser}> {/* глобальный контекст становится доступен всем компонентам */}
             <MoviesContext.Provider value={movies}>
               {/* Шапка сайта */}
               {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
+
+              {/* Прелоадер */}
+              {isLoading && <Preloader />}
 
               {/* Основное содержимое страницы */}
               <Routes>
                 <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
                 <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
                 <Route path={HOME} element={<Main />} /> {/* Главная */}
-                <Route path={MOVIES} element={<Movies />} /> {/* Фильмы */}
+                <Route path={MOVIES} element={<Movies loadingFilms={loadingFilms} />} /> {/* Фильмы */}
                 <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
                 <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
                 <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
@@ -193,7 +196,6 @@ function App() {
               {/* <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} result={result} error={error} /> */} {/* Попап результата регистрации */}
             </MoviesContext.Provider>
           </CurrentUserContext.Provider>
-        </IsLoadingContext.Provider>
       </div>
     </div>
   );
