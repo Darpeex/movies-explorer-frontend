@@ -184,7 +184,7 @@ function App() {
                 <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
                 <Route path={HOME} element={<Main />} /> {/* Главная */}
                 <Route path={MOVIES} element={<Movies loadingFilms={loadingFilms} />} /> {/* Фильмы */}
-                <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
+                <Route path={SAVED_MOVIES} element={<SavedMovies loadingFilms={loadingFilms} />} /> {/* Сохранённые фильмы */}
                 <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
                 <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
                 <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
