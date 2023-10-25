@@ -178,7 +178,7 @@ function App() {
               <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
               <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
               <Route path={HOME} element={<Main />} /> {/* Главная */}
-              <Route path={MOVIES} element={<Movies loadMovies={loadMovies} movies={movies} />} /> {/* Фильмы */}
+              <Route path={MOVIES} element={<Movies loadMovies={loadMovies} />} /> {/* Фильмы */}
               <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
               <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
               <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}

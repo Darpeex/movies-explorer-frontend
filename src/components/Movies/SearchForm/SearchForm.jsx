@@ -1,12 +1,14 @@
 // Форма поиска фильмов
 import './SearchForm.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { MoviesContext } from '../../../context/MoviesContext';
 import { FilterChecbox } from '../FilterCheckbox/FilterCheckbox';
 
-export function SearchForm({ loadMovies, movies }) {
+export function SearchForm({ loadMovies }) {
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
   const [value, setValue] = useState(""); // состояние введенной информации
+  const movies = useContext(MoviesContext);
 
   useEffect(() => { // нужно проверить поле после вывода ошибки
     if (value !== "") { // чтобы после ввода текста сообщение убиралось*
