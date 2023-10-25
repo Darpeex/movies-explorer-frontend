@@ -1,13 +1,12 @@
 // Компонент MoviesCard
 import './MoviesCard.css';
-import React from "react";
-import { useState } from 'react'; // Хуки реакт
-import activelikeIcon from '../../../images/like.svg';
-import likeIcon from '../../../images/inactive-like.svg';
+import React, { useState, useContext } from "react";
+import activeLike from '../../../images/active-like.svg';
+import inactiveLike from '../../../images/inactive-like.svg';
 import { CurrentUserContext } from '../../../context/CurrentUserContext';
 
-export function MoviesCard({ movie, onCardLike, onCardDelete }) {
-  const currentUser = React.useContext(CurrentUserContext); // Подписываемся на контекст пользователя
+export function MoviesCard({ movie, onCardLike }) {
+  const currentUser = useContext(CurrentUserContext); // Подписываемся на контекст пользователя
   // const isLiked = movie.likes.some(likerId => likerId === currentUser._id); // Определяем, поставлен ли лайк текущим пользователем
   function handleLikeClick() { // отвечает за лайк
     onCardLike(movie);
@@ -37,7 +36,9 @@ export function MoviesCard({ movie, onCardLike, onCardDelete }) {
       </a>
       <div className="elements-block__description">
         <h2 className="elements-block__name">{movie.nameRU}</h2>
-        <button className={`elements-block__like-button ${isLiked && 'elements-block__like-button_active'}`} type="button" aria-label="Лайк" onClick={handleLikeClick}></button>
+        <button className="elements-block__like-button" type="button" aria-label="Лайк" onClick={toggleLike}>
+          <img className="elements-block__like-icon" src={isLiked ? activeLike : inactiveLike} alt={isLiked ? 'активный лайк' : 'неактивный лайк'}></img>
+        </button>
       </div>
       <hr className="elements-block__underline" />
       <span className="elements-block__film-duration">{convertDurationToHourlyFormat()}</span>

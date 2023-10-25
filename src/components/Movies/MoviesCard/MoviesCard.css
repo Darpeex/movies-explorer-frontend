@@ -45,7 +45,6 @@
   height: 24px;
   border-radius: 50%;
   background: #F9F9F9;
-  /* Если правильно понял, лайк как кнопка целиком идёт - одной иконкой */
 }
 
 .elements-block__like-button:hover {
