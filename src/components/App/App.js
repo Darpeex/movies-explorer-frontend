@@ -6,7 +6,7 @@ import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-
 
 import { ProtectedRouteElement } from "../ProtectedRoute"; // импортируем HOC
 import { moviesApi } from '../../utils/MoviesApi'; // Запросы на сервер
-import { api } from '../../utils/MainApi'; // Запросы на сервер
+import { mainApi } from '../../utils/MainApi'; // Запросы на сервер
 
 import { Main } from '../Main/Main';
 import * as auth from '../../utils/Auth';
@@ -73,7 +73,7 @@ function App() {
   // // Получение данных пользователя с сервера
   //   useEffect(() => {
   //     if (loggedIn) {
-  //       api.getUserInfo() // Запрос данных пользователя с сервера
+  //       mainApi.getUserInfo() // Запрос данных пользователя с сервера
   //       .then((userInfo) => {
   //         setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
   //       })
@@ -83,7 +83,7 @@ function App() {
 
   // Обновление данных пользователя на сервере
   function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
-    api.setUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
+    mainApi.updateUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
       closeAllPopups();
     })
@@ -114,25 +114,25 @@ function App() {
 
   // Поддержка лайков и дизлайков
   function handleCardLike(card) {
-    const isLiked = card.likes.some(likerId => likerId === currentUser._id); // Снова проверяем, есть ли уже лайк на этой карточке
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => { // Отправляем запрос в API и получаем обновлённые данные карточки
+    const isLiked = card.likes.some(likerId => likerId === currentUser._id); // Снова проверяем, есть ли уже лайк на карточке фильма
+    mainApi.changeLikeCardStatus(card._id, !isLiked).then((newCard) => { // Отправляем запрос в API и получаем обновлённые данные фильма
       setMovies((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
-  // Удаление карточки
-  function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setMovies((state) => state.filter((c) => c._id !== card._id));
+  // Добавление фильма
+  function handleAddPlaceSubmit({ name, link }) {
+    const data = { name, link }
+    mainApi.createMovie(data).then((newCard) => {
+      setMovies([newCard, ...movies]);
+      closeAllPopups();
     })
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
-  // Добавление карточки
-  function handleAddPlaceSubmit({ name, link }) {
-    const data = { name, link }
-    api.addNewCard(data).then((newCard) => {
-      setMovies([newCard, ...movies]);
-      closeAllPopups();
+  // Удаление фильма
+  function handleCardDelete(card) {
+    mainApi.deleteMovie(card._id).then(() => {
+      setMovies((state) => state.filter((c) => c._id !== card._id));
     })
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
@@ -160,7 +160,7 @@ function App() {
     ? <Footer />
     : <></>;
   const headerComponentsPaths = [ERROR];
-  const headerClass = headerComponentsPaths.includes(location.pathname) // не отрисовываем Footer
+  const headerClass = headerComponentsPaths.includes(location.pathname) // не отрисовываем Header
     ? <></>
     : <Header location={location} userData={userData} loggedIn={loggedIn} />;
 
