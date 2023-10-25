@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 import { SearchForm } from './SearchForm/SearchForm';
 import { MoviesCardList } from './MoviesCardList/MoviesCardList';
 
-export function Movies({ loadingFilms }) {  // Передаются функции из App.js
+export function Movies({ loadMovies, movies }) {  // Передаются функции из App.js
   const [moreMovies, setMoreMovies] = useState(true);
   const [movieFound, setMovieFound] = useState(true);
 
   return (
     <main className="content">
-      <SearchForm loadingFilms={loadingFilms} />
+      <SearchForm loadMovies={loadMovies} movies={movies} />
       <MoviesCardList />
       {moreMovies && <button className="content__button-more" type="button">Ещё</button>}
       {!moreMovies && <div className={`content__additional-block ${!movieFound ? "content__additional-block_margin_zero" : ""}`}>

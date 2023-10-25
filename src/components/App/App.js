@@ -91,7 +91,7 @@ function App() {
   }
 
   // Получение данных фильмов с сервера
-  const loadingFilms = () => {
+  const loadMovies = () => {
     setIsLoading(true);
     if (loggedIn) {
       moviesApi.getInitialMovies() // получаем фильмы с сервера
@@ -113,26 +113,26 @@ function App() {
   }
 
   // Поддержка лайков и дизлайков
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(likerId => likerId === currentUser._id); // Снова проверяем, есть ли уже лайк на карточке фильма
-    mainApi.changeLikeCardStatus(card._id, !isLiked).then((newCard) => { // Отправляем запрос в API и получаем обновлённые данные фильма
-      setMovies((state) => state.map((c) => c._id === card._id ? newCard : c));
+  function handleCardLike(movie) {
+    const isLiked = movie.likes.some(likerId => likerId === currentUser._id); // Снова проверяем, есть ли уже лайк на карточке фильма
+    mainApi.changeLikeCardStatus(movie._id, !isLiked).then((newMovie) => { // Отправляем запрос в API и получаем обновлённые данные фильма
+      setMovies((state) => state.map((c) => c._id === movie._id ? newMovie : c));
     })
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
   // Добавление фильма
   function handleAddPlaceSubmit({ name, link }) {
     const data = { name, link }
-    mainApi.createMovie(data).then((newCard) => {
-      setMovies([newCard, ...movies]);
+    mainApi.createMovie(data).then((newMovie) => {
+      setMovies([newMovie, ...movies]);
       closeAllPopups();
     })
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
   // Удаление фильма
-  function handleCardDelete(card) {
-    mainApi.deleteMovie(card._id).then(() => {
-      setMovies((state) => state.filter((c) => c._id !== card._id));
+  function handleCardDelete(movie) {
+    mainApi.deleteMovie(movie._id).then(() => {
+      setMovies((state) => state.filter((c) => c._id !== movie._id));
     })
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
@@ -145,14 +145,10 @@ function App() {
   }
 
   // Получаем результат запроса на регистрацию
-  const handleResult = (result) => {
-    setResult(result)
-  }
+  const handleResult = setResult;
 
   // Сообщение об ошибке при регистрации - необязательно
-  const takeErrorMessage = (error) => {
-    setError(error)
-  }
+  const takeErrorMessage = setError;
 
   const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN, ERROR, UNKNOWN } = ROUTES;
   const footerComponentsPaths = [HOME, MOVIES, SAVED_MOVIES];
@@ -169,32 +165,32 @@ function App() {
     <div className="App">
       <div className="page">
         {/* Оборачиваем в провайдер всё содержимое */}
-          <CurrentUserContext.Provider value={currentUser}> {/* глобальный контекст становится доступен всем компонентам */}
-            <MoviesContext.Provider value={movies}>
-              {/* Шапка сайта */}
-              {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
+        <CurrentUserContext.Provider value={currentUser}> {/* глобальный контекст становится доступен всем компонентам */}
+          <MoviesContext.Provider value={movies}>
+            {/* Шапка сайта */}
+            {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
 
-              {/* Прелоадер */}
-              {isLoading && <Preloader />}
+            {/* Прелоадер */}
+            {isLoading && <Preloader />}
 
-              {/* Основное содержимое страницы */}
-              <Routes>
-                <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
-                <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
-                <Route path={HOME} element={<Main />} /> {/* Главная */}
-                <Route path={MOVIES} element={<Movies loadingFilms={loadingFilms} />} /> {/* Фильмы */}
-                <Route path={SAVED_MOVIES} element={<SavedMovies loadingFilms={loadingFilms} />} /> {/* Сохранённые фильмы */}
-                <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
-                <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
-                <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
-              </Routes>
+            {/* Основное содержимое страницы */}
+            <Routes>
+              <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
+              <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
+              <Route path={HOME} element={<Main />} /> {/* Главная */}
+              <Route path={MOVIES} element={<Movies loadMovies={loadMovies} movies={movies} />} /> {/* Фильмы */}
+              <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
+              <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
+              <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
+              <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
+            </Routes>
 
-              {/* Подвал сайта */}
-              {footerClass} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
+            {/* Подвал сайта */}
+            {footerClass} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
 
-              {/* <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} result={result} error={error} /> */} {/* Попап результата регистрации */}
-            </MoviesContext.Provider>
-          </CurrentUserContext.Provider>
+            {/* <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} result={result} error={error} /> */} {/* Попап результата регистрации */}
+          </MoviesContext.Provider>
+        </CurrentUserContext.Provider>
       </div>
     </div>
   );

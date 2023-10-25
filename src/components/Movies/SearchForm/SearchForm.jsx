@@ -3,11 +3,11 @@ import './SearchForm.css';
 import React, { useEffect, useState } from 'react';
 import { FilterChecbox } from '../FilterCheckbox/FilterCheckbox';
 
-export function SearchForm({ loadingFilms }) {
+export function SearchForm({ loadMovies, movies }) {
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
   const [value, setValue] = useState(""); // состояние введенной информации
-  
+
   useEffect(() => { // нужно проверить поле после вывода ошибки
     if (value !== "") { // чтобы после ввода текста сообщение убиралось*
       setIsEmpty(false)
@@ -20,11 +20,13 @@ export function SearchForm({ loadingFilms }) {
 
   function checkInputField(e) { // проверяем пустое ли поле по клику
     e.preventDefault();
-    if (value === "") { // чтобы проверить поле перед отправкой ЛКМ*
+    if (value === "") {
       setIsEmpty(true);
     } else {
       setIsEmpty(false);
-      loadingFilms(); // загружаем фильмы с сервера
+      if (movies.length === 0) { // проверяем, ести ли фильмы в массиве
+        loadMovies(); // загружаем фильмы с сервера
+      }
     }
   }
 
