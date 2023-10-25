@@ -60,7 +60,7 @@ class MainApi {
       method: 'POST',
       headers: this.#headers,
       credentials: 'include', // теперь куки посылаются вместе с запросом
-      body: JSON.stringify(data) // country, director, duration, year, description, image, trailer(trailerLink), nameRU, nameEN, thumbnail, movieId
+      body: JSON.stringify(data) // country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId
     })
       .then(this.#handleResponse)
   }

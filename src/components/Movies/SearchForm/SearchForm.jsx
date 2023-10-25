@@ -4,11 +4,19 @@ import React, { useEffect, useState, useContext } from 'react';
 import { MoviesContext } from '../../../context/MoviesContext';
 import { FilterChecbox } from '../FilterCheckbox/FilterCheckbox';
 
-export function SearchForm({ loadMovies }) {
+export function SearchForm({ loadMovies, setSearchResults }) {
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
   const [value, setValue] = useState(""); // состояние введенной информации
   const movies = useContext(MoviesContext);
+
+  const searchMovies = () => {
+    const foundMovies = movies.filter(movie => { // фильтруем фильмы по названию
+      const title = movie.nameRU || movie.nameEN;
+      return title.toLowerCase().includes(value.toLowerCase())
+    });
+    return foundMovies;
+  }
 
   useEffect(() => { // нужно проверить поле после вывода ошибки
     if (value !== "") { // чтобы после ввода текста сообщение убиралось*
@@ -29,6 +37,7 @@ export function SearchForm({ loadMovies }) {
       if (movies.length === 0) { // проверяем, ести ли фильмы в массиве
         loadMovies(); // загружаем фильмы с сервера
       }
+      setSearchResults(searchMovies());
     }
   }
 
@@ -49,7 +58,7 @@ export function SearchForm({ loadMovies }) {
       <div className={`search-form__underline ${isInputFocused ? "search-form__underline_focused" : ""} ${isEmpty ? "search-form__underline_error" : ""}`}></div>
       {isEmpty && <span className="search-form__messsage search-form__messsage_error">Нужно ввести ключевое слово</span>}
       <div className="search-form__wrapper">
-        <FilterChecbox />
+        <FilterChecbox setSearchResults={setSearchResults} />
         <span className="search-form__short-film">Короткометражки</span>
       </div>
     </section>
