@@ -20,7 +20,6 @@ import { ErrorPage } from '../shared/ErrorPage/ErrorPage';
 import { MoviesContext } from '../../context/MoviesContext';
 import { Profile } from '../authentication/Profile/Profile';
 import { Register } from '../authentication/Register/Register';
-import { IsLoadingContext } from '../../context/IsLoadingContext';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function App() {
