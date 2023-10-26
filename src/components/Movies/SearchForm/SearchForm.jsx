@@ -2,21 +2,13 @@
 import './SearchForm.css';
 import React, { useEffect, useState, useContext } from 'react';
 import { MoviesContext } from '../../../context/MoviesContext';
-import { FilterChecbox } from '../FilterCheckbox/FilterCheckbox';
+import { FilterCheckbox } from '../FilterCheckbox/FilterCheckbox';
 
-export function SearchForm({ loadMovies, setSearchResults }) {
+export function SearchForm({ loadMovies, setInitialMovies }) {
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
   const [value, setValue] = useState(""); // состояние введенной информации
   const movies = useContext(MoviesContext);
-
-  const searchMovies = () => {
-    const foundMovies = movies.filter(movie => { // фильтруем фильмы по названию
-      const title = movie.nameRU || movie.nameEN;
-      return title.toLowerCase().includes(value.toLowerCase())
-    });
-    return foundMovies;
-  }
 
   useEffect(() => { // нужно проверить поле после вывода ошибки
     if (value !== "") { // чтобы после ввода текста сообщение убиралось*
@@ -28,22 +20,33 @@ export function SearchForm({ loadMovies, setSearchResults }) {
     setValue(e.target.value); // чтобы взять значение из поля value*
   }
 
-  function checkInputField(e) { // проверяем пустое ли поле по клику
+  function handleSubmitForm(e) { // проверяем пустое ли поле по клику
     e.preventDefault();
     if (value === "") {
       setIsEmpty(true);
     } else {
       setIsEmpty(false);
       if (movies.length === 0) { // проверяем, ести ли фильмы в массиве
-        loadMovies(); // загружаем фильмы с сервера
+        loadMovies((moviesInfo) => {
+          setInitialMovies(searchMovies(moviesInfo)); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
+        });
+      } else {
+        setInitialMovies(searchMovies(movies)); // функция, которая будет вызвана после успешной загрузки фильмов
       }
-      setSearchResults(searchMovies());
     }
+  }
+
+  const searchMovies = (movies) => { // функция поиска фильмов по введенному запросу
+    const foundMovies = movies.filter(movie => { // фильтруем фильмы по названию
+      const title = movie.nameRU || movie.nameEN;
+      return title.toLowerCase().includes(value.toLowerCase())
+    });
+    return foundMovies;
   }
 
   return (
     <section className="search-form search-form_position section">
-      <form className="search-form__container" onSubmit={checkInputField}>
+      <form className="search-form__container" onSubmit={handleSubmitForm}>
         <input
           className="search-form__input"
           placeholder="Фильм"
@@ -58,7 +61,7 @@ export function SearchForm({ loadMovies, setSearchResults }) {
       <div className={`search-form__underline ${isInputFocused ? "search-form__underline_focused" : ""} ${isEmpty ? "search-form__underline_error" : ""}`}></div>
       {isEmpty && <span className="search-form__messsage search-form__messsage_error">Нужно ввести ключевое слово</span>}
       <div className="search-form__wrapper">
-        <FilterChecbox setSearchResults={setSearchResults} />
+        <FilterCheckbox setInitialMovies={setInitialMovies} />
         <span className="search-form__short-film">Короткометражки</span>
       </div>
     </section>

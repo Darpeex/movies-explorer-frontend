@@ -92,11 +92,11 @@ function App() {
 
   // Получение данных фильмов с сервера
   const loadMovies = () => {
-    setIsLoading(true);
-    if (loggedIn) {
+    if (loggedIn) { // если авторизированы
+      setIsLoading(true); // прелоадер вкл
       moviesApi.getInitialMovies() // получаем фильмы с сервера
-        .then((moviesInfo) => {
-          setIsLoading(false);
+        .then((moviesInfo) => { // устанавливаем в стейт
+          setIsLoading(false); // прелоадер выкл
           setMovies(moviesInfo); // обновляем стейт фильмов
         })
         .catch((err) => console.log(`Ошибка: ${err}`));
@@ -166,7 +166,7 @@ function App() {
       <div className="page">
         {/* Оборачиваем в провайдер всё содержимое */}
         <CurrentUserContext.Provider value={currentUser}> {/* глобальный контекст становится доступен всем компонентам */}
-          <MoviesContext.Provider value={movies}>
+          <MoviesContext.Provider value={movies} setMovies={setMovies}>
             {/* Шапка сайта */}
             {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
 
