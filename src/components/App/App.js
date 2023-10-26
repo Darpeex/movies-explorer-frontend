@@ -91,15 +91,18 @@ function App() {
   }
 
   // Получение данных фильмов с сервера
-  const loadMovies = () => {
+  async function loadMovies(onSuccess) {
     if (loggedIn) { // если авторизированы
       setIsLoading(true); // прелоадер вкл
-      moviesApi.getInitialMovies() // получаем фильмы с сервера
-        .then((moviesInfo) => { // устанавливаем в стейт
-          setIsLoading(false); // прелоадер выкл
-          setMovies(moviesInfo); // обновляем стейт фильмов
-        })
-        .catch((err) => console.log(`Ошибка: ${err}`));
+      try {
+        const moviesInfo = await moviesApi.getInitialMovies() // получаем фильмы с сервера
+        setMovies(moviesInfo); // обновляем стейт фильмов
+        setIsLoading(false); // прелоадер выкл
+        onSuccess(moviesInfo); // т.к. стейт не успевает обновиться, при его первой загрузке, передаём массив с фильмами напрямую, далее используем стейт movies
+      } catch (err) {
+        console.log(`Ошибка: ${err}`)
+        setIsLoading(false); // прелоадер выкл
+      }
     }
   }
 
