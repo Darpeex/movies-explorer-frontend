@@ -7,7 +7,7 @@ import { AboutMe } from './AboutMe/AboutMe';
 import { Portfolio } from './Portfolio/Portfolio';
 import { AboutProject } from './AboutProject/AboutProject';
 
-export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete }) {  // Передаются функции из App.js
+export function Main() {
 const scrollToRef = useRef();
 
   return (
