@@ -6,7 +6,7 @@ import { MoviesCard } from '../MoviesCard/MoviesCard';
 export function MoviesCardList({ onCardLike, onCardDelete, initialMovies, filteredMovies }) {  // Передаются функции открытия попапов из App.js
   const [moviesToShow, setMoviesToShow] = useState(initialMovies);
 
-  useEffect(() => {
+  useEffect(() => { // устанавливаем фильмы найденные и отфильтрованные (filteredMovies) или найденные (initialMovies)
     if (filteredMovies) {
       setMoviesToShow(filteredMovies);
     } else {

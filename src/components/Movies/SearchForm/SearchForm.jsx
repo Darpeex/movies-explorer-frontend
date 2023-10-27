@@ -10,6 +10,21 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
   const [value, setValue] = useState(""); // состояние введенной информации
   const movies = useContext(MoviesContext);
 
+  useEffect(() => { // извлекаем последний текст запроса из localStorage 
+    const localValue = JSON.parse(localStorage.getItem('value'));
+    if (localValue !== null) {
+      setValue(localValue)
+    }
+  }, []);
+
+  useEffect(() => { // извлекаем последний список фильмов из localStorage
+    const localMovies = JSON.parse(localStorage.getItem('films'));
+    if (localMovies !== null) {
+      setInitialMovies(localMovies)
+    }
+    console.log(localMovies)
+  }, []);
+
   useEffect(() => { // нужно проверить поле после вывода ошибки
     if (value !== "") { // чтобы после ввода текста сообщение убиралось*
       setIsEmpty(false)
@@ -26,16 +41,19 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
       setIsEmpty(true);
     } else {
       setIsEmpty(false);
+      localStorage.setItem('value', JSON.stringify(value)); // сохраняем текст запроса в localStorage
       if (movies.length === 0) { // проверяем, ести ли фильмы в массиве
         loadMovies((moviesInfo) => {
           const foundMovies = searchMovies(moviesInfo); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
-          setInitialMovies(foundMovies);
-          setMovieFound(foundMovies.length > 0); // изменение состояния movieFound
+          setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
+          setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
+          localStorage.setItem('films', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
         });
       } else {
         const foundMovies = searchMovies(movies); // функция, которая будет вызвана, если фильмы есть
-        setInitialMovies(foundMovies);
-        setMovieFound(foundMovies.length > 0); // изменение состояния movieFound
+        setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
+        setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
+        localStorage.setItem('films', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
       }
     }
   }

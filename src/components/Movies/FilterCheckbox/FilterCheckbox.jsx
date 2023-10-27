@@ -5,8 +5,16 @@ import React, { useState, useEffect } from 'react';
 export function FilterCheckbox({ initialMovies, setFilteredMovies }) {
   const [isChecked, setIsChecked] = useState(false); // нажат чексбокс или нет
 
+  useEffect(() => { // извлекаем последнее состояние чекбокса из localStorage 
+    const localIsChecked = JSON.parse(localStorage.getItem('isChecked'));
+    if (localIsChecked !== null) {
+      setIsChecked(localIsChecked)
+    }
+  }, []);
+
   const handleOnChange = (e) => { // при нажатии 
     setIsChecked(e.target.checked); // меняем значение чекбокса на противоположное
+    localStorage.setItem('isChecked', JSON.stringify(e.target.checked)); // сохраняем состояние чекбокса в localStorage
   }
 
   useEffect(() => {
