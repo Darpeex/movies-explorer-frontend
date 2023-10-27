@@ -35,6 +35,13 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
     setValue(e.target.value); // чтобы взять значение из поля value*
   }
 
+  const filmsProcessing = (data) => {
+    const foundMovies = searchMovies(data); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
+    setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
+    setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
+    localStorage.setItem('films', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
+  }
+
   function handleSubmitForm(e) { // проверяем пустое ли поле по клику
     e.preventDefault();
     if (value === "") {
@@ -44,16 +51,10 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
       localStorage.setItem('value', JSON.stringify(value)); // сохраняем текст запроса в localStorage
       if (movies.length === 0) { // проверяем, ести ли фильмы в массиве
         loadMovies((moviesInfo) => {
-          const foundMovies = searchMovies(moviesInfo); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
-          setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
-          setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
-          localStorage.setItem('films', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
+          filmsProcessing(moviesInfo)
         });
       } else {
-        const foundMovies = searchMovies(movies); // функция, которая будет вызвана, если фильмы есть
-        setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
-        setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
-        localStorage.setItem('films', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
+        filmsProcessing(movies)
       }
     }
   }
