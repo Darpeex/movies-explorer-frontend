@@ -5,7 +5,6 @@ import { SearchForm } from './SearchForm/SearchForm';
 import { MoviesCardList } from './MoviesCardList/MoviesCardList';
 
 export function Movies({ loadMovies, loadingError }) {  // Передаются функции из App.js
-  const [isSuccess, setIsSuccess] = useState(false);
   const [moreMovies, setMoreMovies] = useState(false);
   const [movieFound, setMovieFound] = useState(true);
   const [initialMovies, setInitialMovies] = useState([]);
@@ -13,8 +12,8 @@ export function Movies({ loadMovies, loadingError }) {  // Передаются 
 
   return (
     <main className="content">
-      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} setIsSuccess={setIsSuccess} />
-      {movieFound && <MoviesCardList initialMovies={initialMovies} filteredMovies={filteredMovies} isSuccess={isSuccess} />}
+      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} />
+      {movieFound && <MoviesCardList initialMovies={initialMovies} filteredMovies={filteredMovies} />}
       {moreMovies && <button className="content__button-more" type="button">Ещё</button>}
       {!moreMovies && <div className={`content__additional-block ${!movieFound ? "content__additional-block_margin_zero" : ""}`}>
         {!movieFound && <p className="content__additional-block_result_empty">Ничего не найдено</p>}
