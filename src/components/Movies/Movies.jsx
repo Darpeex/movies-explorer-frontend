@@ -13,9 +13,9 @@ export function Movies({ loadMovies }) {  // Передаются функции
 
   console.log(initialMovies)
   // сохраняем исходный список фильмов при получении movies
-  useEffect(() => {
-    setInitialMovies(movies);
-  }, [movies]);
+  // useEffect(() => {
+  //   setInitialMovies(movies);
+  // }, [movies]);
 
   return (
     <main className="content">

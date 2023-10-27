@@ -4,7 +4,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { MoviesContext } from '../../../context/MoviesContext';
 import { FilterCheckbox } from '../FilterCheckbox/FilterCheckbox';
 
-export function SearchForm({ loadMovies, setInitialMovies }) {
+export function SearchForm({ loadMovies, initialMovies, setInitialMovies }) {
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
   const [value, setValue] = useState(""); // состояние введенной информации
@@ -31,7 +31,7 @@ export function SearchForm({ loadMovies, setInitialMovies }) {
           setInitialMovies(searchMovies(moviesInfo)); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
         });
       } else {
-        setInitialMovies(searchMovies(movies)); // функция, которая будет вызвана после успешной загрузки фильмов
+        setInitialMovies(searchMovies(movies)); // функция, которая будет вызвана, если фильмы есть
       }
     }
   }
@@ -61,7 +61,7 @@ export function SearchForm({ loadMovies, setInitialMovies }) {
       <div className={`search-form__underline ${isInputFocused ? "search-form__underline_focused" : ""} ${isEmpty ? "search-form__underline_error" : ""}`}></div>
       {isEmpty && <span className="search-form__messsage search-form__messsage_error">Нужно ввести ключевое слово</span>}
       <div className="search-form__wrapper">
-        <FilterCheckbox setInitialMovies={setInitialMovies} />
+        <FilterCheckbox initialMovies={initialMovies} setInitialMovies={setInitialMovies} />
         <span className="search-form__short-film">Короткометражки</span>
       </div>
     </section>
