@@ -19,8 +19,8 @@ export function Movies({ loadMovies, loadingError }) {  // Передаются 
       {!moreMovies && <div className={`content__additional-block ${!movieFound ? "content__additional-block_margin_zero" : ""}`}>
         {!movieFound && <p className="content__additional-block_result_empty">Ничего не найдено</p>}
       </div>}
-      {loadingError && <div className="content__error-block">
-        <p className="content__error-block_result_error">{loadingError}</p>
+      {loadingError && <div className="content__error-additional-block">
+        <p className="content__error-additional-block_result_error">{loadingError}</p>
       </div>}
     </main>
   )
