@@ -24,6 +24,7 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function App() {
   const [isInfoTooltip, setIsInfoTooltip] = useState(false);
+  const [loadingError, setloadingError] = useState(null);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -97,10 +98,12 @@ function App() {
       try {
         const moviesInfo = await moviesApi.getInitialMovies() // получаем фильмы с сервера
         setMovies(moviesInfo); // обновляем стейт фильмов
-        setIsLoading(false); // прелоадер выкл
         onSuccess(moviesInfo); // т.к. стейт не успевает обновиться, при его первой загрузке, передаём массив с фильмами напрямую, далее используем стейт movies
+        setloadingError(null); // если всё прошло успешно, очищаем ошибку
+        setIsLoading(false); // прелоадер выкл
       } catch (err) {
         console.log(`Ошибка: ${err}`)
+        setloadingError("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
         setIsLoading(false); // прелоадер выкл
       }
     }
@@ -181,7 +184,7 @@ function App() {
               <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
               <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
               <Route path={HOME} element={<Main />} /> {/* Главная */}
-              <Route path={MOVIES} element={<Movies loadMovies={loadMovies} />} /> {/* Фильмы */}
+              <Route path={MOVIES} element={<Movies loadMovies={loadMovies} loadingError={loadingError} />} /> {/* Фильмы */}
               <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
               <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
               <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
