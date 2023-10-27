@@ -22,7 +22,6 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
     if (localMovies !== null) {
       setInitialMovies(localMovies)
     }
-    console.log(localMovies)
   }, []);
 
   useEffect(() => { // нужно проверить поле после вывода ошибки
