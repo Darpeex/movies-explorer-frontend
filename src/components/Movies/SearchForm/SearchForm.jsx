@@ -4,7 +4,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { MoviesContext } from '../../../context/MoviesContext';
 import { FilterCheckbox } from '../FilterCheckbox/FilterCheckbox';
 
-export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFilteredMovies }) {
+export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFilteredMovies, setMovieFound }) {
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
   const [value, setValue] = useState(""); // состояние введенной информации
@@ -28,10 +28,14 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
       setIsEmpty(false);
       if (movies.length === 0) { // проверяем, ести ли фильмы в массиве
         loadMovies((moviesInfo) => {
-          setInitialMovies(searchMovies(moviesInfo)); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
+          const foundMovies = searchMovies(moviesInfo); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
+          setInitialMovies(foundMovies);
+          setMovieFound(foundMovies.length > 0); // изменение состояния movieFound
         });
       } else {
-        setInitialMovies(searchMovies(movies)); // функция, которая будет вызвана, если фильмы есть
+        const foundMovies = searchMovies(movies); // функция, которая будет вызвана, если фильмы есть
+        setInitialMovies(foundMovies);
+        setMovieFound(foundMovies.length > 0); // изменение состояния movieFound
       }
     }
   }

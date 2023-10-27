@@ -12,7 +12,7 @@ export function Movies({ loadMovies }) {  // Передаются функции
 
   return (
     <main className="content">
-      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} />
+      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} />
       <MoviesCardList initialMovies={initialMovies} filteredMovies={filteredMovies} />
       {moreMovies && <button className="content__button-more" type="button">Ещё</button>}
       {!moreMovies && <div className={`content__additional-block ${!movieFound ? "content__additional-block_margin_zero" : ""}`}>
