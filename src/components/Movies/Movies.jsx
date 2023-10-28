@@ -11,6 +11,7 @@ export function Movies({ loadMovies, loadingError }) {
   const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованное чекбоксом
   const [moviesToShow, setMoviesToShow] = useState([]); // фильмы, которые должны отрисоваться
   const [onSubmit, setOnSubmit] = useState(false); // отслеживаем вызов submit поиска
+  const [isChecked, setIsChecked] = useState(false); // нажат чексбокс или нет
 
   useEffect(() => { // устанавливаем фильмы найденные и отфильтрованные (filteredMovies) или найденные (initialMovies)
     if (filteredMovies.length > 0) {
@@ -68,10 +69,10 @@ export function Movies({ loadMovies, loadingError }) {
   useEffect(() => {
     const totalCardsToShow = rowsToShow * moviesPerRow;
     // создаем новый массив (slice) взяв из отфильтрованных фильмов от 0 до totalCardsToShow
-    const moviesToDisplay = (filteredMovies.length > 0 ? filteredMovies : initialMovies).slice(0, totalCardsToShow);
+    const moviesToDisplay = (isChecked ? filteredMovies : initialMovies).slice(0, totalCardsToShow);
     setMoviesToShow(moviesToDisplay);
 
-    if (totalCardsToShow >= (filteredMovies.length > 0 ? filteredMovies.length : initialMovies.length)) {
+    if (totalCardsToShow >= (isChecked ? filteredMovies.length : initialMovies.length)) {
       setMoreMovies(false);
     } else {
       setMoreMovies(true);
@@ -104,7 +105,7 @@ export function Movies({ loadMovies, loadingError }) {
 
   return (
     <main className="content">
-      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} onSubmit={onSubmit} setOnSubmit={setOnSubmit} />
+      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} onSubmit={onSubmit} setOnSubmit={setOnSubmit} isChecked={isChecked} setIsChecked={setIsChecked} />
       {errorСonditionsMovies && <MoviesCardList moviesToShow={moviesToShow} />}
       {errorСonditionsButtonMore && <button className="content__button-more" type="button" onClick={handleMoreMoviesClick}>Ещё</button>}
       {errorСonditionsAdittionalBlock && <div className="content__additional-block">

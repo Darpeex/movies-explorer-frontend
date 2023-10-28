@@ -1,9 +1,8 @@
 // Чекбокс для поиска короткометражек
 import './FilterCheckbox.css';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-export function FilterCheckbox({ initialMovies, setFilteredMovies }) {
-  const [isChecked, setIsChecked] = useState(false); // нажат чексбокс или нет
+export function FilterCheckbox({ initialMovies, setFilteredMovies, isChecked, setIsChecked }) {
 
   useEffect(() => { // извлекаем последнее состояние чекбокса из localStorage 
     const localIsChecked = JSON.parse(localStorage.getItem('isChecked'));
