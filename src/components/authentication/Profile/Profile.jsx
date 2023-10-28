@@ -33,6 +33,11 @@ export const Profile = ({ onUpdateUser }) => {
   function handleEmailChange(e) { // Следим за изменениями в поле email и подставляем в стейт
     setEmail(e.target.value);
   }
+
+  const handleSignout = () => {
+    localStorage.clear()
+  }
+
   return (
     <main>
       <section className="profile">
@@ -71,7 +76,7 @@ export const Profile = ({ onUpdateUser }) => {
           </div>
           <div className={`profile__container ${!isValid ? "profile__saved-btn" : ""}`}>
             {!isEditProfileActive && <button type="button" className="profile__button profile__edit-button" onClick={handleEditProfile}>Редактировать</button>}
-            {!isEditProfileActive && <Link to={ROUTES.HOME} className="profile__button profile__signout-button">Выйти из аккаунта</Link>}
+            {!isEditProfileActive && <Link to={ROUTES.HOME} className="profile__button profile__signout-button" onClick={handleSignout}>Выйти из аккаунта</Link>}
             {isEditProfileActive && !isValid && <span className="profile__error-text">При обновлении профиля произошла ошибка.</span>}
             {isEditProfileActive && <button type="submit" className={`profile__button profile__saved-button ${isActive ? "" : "profile__saved-button_inactive"}`}>Сохранить</button>}
           </div>
