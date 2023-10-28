@@ -63,7 +63,7 @@ export function Movies({ loadMovies, loadingError }) {
   useEffect(() => {
     setMoviesPerRow(calculateCardsPerRow());
     setRowsToShow(calculateRows());
-  }, [isLaptop, isTablet, isMobile, onSubmit]); // при отправке нового запроса onSubmit - тоже обновляем
+  }, [isLaptop, isTablet, isMobile, onSubmit]); // при отправке нового запроса - onSubmit, тоже обновляем
 
   useEffect(() => {
     const totalCardsToShow = rowsToShow * moviesPerRow;
