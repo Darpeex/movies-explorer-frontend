@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { SearchForm } from './SearchForm/SearchForm';
 import { MoviesCardList } from './MoviesCardList/MoviesCardList';
 
-export function Movies({ loadMovies, loadingError }) {
+export function Movies({ loadMovies, loadingError, handleLikeClick }) {
   const [moreMovies, setMoreMovies] = useState(false); // состояние кнопки 'Ещё'
   const [movieFound, setMovieFound] = useState(true); // найдены ли фильмы по запросу?
   const [initialMovies, setInitialMovies] = useState([]); // все найденые фильмы по запросу
@@ -106,7 +106,7 @@ export function Movies({ loadMovies, loadingError }) {
   return (
     <main className="content">
       <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} onSubmit={onSubmit} setOnSubmit={setOnSubmit} isChecked={isChecked} setIsChecked={setIsChecked} />
-      {errorСonditionsMovies && <MoviesCardList moviesToShow={moviesToShow} />}
+      {errorСonditionsMovies && <MoviesCardList moviesToShow={moviesToShow} handleLikeClick={handleLikeClick} />}
       {errorСonditionsButtonMore && <button className="content__button-more" type="button" onClick={handleMoreMoviesClick}>Ещё</button>}
       {errorСonditionsAdittionalBlock && <div className="content__additional-block">
         {!movieFound && <p className="content__additional-block_result_empty">Ничего не найдено</p>}

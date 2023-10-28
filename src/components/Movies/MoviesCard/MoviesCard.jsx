@@ -1,20 +1,25 @@
 // Компонент MoviesCard
 import './MoviesCard.css';
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import activeLike from '../../../images/active-like.svg';
 import inactiveLike from '../../../images/inactive-like.svg';
-import { CurrentUserContext } from '../../../context/CurrentUserContext';
+import { SavedMoviesContext } from '../../../context/SavedMoviesContext';
 
-export function MoviesCard({ movie, onCardLike }) {
-  const currentUser = useContext(CurrentUserContext); // Подписываемся на контекст пользователя
-  // const isLiked = movie.likes.some(likerId => likerId === currentUser._id); // Определяем, поставлен ли лайк текущим пользователем
-  function handleLikeClick() { // отвечает за лайк
-    onCardLike(movie);
-  }
-  // Для демонстрации верстки, извините за мусор
+export function MoviesCard({ movie, handleLikeClick }) {
+  const savedMovies = React.useContext(SavedMoviesContext)
   const [isLiked, setIsLiked] = useState(false);
-  function toggleLike() {
-    setIsLiked(!isLiked);
+
+  useEffect(() => {
+    if (savedMovies && savedMovies.length > 0) {
+      setIsLiked(savedMovies.some(card => card._id === movie.id)) // Определяем, есть ли фильм в БД
+    } else {
+      setIsLiked(false)
+    }
+  }, [savedMovies]);
+
+  function onLikeClicked() {
+    console.log(movie)
+    handleLikeClick(movie); // добавляем или удаляем в сохраненные фильмы
   }
 
   const convertDurationToHourlyFormat = () => {
@@ -36,7 +41,7 @@ export function MoviesCard({ movie, onCardLike }) {
       </a>
       <div className="elements-block__description">
         <h2 className="elements-block__name">{movie.nameRU}</h2>
-        <button className="elements-block__like-button" type="button" aria-label="Лайк" onClick={toggleLike}>
+        <button className="elements-block__like-button" type="button" aria-label="Лайк" onClick={onLikeClicked}>
           <img className="elements-block__like-icon" src={isLiked ? activeLike : inactiveLike} alt={isLiked ? 'активный лайк' : 'неактивный лайк'}></img>
         </button>
       </div>

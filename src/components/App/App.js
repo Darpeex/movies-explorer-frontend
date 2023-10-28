@@ -20,6 +20,7 @@ import { ErrorPage } from '../shared/ErrorPage/ErrorPage';
 import { MoviesContext } from '../../context/MoviesContext';
 import { Profile } from '../authentication/Profile/Profile';
 import { Register } from '../authentication/Register/Register';
+import { SavedMoviesContext } from '../../context/SavedMoviesContext';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
   const [loadingError, setloadingError] = useState(null);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
   const [userData, setUserData] = useState('');
@@ -37,6 +39,17 @@ function App() {
   const location = useLocation(); // Возвращает объект location, представляющий текущий URL
   const navigate = useNavigate(); // Создаёт функцию, которая помогает пользователю перейти на определенную страницу
   const isAnyPopupOpened = isInfoTooltip || (Object.keys(selectedCard).length !== 0); // Проверка является ли хотя бы 1 попап открытым
+
+  // Получение сохраненных фильмов с сервера
+  useEffect(() => {
+    if (loggedIn) {
+      mainApi.getMovies() // получаем фильмы с сервера
+        .then((data) => {
+          setSavedMovies(data); // обновляем сохраненные фильмы
+        })
+        .catch((err) => console.log(`Ошибка: ${err}`));
+    }
+  }, [loggedIn]);
 
   // Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
@@ -91,13 +104,13 @@ function App() {
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
 
-  // Получение данных фильмов с сервера
+  // Получение фильмов с сервера
   async function loadMovies(onSuccess) {
     if (loggedIn) { // если авторизированы
       setIsLoading(true); // прелоадер вкл
       try {
         const moviesInfo = await moviesApi.getInitialMovies() // получаем фильмы с сервера
-        setMovies(moviesInfo); // обновляем стейт фильмов
+        setMovies(moviesInfo); // обновляем стейт фильмов p.s. строка не нужна, фильмы по колбеку возвращаются, ну пусть будет пока) 
         onSuccess(moviesInfo); // т.к. стейт не успевает обновиться, при его первой загрузке, передаём массив с фильмами напрямую, далее используем стейт movies
         setloadingError(null); // если всё прошло успешно, очищаем ошибку
         setIsLoading(false); // прелоадер выкл
@@ -118,29 +131,20 @@ function App() {
     setSelectedCard({});
   }
 
-  // Поддержка лайков и дизлайков
-  function handleCardLike(movie) {
-    const isLiked = movie.likes.some(likerId => likerId === currentUser._id); // Снова проверяем, есть ли уже лайк на карточке фильма
-    mainApi.changeLikeCardStatus(movie._id, !isLiked).then((newMovie) => { // Отправляем запрос в API и получаем обновлённые данные фильма
-      setMovies((state) => state.map((c) => c._id === movie._id ? newMovie : c));
-    })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-  }
-  // Добавление фильма
-  function handleAddPlaceSubmit({ name, link }) {
-    const data = { name, link }
-    mainApi.createMovie(data).then((newMovie) => {
-      setMovies([newMovie, ...movies]);
-      closeAllPopups();
-    })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-  }
-  // Удаление фильма
-  function handleCardDelete(movie) {
-    mainApi.deleteMovie(movie._id).then(() => {
-      setMovies((state) => state.filter((c) => c._id !== movie._id));
-    })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+  function handleLikeClick(movie) {
+    const isMovieSaved = savedMovies.some(film => film._id === movie.id);
+
+    if (isMovieSaved) { // есть в БД -> удаляем
+      mainApi.deleteMovie(movie.id).then(() => {
+        setSavedMovies((state) => state.filter((film) => film._id !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фльтра
+      })
+        .catch((err) => console.log(`Ошибка: ${err}`));
+    } else if (!isMovieSaved) { // нет в БД -> добавляем
+      mainApi.createMovie(movie).then((newMovie) => {
+        setSavedMovies([newMovie, ...savedMovies]);
+      })
+        .catch((err) => console.log(`Ошибка: ${err}`));
+    }
   }
 
   // Удаляем токен из браузерного хранилища  
@@ -172,33 +176,35 @@ function App() {
       <div className="page">
         {/* Оборачиваем в провайдер всё содержимое */}
         <CurrentUserContext.Provider value={currentUser}> {/* глобальный контекст становится доступен всем компонентам */}
-          <MoviesContext.Provider value={movies} setMovies={setMovies}>
-            {/* Шапка сайта */}
-            {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
+          <SavedMoviesContext.Provider value={savedMovies} > {/* больше 2-х уровней - много для пробрасывания говорят */}
+            <MoviesContext.Provider value={movies} >
+              {/* Шапка сайта */}
+              {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
 
-            {/* Прелоадер */}
-            {isLoading && <Preloader />}
+              {/* Прелоадер */}
+              {isLoading && <Preloader />}
 
-            {/* Основное содержимое страницы */}
-            <Routes>
-              <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
-              <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
-              <Route path={HOME} element={<Main />} /> {/* Главная */}
-              <Route path={MOVIES} element={<Movies loadMovies={loadMovies} loadingError={loadingError} />} /> {/* Фильмы */}
-              <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
-              <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
-              <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
-              <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
-            </Routes>
+              {/* Основное содержимое страницы */}
+              <Routes>
+                <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
+                <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
+                <Route path={HOME} element={<Main />} /> {/* Главная */}
+                <Route path={MOVIES} element={<Movies loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} />} /> {/* Фильмы */}
+                <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
+                <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
+                <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
+                <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
+              </Routes>
 
-            {/* Подвал сайта */}
-            {footerClass} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
+              {/* Подвал сайта */}
+              {footerClass} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
 
-            {/* <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} result={result} error={error} /> */} {/* Попап результата регистрации */}
-          </MoviesContext.Provider>
+              {/* <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} result={result} error={error} /> */} {/* Попап результата регистрации */}
+            </MoviesContext.Provider>
+          </SavedMoviesContext.Provider>
         </CurrentUserContext.Provider>
       </div>
-    </div>
+    </div >
   );
 }
 
