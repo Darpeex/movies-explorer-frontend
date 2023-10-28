@@ -12,14 +12,14 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
 
   useEffect(() => { // извлекаем последний текст запроса из localStorage 
     const localValue = JSON.parse(localStorage.getItem('value'));
-    if (localValue !== null) {
+    if (localValue !== null && localValue !== undefined) {
       setValue(localValue)
     }
   }, []);
 
   useEffect(() => { // извлекаем последний список фильмов из localStorage
-    const localMovies = JSON.parse(localStorage.getItem('films'));
-    if (localMovies !== null) {
+    const localMovies = JSON.parse(localStorage.getItem('movies'));
+    if (localMovies !== null && localMovies !== undefined) {
       setInitialMovies(localMovies)
     }
   }, []);
@@ -39,7 +39,9 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
     const foundMovies = searchMovies(data); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
     setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
     setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
-    localStorage.setItem('films', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
+    if (foundMovies !== null && foundMovies !== undefined) {
+      localStorage.setItem('movies', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
+    }
   }
 
   function handleSubmitForm(e) { // проверяем пустое ли поле по клику
@@ -48,7 +50,9 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
       setIsEmpty(true);
     } else {
       setIsEmpty(false);
-      localStorage.setItem('value', JSON.stringify(value)); // сохраняем текст запроса в localStorage
+      if (value !== null && value !== undefined) {
+        localStorage.setItem('value', JSON.stringify(value)); // сохраняем текст запроса в localStorage
+      }
       if (movies.length === 0) { // проверяем, ести ли фильмы в массиве
         loadMovies((moviesInfo) => {
           filmsProcessing(moviesInfo)

@@ -12,9 +12,12 @@ export function FilterCheckbox({ initialMovies, setFilteredMovies }) {
     }
   }, []);
 
-  const handleOnChange = (e) => { // при нажатии 
-    setIsChecked(e.target.checked); // меняем значение чекбокса на противоположное
-    localStorage.setItem('isChecked', JSON.stringify(e.target.checked)); // сохраняем состояние чекбокса в localStorage
+  const handleOnChange = (e) => { // при нажатии
+    const checkboxEvent = e.target.checked // нужен, потому что иначе событие не успевает записаться, а так записывается одно и то же
+    setIsChecked(checkboxEvent); // меняем значение чекбокса на противоположное
+    if (checkboxEvent !== null && checkboxEvent !== undefined) {
+      localStorage.setItem('isChecked', JSON.stringify(checkboxEvent)); // сохраняем состояние чекбокса в localStorage
+    }
   }
 
   useEffect(() => {

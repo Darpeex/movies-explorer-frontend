@@ -81,14 +81,16 @@ export function Movies({ loadMovies, loadingError }) {
   const handleMoreMoviesClick = () => { // увеличиваем значение rowsToShow на 1
     setRowsToShow((prevRows) => {
       const newRowsNumber = prevRows + 1;
-      localStorage.setItem('rowsToShow', JSON.stringify(newRowsNumber)); // сохраняем количество показанных рядов в localStorage
+      if (newRowsNumber !== null && newRowsNumber !== undefined) {
+        localStorage.setItem('rowsToShow', JSON.stringify(newRowsNumber)); // сохраняем количество показанных рядов в localStorage
+      }
       return newRowsNumber;
     });
   };
 
   useEffect(() => { // извлекаем количество показанных рядов из localStorage 
     const localRowsToShow = JSON.parse(localStorage.getItem('rowsToShow'));
-    if (localRowsToShow !== null || undefined) {
+    if (localRowsToShow !== null && localRowsToShow !== undefined) {
       setRowsToShow(localRowsToShow)
     }
   }, []);
