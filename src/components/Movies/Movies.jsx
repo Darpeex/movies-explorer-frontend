@@ -10,6 +10,7 @@ export function Movies({ loadMovies, loadingError }) {
   const [initialMovies, setInitialMovies] = useState([]); // все найденые фильмы по запросу
   const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованное чекбоксом
   const [moviesToShow, setMoviesToShow] = useState([]); // фильмы, которые должны отрисоваться
+  const [onSubmit, setOnSubmit] = useState(false); // отслеживаем вызов submit поиска
 
   useEffect(() => { // устанавливаем фильмы найденные и отфильтрованные (filteredMovies) или найденные (initialMovies)
     if (filteredMovies.length > 0) {
@@ -62,7 +63,7 @@ export function Movies({ loadMovies, loadingError }) {
   useEffect(() => {
     setMoviesPerRow(calculateCardsPerRow());
     setRowsToShow(calculateRows());
-  }, [isLaptop, isTablet, isMobile]);
+  }, [isLaptop, isTablet, isMobile, onSubmit]); // при отправке нового запроса onSubmit - тоже обновляем
 
   useEffect(() => {
     const totalCardsToShow = rowsToShow * moviesPerRow;
@@ -78,8 +79,19 @@ export function Movies({ loadMovies, loadingError }) {
   }, [rowsToShow, initialMovies, filteredMovies, moviesPerRow]);
 
   const handleMoreMoviesClick = () => { // увеличиваем значение rowsToShow на 1
-    setRowsToShow((prevRows) => prevRows + 1);
+    setRowsToShow((prevRows) => {
+      const newRowsNumber = prevRows + 1;
+      localStorage.setItem('rowsToShow', JSON.stringify(newRowsNumber)); // сохраняем количество показанных рядов в localStorage
+      return newRowsNumber;
+    });
   };
+
+  useEffect(() => { // извлекаем количество показанных рядов из localStorage 
+    const localRowsToShow = JSON.parse(localStorage.getItem('rowsToShow'));
+    if (localRowsToShow !== null || undefined) {
+      setRowsToShow(localRowsToShow)
+    }
+  }, []);
 
   const errorConditions = loadingError || (loadingError !== null) || !movieFound; // условия, при которых не показываются другие блоки
   const additionalBlockConditions = movieFound && !moreMovies // обязательные условия, при которых показываться доп. блок
@@ -90,7 +102,7 @@ export function Movies({ loadMovies, loadingError }) {
 
   return (
     <main className="content">
-      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} />
+      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} onSubmit={onSubmit} setOnSubmit={setOnSubmit} />
       {errorСonditionsMovies && <MoviesCardList moviesToShow={moviesToShow} />}
       {errorСonditionsButtonMore && <button className="content__button-more" type="button" onClick={handleMoreMoviesClick}>Ещё</button>}
       {errorСonditionsAdittionalBlock && <div className="content__additional-block">

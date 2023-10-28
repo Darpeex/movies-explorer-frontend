@@ -4,7 +4,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { MoviesContext } from '../../../context/MoviesContext';
 import { FilterCheckbox } from '../FilterCheckbox/FilterCheckbox';
 
-export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFilteredMovies, setMovieFound }) {
+export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFilteredMovies, setMovieFound, onSubmit, setOnSubmit }) {
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
   const [value, setValue] = useState(""); // состояние введенной информации
@@ -35,6 +35,7 @@ export function SearchForm({ loadMovies, initialMovies, setInitialMovies, setFil
   }
 
   const filmsProcessing = (data) => {
+    setOnSubmit(!onSubmit) // меняем состояние, при нажатии на кнопку
     const foundMovies = searchMovies(data); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
     setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
     setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
