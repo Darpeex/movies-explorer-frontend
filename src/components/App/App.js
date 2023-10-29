@@ -135,15 +135,30 @@ function App() {
   }
 
   function handleLikeClick(movie) {
-    const isMovieSaved = savedMovies.some(film => film._id === movie.id);
+    const isMovieSaved = savedMovies.some(film => {
+      return film.movieId === movie.id});
+    const apiUrl = "https://api.nomoreparties.co";
 
     if (isMovieSaved) { // есть в БД -> удаляем
       mainApi.deleteMovie(movie.id).then(() => {
-        setSavedMovies((state) => state.filter((film) => film._id !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фльтра
+        setSavedMovies((state) => state.filter((film) => film.movieId !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фльтра
       })
         .catch((err) => console.log(`Ошибка: ${err}`));
     } else if (!isMovieSaved) { // нет в БД -> добавляем
-      mainApi.createMovie(movie).then((newMovie) => {
+      mainApi.createMovie({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `${apiUrl}${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        thumbnail: `${apiUrl}${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+      }).then((newMovie) => {
+        console.log(newMovie)
         setSavedMovies([newMovie, ...savedMovies]);
       })
         .catch((err) => console.log(`Ошибка: ${err}`));

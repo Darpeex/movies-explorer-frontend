@@ -9,7 +9,7 @@ export function MoviesCard({ movie, handleLikeClick }) {
 
   useEffect(() => {
     if (savedMovies && savedMovies.length > 0) {
-      setIsLiked(savedMovies.some(card => card._id === movie.id)) // Определяем, есть ли фильм в БД
+      setIsLiked(savedMovies.some(card => card.movieId === movie.id)) // Определяем, есть ли фильм в БД
     } else {
       setIsLiked(false)
     }
@@ -17,7 +17,6 @@ export function MoviesCard({ movie, handleLikeClick }) {
 
   function onLikeClicked() {
     handleLikeClick(movie); // добавляем или удаляем в сохраненные фильмы
-    setIsLiked(!isLiked) // необязательно т.к. при наличии в БД само появляется
   }
 
   const convertDurationToHourlyFormat = () => {
