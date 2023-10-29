@@ -6,16 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
 
 export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
-  const [isError, setIsError] = useState(true)
+  const [isError, setIsError] = useState(false)
   const [formValue, setFormValue] = useState({
-    password: '',
+    name: '',
     email: '',
+    password: '',
   })
   const navigate = useNavigate();
 
-  // Преобразование значения email в нижний регистр
-  // const processedValue = name === "email" ? value.toLowerCase() : value;
-  // Сейчас в это нет необходимости - мы делаем это в backend'e сразу перед отправкой на сервер
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValue({
@@ -26,8 +24,9 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { password, email } = formValue;
-    auth.register(password, email).then((res) => {
+    const { name, email, password } = formValue;
+    console.log(formValue)
+    auth.register(name, password, email).then((res) => {
       onResult(true)
       navigate('/signin', { replace: true });
     }).catch((err) => {

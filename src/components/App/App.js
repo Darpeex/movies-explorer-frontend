@@ -30,7 +30,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState('');
   const [movies, setMovies] = useState([]);
   const [result, setResult] = useState();
@@ -66,34 +66,34 @@ function App() {
     };
   }, [isAnyPopupOpened]);
 
-  // const tokenCheck = () => { // если у пользователя есть токен в cookie, эта функция проверит валидность токена
-  //     auth.checkToken().then((res) => { // проверим токен - комменты поправлю, понять бы как правильно
-  //       if (res){
-  //         const userData = { // здесь можем получить данные пользователя!
-  //           email: res.email
-  //         }
-  //         setLoggedIn(true); // авторизуем пользователя
-  //         setUserData(userData)
-  //         navigate("/main", {replace: true})
-  //       }
-  //     }).catch((err) => console.log(`Ошибка: ${err}`)); 
-  // }
+  const tokenCheck = () => { // если у пользователя есть токен в cookie, эта функция проверит валидность токена
+      auth.checkToken().then((res) => { // проверим токен - комменты поправлю, понять бы как правильно
+        if (res){
+          const userData = { // здесь можем получить данные пользователя!
+            email: res.email
+          }
+          setLoggedIn(true); // авторизуем пользователя
+          setUserData(userData)
+          navigate("/movies", {replace: true})
+        }
+      }).catch((err) => console.log(`Ошибка: ${err}`)); 
+  }
 
-  // // Проверка наличия токена у пользователя
-  //   useEffect(() => {
-  //     tokenCheck();
-  //   }, [loggedIn])
+  // Проверка наличия токена у пользователя
+    useEffect(() => {
+      tokenCheck();
+    }, [loggedIn])
 
-  // // Получение данных пользователя с сервера
-  //   useEffect(() => {
-  //     if (loggedIn) {
-  //       mainApi.getUserInfo() // Запрос данных пользователя с сервера
-  //       .then((userInfo) => {
-  //         setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
-  //       })
-  //       .catch((err) => console.log(`Ошибка: ${err}`));
-  //     }
-  //   }, [loggedIn]);
+  // Получение данных пользователя с сервера
+    useEffect(() => {
+      if (loggedIn) {
+        mainApi.getUserInfo() // Запрос данных пользователя с сервера
+        .then((userInfo) => {
+          setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
+        })
+        .catch((err) => console.log(`Ошибка: ${err}`));
+      }
+    }, [loggedIn]);
 
   // Обновление данных пользователя на сервере
   function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
