@@ -88,8 +88,15 @@
   background: url(../../../images/active-like.svg);
 }
 
-/* специально не по кнопке наводка, мне кажется, так лучше */
-.elements-block__like-icon.active:hover {
+/* специально не по кнопке наводка, мне кажется, по иконке лучше */
+/* .elements-block__like-icon.active:hover {
+  width: 9px;
+  height: 9px;
+  background: url(../../../images/cross.svg) no-repeat;
+} */
+
+/* ну или всё же по кнопке */
+.elements-block__like-button:hover .elements-block__like-icon.active {
   width: 9px;
   height: 9px;
   background: url(../../../images/cross.svg) no-repeat;
