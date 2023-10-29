@@ -67,33 +67,33 @@ function App() {
   }, [isAnyPopupOpened]);
 
   const tokenCheck = () => { // если у пользователя есть токен в cookie, эта функция проверит валидность токена
-      auth.checkToken().then((res) => { // проверим токен
-        if (res){
-          const userData = { // здесь можем получить данные пользователя!
-            email: res.email
-          }
-          setLoggedIn(true); // авторизуем пользователя
-          setUserData(userData)
-          navigate("/movies", {replace: true})
+    auth.checkToken().then((res) => { // проверим токен
+      if (res) {
+        const userData = { // здесь можем получить данные пользователя!
+          email: res.email
         }
-      }).catch((err) => console.log(`Ошибка: ${err}`)); 
+        setLoggedIn(true); // авторизуем пользователя
+        setUserData(userData)
+        navigate("/movies", { replace: true })
+      }
+    }).catch((err) => console.log(`Ошибка: ${err}`));
   }
 
   // Проверка наличия токена у пользователя
-    useEffect(() => {
-      tokenCheck();
-    }, [loggedIn])
+  useEffect(() => {
+    tokenCheck();
+  }, [loggedIn])
 
   // Получение данных пользователя с сервера
-    useEffect(() => {
-      if (loggedIn) {
-        mainApi.getUserInfo() // Запрос данных пользователя с сервера
+  useEffect(() => {
+    if (loggedIn) {
+      mainApi.getUserInfo() // Запрос данных пользователя с сервера
         .then((userInfo) => {
           setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
         })
         .catch((err) => console.log(`Ошибка: ${err}`));
-      }
-    }, [loggedIn]);
+    }
+  }, [loggedIn]);
 
   // Обновление данных пользователя на сервере
   function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
@@ -135,12 +135,12 @@ function App() {
   }
 
   function handleLikeClick(movie) {
-    const isMovieSaved = savedMovies.some(film => {
-      return film.movieId === movie.id});
+    const isMovieSaved = savedMovies.some(film => film.movieId === movie.id);
     const apiUrl = "https://api.nomoreparties.co";
 
     if (isMovieSaved) { // есть в БД -> удаляем
-      mainApi.deleteMovie(movie.id).then(() => {
+      const movieBeingDeleted = savedMovies.find((film) => film.movieId === movie.id)
+      mainApi.deleteMovie(movieBeingDeleted._id).then(() => {
         setSavedMovies((state) => state.filter((film) => film.movieId !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фльтра
       })
         .catch((err) => console.log(`Ошибка: ${err}`));
@@ -158,7 +158,6 @@ function App() {
         thumbnail: `${apiUrl}${movie.image.formats.thumbnail.url}`,
         movieId: movie.id,
       }).then((newMovie) => {
-        console.log(newMovie)
         setSavedMovies([newMovie, ...savedMovies]);
       })
         .catch((err) => console.log(`Ошибка: ${err}`));
