@@ -51,6 +51,8 @@ function App() {
     }
   }, [loggedIn]);
 
+  console.log(savedMovies)
+
   // Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
     const handleEscClose = (e) => {
@@ -141,7 +143,7 @@ function App() {
     if (isMovieSaved) { // есть в БД -> удаляем
       const movieBeingDeleted = savedMovies.find((film) => film.movieId === movie.id)
       mainApi.deleteMovie(movieBeingDeleted._id).then(() => {
-        setSavedMovies((state) => state.filter((film) => film.movieId !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фльтра
+        setSavedMovies((state) => state.filter((film) => film.movieId !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фильтра
       })
         .catch((err) => console.log(`Ошибка: ${err}`));
     } else if (!isMovieSaved) { // нет в БД -> добавляем
@@ -159,6 +161,18 @@ function App() {
         movieId: movie.id,
       }).then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies]);
+      })
+        .catch((err) => console.log(`Ошибка: ${err}`));
+    }
+  }
+
+  function handleDeleteClick(movie) {
+    const isMovieSaved = savedMovies.some(film => film._id === movie._id);
+
+    if (isMovieSaved) { // есть в БД -> удаляем
+      const movieBeingDeleted = savedMovies.find((film) => film._id === movie._id)
+      mainApi.deleteMovie(movieBeingDeleted._id).then(() => {
+        setSavedMovies((state) => state.filter((film) => film._id !== movie._id)); // обновляем savedMovies, удаляем переданный фильм при помощи фильтра
       })
         .catch((err) => console.log(`Ошибка: ${err}`));
     }
@@ -207,7 +221,7 @@ function App() {
                 <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
                 <Route path={HOME} element={<Main />} /> {/* Главная */}
                 <Route path={MOVIES} element={<Movies loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} />} /> {/* Фильмы */}
-                <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
+                <Route path={SAVED_MOVIES} element={<SavedMovies loadMovies={loadMovies} loadingError={loadingError} handleDeleteClick={handleDeleteClick} />} /> {/* Сохранённые фильмы */}
                 <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} />} /> {/* Профиль */}
                 <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
                 <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
