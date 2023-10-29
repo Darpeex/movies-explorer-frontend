@@ -1,8 +1,6 @@
 // Компонент MoviesCard
 import './MoviesCard.css';
 import React, { useEffect, useState } from "react";
-import activeLike from '../../../images/active-like.svg';
-import inactiveLike from '../../../images/inactive-like.svg';
 import { SavedMoviesContext } from '../../../context/SavedMoviesContext';
 
 export function MoviesCard({ movie, handleLikeClick }) {
@@ -18,8 +16,8 @@ export function MoviesCard({ movie, handleLikeClick }) {
   }, [savedMovies]);
 
   function onLikeClicked() {
-    console.log(movie)
     handleLikeClick(movie); // добавляем или удаляем в сохраненные фильмы
+    setIsLiked(!isLiked) // необязательно т.к. при наличии в БД само появляется
   }
 
   const convertDurationToHourlyFormat = () => {
@@ -42,7 +40,7 @@ export function MoviesCard({ movie, handleLikeClick }) {
       <div className="elements-block__description">
         <h2 className="elements-block__name">{movie.nameRU}</h2>
         <button className="elements-block__like-button" type="button" aria-label="Лайк" onClick={onLikeClicked}>
-          <img className="elements-block__like-icon" src={isLiked ? activeLike : inactiveLike} alt={isLiked ? 'активный лайк' : 'неактивный лайк'}></img>
+          <div className={`elements-block__like-icon ${isLiked ? "active" : ""}`}></div>
         </button>
       </div>
       <hr className="elements-block__underline" />
