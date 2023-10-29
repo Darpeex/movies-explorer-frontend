@@ -80,8 +80,8 @@ export default MainApi;
 
 // Класс MainApi, отвечающий за запросы к серверу
 export const mainApi = new MainApi({
-  // url: 'http://localhost:3000',
-  url: 'https://api.diploma.darpeex.nomoredomainsrocks.ru',
+  url: 'http://localhost:3000',
+  // url: 'https://api.diploma.darpeex.nomoredomainsrocks.ru',
   headers: {
     'Content-Type': 'application/json'
   }

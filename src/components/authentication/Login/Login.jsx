@@ -26,7 +26,6 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
     if (!formValue.email || !formValue.password) {
       return;
     }
-    console.log(formValue)
     auth.login(formValue.password, formValue.email)
       .then((data) => {
         setFormValue({ password: '', email: '' });

@@ -42,7 +42,7 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken }) => {
   return (
     <main>
       <section className="profile">
-        <h1 className="profile__title">Привет, Виталий!</h1> {/* Подставляем текущее имя пользователя */}
+        <h1 className="profile__title">Привет, {name}!</h1> {/* Подставляем текущее имя пользователя */}
         <form className="profile__form">
           <div className="profile__form-container">
             <p className="profile__form-text profile__field">Имя</p>

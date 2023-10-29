@@ -1,6 +1,6 @@
-// • функция register - принимает почту и пароль, отправляет запрос регистрации на /signup
 import Cookies from 'js-cookie'; // зависимость для взаимодействия с cookie
-export const BASE_URL = 'https://api.diploma.darpeex.nomoredomainsrocks.ru';
+export const BASE_URL = 'http://localhost:3000';
+// export const BASE_URL = 'https://api.diploma.darpeex.nomoredomainsrocks.ru';
 
 // Проверка статуса запроса 
 function handleResponse(res) {
@@ -12,8 +12,7 @@ function handleResponse(res) {
 }
 
 // • функция register - принимает имя, почту и пароль, отправляет запрос регистрации на /signup
-export const register = (name, password, email)=> {
-  // console.log(email)
+export const register = (name, password, email) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
