@@ -25,7 +25,6 @@ export const Register = ({ onInfoTooltip, onResult, errorMessage }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const { name, email, password } = formValue;
-    console.log(formValue)
     auth.register(name, password, email).then((res) => {
       onResult(true)
       navigate('/signin', { replace: true });
