@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { CurrentUserContext } from "../../../context/CurrentUserContext";
 import { ROUTES } from '../../../constants/constants';
 
-export const Profile = ({ onUpdateUser }) => {
+export const Profile = ({ onUpdateUser, handleDeleteTocken }) => {
   const [isEditProfileActive, setIsEditProfileActive] = React.useState(false);
   const [isActive, setIsActive] = React.useState(false); // Для демонстрации верстки
   const [isValid, setIsValid] = React.useState(false); // Для демонстрации верстки
@@ -35,7 +35,8 @@ export const Profile = ({ onUpdateUser }) => {
   }
 
   const handleSignout = () => {
-    localStorage.clear()
+    localStorage.clear();
+    handleDeleteTocken();
   }
 
   return (

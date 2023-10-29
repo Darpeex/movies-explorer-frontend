@@ -130,6 +130,9 @@ function App() {
     setIsInfoTooltip(false);
     setSelectedCard({});
   }
+  const handleLogin = () => {
+    setLoggedIn(true);
+  }
 
   function handleLikeClick(movie) {
     const isMovieSaved = savedMovies.some(film => film._id === movie.id);
@@ -191,8 +194,8 @@ function App() {
                 <Route path={HOME} element={<Main />} /> {/* Главная */}
                 <Route path={MOVIES} element={<Movies loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} />} /> {/* Фильмы */}
                 <Route path={SAVED_MOVIES} element={<SavedMovies />} /> {/* Сохранённые фильмы */}
-                <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} />} /> {/* Профиль */}
-                <Route path={SIGNIN} element={<Login onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
+                <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} />} /> {/* Профиль */}
+                <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
                 <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
               </Routes>
 

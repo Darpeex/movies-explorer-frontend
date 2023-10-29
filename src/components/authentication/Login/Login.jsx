@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
 
 export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) => {
-  const [isError, setIsError] = useState(true)
+  const [isError, setIsError] = useState(false)
   const navigate = useNavigate();
 
   const [formValue, setFormValue] = useState({
@@ -26,11 +26,12 @@ export const Login = ({ handleLogin, onInfoTooltip, onResult, errorMessage }) =>
     if (!formValue.email || !formValue.password) {
       return;
     }
+    console.log(formValue)
     auth.login(formValue.password, formValue.email)
       .then((data) => {
         setFormValue({ password: '', email: '' });
         handleLogin();
-        navigate('/main', { replace: true });
+        navigate('/movies', { replace: true });
       }).catch(err => {
         onResult(false)
         errorMessage('Похоже, вы ещё не зарегистририровались')
