@@ -67,6 +67,13 @@
   color: rgb(255, 180, 0);
 }
 
+@media screen and (max-width: 768px) {
+  .content__additional-block {
+    margin-top: 10px;
+    margin-top: 100px;
+  }
+}
+
 @media screen and (max-width: 550px) {
   .content__button-more {
     width: 240px;
