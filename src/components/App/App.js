@@ -36,8 +36,6 @@ function App() {
   const [result, setResult] = useState();
   const [error, setError] = useState('');
 
-  console.log(loggedIn)
-
   const location = useLocation(); // Возвращает объект location, представляющий текущий URL
   const navigate = useNavigate(); // Создаёт функцию, которая помогает пользователю перейти на определенную страницу
   const isAnyPopupOpened = isInfoTooltip || (Object.keys(selectedCard).length !== 0); // Проверка является ли хотя бы 1 попап открытым
@@ -70,7 +68,6 @@ function App() {
 
   const tokenCheck = () => { // если у пользователя есть токен в cookie, эта функция проверит валидность токена
       auth.checkToken().then((res) => { // проверим токен
-        console.log(res)
         if (res){
           const userData = { // здесь можем получить данные пользователя!
             email: res.email
@@ -85,7 +82,6 @@ function App() {
   // Проверка наличия токена у пользователя
     useEffect(() => {
       tokenCheck();
-      console.log('проверяем')
     }, [loggedIn])
 
   // Получение данных пользователя с сервера
