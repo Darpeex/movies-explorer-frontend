@@ -41,6 +41,7 @@ export const Register = ({ handleLogin, onResult, error, setError }) => {
             setError('')
             return errors;
           }}
+          validateOnMount // включение проверки при загрузке страницы
           onSubmit={(values, { setSubmitting }) => {
             auth.register(values.name, values.password, values.email)
               .then((res) => {

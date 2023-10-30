@@ -6,7 +6,6 @@ import { ROUTES } from '../../../constants/constants';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 export const Login = ({ handleLogin, onResult, error, setError }) => {
-  const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -27,10 +26,10 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
             } else if (!(8 <= values.password.length)) {
               errors.password = 'Длина пароля не меньше 8 символов';
             }
-            setIsFormValid(Object.keys(errors).length === 0);
             setError('')
             return errors;
           }}
+          validateOnMount // включение проверки при загрузке страницы
           onSubmit={(values, { setSubmitting }) => {
             auth.login(values.password, values.email)
               .then((res) => {
@@ -62,7 +61,7 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
 
               <div className="login__button-container">
                 {(error !== '') && <p className="login__error-message">{error}</p>}
-                <button type="submit" className="login__button" disabled={isSubmitting || !isFormValid}>
+                <button type="submit" className="login__button" disabled={isSubmitting}>
                   Войти
                 </button>
               </div>
