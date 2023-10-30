@@ -82,8 +82,8 @@
 }
 
 .register__button:disabled {
-  background-color: rgba(52, 86, 243, 0.8);
-  cursor: not-allowed;
+  color: #C2C2C2;
+  background-color: #F8F8F8;
   opacity: 1;
 }
 
