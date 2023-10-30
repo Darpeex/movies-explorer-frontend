@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'; // Импорт Cookies
 import React, { useState, useEffect } from 'react'; // Библиотеки реакт
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'; // Routes для роутов
 
-import { ProtectedRouteElement } from "../ProtectedRoute"; // импортируем HOC
+import { ProtectedRouteElement } from "../shared/ProtectedRoute"; // импортируем HOC
 import { moviesApi } from '../../utils/MoviesApi'; // Запросы на сервер
 import { mainApi } from '../../utils/MainApi'; // Запросы на сервер
 
@@ -174,6 +174,8 @@ function App() {
     ? <></>
     : <Header location={location} userData={userData} loggedIn={loggedIn} />;
 
+console.log(loggedIn)
+
   // Отрисовка компонентов
   return (
     <div className="App">
@@ -183,7 +185,7 @@ function App() {
           <SavedMoviesContext.Provider value={savedMovies} > {/* больше 2-х уровней - много для пробрасывания говорят */}
             <MoviesContext.Provider value={movies} >
               {/* Шапка сайта */}
-              {headerClass} {/* onSignOut={handleDeleteTosignacken} */}  {/* Если у нас не Логин, Регистр - не отрисовывать */}
+              {headerClass}
 
               {/* Прелоадер */}
               {isLoading && <Preloader />}
@@ -193,9 +195,15 @@ function App() {
                 <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
                 <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
                 <Route path={HOME} element={<Main />} /> {/* Главная */}
-                <Route path={MOVIES} element={<Movies loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} />} /> {/* Фильмы */}
-                <Route path={SAVED_MOVIES} element={<SavedMovies loadingError={loadingError} handleDeleteClick={handleDeleteClick} />} /> {/* Сохранённые фильмы */}
-                <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} />} /> {/* Профиль */}
+                <Route path={MOVIES} element={<ProtectedRouteElement
+                  element={Movies} loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} loggedIn={loggedIn} />} 
+                /> {/* Фильмы */} {/* пропсы loggedIn в защещенных роутах нужны, чтобы ProtectedRouteElement взял значение и проверил */}
+                <Route path={SAVED_MOVIES} element={<ProtectedRouteElement
+                  element={SavedMovies} loadingError={loadingError} handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} />} 
+                /> {/* Сохранённые фильмы */}
+                <Route path={PROFILE} element={<ProtectedRouteElement
+                  element={Profile} onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} loggedIn={loggedIn} />} 
+                /> {/* Профиль */}
                 <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Логин */}
                 <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Регистрация */}
               </Routes>
