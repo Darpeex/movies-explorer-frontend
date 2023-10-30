@@ -124,18 +124,17 @@
   border-bottom: 1px solid #FF3055;
 }
 
-.register__error-message {
+.login__error-message {
   background-color: #FF3055;
   box-sizing: border-box;
+  text-align: center;
   position: absolute;
   width: fit-content;
   color: white;
   top: -35px;
 
   font-size: 12px;
-  max-width: 300px;
-  max-height: 22px;
-  padding: 3px 7px;
+  padding: 4px 7px;
   border-radius: 10px;
 }
 
@@ -192,5 +191,10 @@
 
   .register__signin-button {
     font-size: 12px;
+  }
+
+  .register__error-message {
+    top: -45px;
+    font-size: 11px;
   }
 }
