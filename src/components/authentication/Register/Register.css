@@ -124,7 +124,7 @@
   border-bottom: 1px solid #FF3055;
 }
 
-.login__error-message {
+.register__error-message {
   background-color: #FF3055;
   box-sizing: border-box;
   text-align: center;
