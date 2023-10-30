@@ -51,8 +51,6 @@ function App() {
     }
   }, [loggedIn]);
 
-  console.log(savedMovies)
-
   // Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
     const handleEscClose = (e) => {
@@ -188,9 +186,6 @@ function App() {
   // Получаем результат запроса на регистрацию
   const handleResult = setResult;
 
-  // Сообщение об ошибке при регистрации - необязательно
-  const takeErrorMessage = setError;
-
   const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN, ERROR, UNKNOWN } = ROUTES;
   const footerComponentsPaths = [HOME, MOVIES, SAVED_MOVIES];
   const footerClass = footerComponentsPaths.includes(location.pathname) // не отрисовываем Footer
@@ -221,10 +216,10 @@ function App() {
                 <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
                 <Route path={HOME} element={<Main />} /> {/* Главная */}
                 <Route path={MOVIES} element={<Movies loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} />} /> {/* Фильмы */}
-                <Route path={SAVED_MOVIES} element={<SavedMovies loadMovies={loadMovies} loadingError={loadingError} handleDeleteClick={handleDeleteClick} />} /> {/* Сохранённые фильмы */}
+                <Route path={SAVED_MOVIES} element={<SavedMovies loadingError={loadingError} handleDeleteClick={handleDeleteClick} />} /> {/* Сохранённые фильмы */}
                 <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} />} /> {/* Профиль */}
-                <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Логин */}
-                <Route path={SIGNUP} element={<Register onResult={handleResult} onInfoTooltip={handleInfoTooltip} errorMessage={takeErrorMessage} />} /> {/* Регистрация */}
+                <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip}  error={error} setError={setError} />} /> {/* Логин */}
+                <Route path={SIGNUP} element={<Register  handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} error={error} setError={setError} />} /> {/* Регистрация */}
               </Routes>
 
               {/* Подвал сайта */}

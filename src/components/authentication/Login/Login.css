@@ -46,28 +46,22 @@
   border-bottom: 1px solid #3456F3;
 }
 
-.login__input-form:last-of-type {
-  margin-bottom: calc(6px + 12px + 65px);
-}
-
 .login__input-form_error {
   color: #FF3055;
+  margin-bottom: 0;
   border-bottom: 1px solid #FF3055;
-}
-
-.login__input-form_error:last-of-type {
-  margin-bottom: 0px;
 }
 
 .login__error-form {
   font-size: 10px;
   font-weight: 400;
   color: #FF3055;
-  margin: 6px 0 23px;
+  margin: 4px 0 8px;
 }
 
 .login__button-container {
-  margin-top: 179px;
+  position: relative;
+  margin-top: 200px;
   display: flex;
   flex-shrink: 0;
   justify-content: center;
@@ -119,9 +113,33 @@
   opacity: 0.7;
 }
 
+.login__button:disabled {
+  background-color: rgba(52, 86, 243, 0.8);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.login__error-message {
+  background-color: #FF3055;
+  box-sizing: border-box;
+  text-align: center;
+  position: absolute;
+  width: fit-content;
+  color: white;
+  top: -35px;
+
+  font-size: 12px;
+  padding: 4px 7px;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 768px) {
   .login__error-form {
     margin: 6px 0 25px;
+  }
+
+  .login__error-form {
+    margin: 4px 0 9px;
   }
 }
 
@@ -149,7 +167,11 @@
   }
 
   .login__button-container {
-    margin-top: 227px;
+    margin-top: 291px;
+  }
+
+  .login__button {
+    font-size: 12px;
   }
 
   .login__error-form {
@@ -158,5 +180,10 @@
 
   .login__signup {
     margin-top: 14px;
+  }
+
+  .login__error-message {
+    top: -45px;
+    font-size: 11px;
   }
 }
