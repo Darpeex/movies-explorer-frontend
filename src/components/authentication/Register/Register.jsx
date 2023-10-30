@@ -81,7 +81,7 @@ export const Register = ({ handleLogin, onResult, error, setError }) => {
               <ErrorMessage name="password" component="div" className="register__form-error" />
 
               <div className="register__button-container">
-                {(error !== '') && <p className="register__error-message">{error}</p>}
+                {(error !== '') && <span className="register__error-message">{error}</span>}
                 <button type="submit" className="register__button" disabled={isSubmitting || !isFormValid}>
                   Зарегистрироваться
                 </button>

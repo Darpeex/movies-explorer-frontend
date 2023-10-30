@@ -60,7 +60,7 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
               <ErrorMessage name="password" component="div" className="login__error-form" />
 
               <div className="login__button-container">
-                {(error !== '') && <p className="login__error-message">{error}</p>}
+                {(error !== '') && <span className="login__error-message">{error}</span>}
                 <button type="submit" className="login__button" disabled={isSubmitting}>
                   Войти
                 </button>
