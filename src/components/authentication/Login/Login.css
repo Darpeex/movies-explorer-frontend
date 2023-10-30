@@ -59,6 +59,11 @@
   margin: 4px 0 8px;
 }
 
+.profile__container {
+  display: flex;
+  align-items: center;
+}
+
 .login__button-container {
   position: relative;
   margin-top: 200px;

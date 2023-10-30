@@ -24,7 +24,6 @@ import { SavedMoviesContext } from '../../context/SavedMoviesContext';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function App() {
-  const [isInfoTooltip, setIsInfoTooltip] = useState(false);
   const [loadingError, setloadingError] = useState(null);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
@@ -33,12 +32,11 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState('');
   const [movies, setMovies] = useState([]);
-  const [result, setResult] = useState();
+  const [result, setResult] = useState('');
   const [error, setError] = useState('');
 
   const location = useLocation(); // Возвращает объект location, представляющий текущий URL
   const navigate = useNavigate(); // Создаёт функцию, которая помогает пользователю перейти на определенную страницу
-  const isAnyPopupOpened = isInfoTooltip || (Object.keys(selectedCard).length !== 0); // Проверка является ли хотя бы 1 попап открытым
 
   // Получение сохраненных фильмов с сервера
   useEffect(() => {
@@ -50,21 +48,6 @@ function App() {
         .catch((err) => console.log(`Ошибка: ${err}`));
     }
   }, [loggedIn]);
-
-  // Отвечает за закрытие попапов при нажатии ESC
-  useEffect(() => {
-    const handleEscClose = (e) => {
-      if (e.key === 'Escape') { // e - событие, если равняется нажатием на клавиатуре клавиши Esc - открытые попапы закрываются
-        closeAllPopups();
-      }
-    };
-    if (isAnyPopupOpened) { // Проверка, является ли хотя бы один попап открытым
-      document.addEventListener('keydown', handleEscClose); // Если один из попапов открыт, добавляется слушатель и попап закрывается на Esc
-    }
-    return () => {
-      document.removeEventListener('keydown', handleEscClose); // Если попапы закрыты, удаляется слушатель и попап закрывается на Esc
-    };
-  }, [isAnyPopupOpened]);
 
   const tokenCheck = () => { // если у пользователя есть токен в cookie, эта функция проверит валидность токена
     auth.checkToken().then((res) => { // проверим токен
@@ -99,9 +82,12 @@ function App() {
   function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
     mainApi.updateUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
-      closeAllPopups();
+      setResult(true)
     })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+      .catch((err) => {
+        setError('При обновлении профиля произошла ошибка.')
+        console.log(`Ошибка: ${err}`)
+      });
   }
 
   // Получение фильмов с сервера
@@ -122,14 +108,6 @@ function App() {
     }
   }
 
-  // Функции, меняющие состояния попапов (true - открыт, false - закрыт)
-  const handleInfoTooltip = () => {
-    setIsInfoTooltip(true);
-  }
-  const closeAllPopups = () => {
-    setIsInfoTooltip(false);
-    setSelectedCard({});
-  }
   const handleLogin = () => {
     setLoggedIn(true);
   }
@@ -217,15 +195,14 @@ function App() {
                 <Route path={HOME} element={<Main />} /> {/* Главная */}
                 <Route path={MOVIES} element={<Movies loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} />} /> {/* Фильмы */}
                 <Route path={SAVED_MOVIES} element={<SavedMovies loadingError={loadingError} handleDeleteClick={handleDeleteClick} />} /> {/* Сохранённые фильмы */}
-                <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} />} /> {/* Профиль */}
-                <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip}  error={error} setError={setError} />} /> {/* Логин */}
-                <Route path={SIGNUP} element={<Register  handleLogin={handleLogin} onResult={handleResult} onInfoTooltip={handleInfoTooltip} error={error} setError={setError} />} /> {/* Регистрация */}
+                <Route path={PROFILE} element={<Profile onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} />} /> {/* Профиль */}
+                <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Логин */}
+                <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Регистрация */}
               </Routes>
 
               {/* Подвал сайта */}
               {footerClass} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
 
-              {/* <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} result={result} error={error} /> */} {/* Попап результата регистрации */}
             </MoviesContext.Provider>
           </SavedMoviesContext.Provider>
         </CurrentUserContext.Provider>
