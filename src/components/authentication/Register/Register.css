@@ -47,28 +47,16 @@
   border-bottom: 1px solid #3456F3;
 }
 
-.register__form-input:last-of-type {
-  margin-bottom: calc(6px + 12px + 65px);
-}
-
-.register__form-input_error {
-  color: #FF3055;
-  border-bottom: 1px solid #FF3055;
-}
-
-.register__form-input_error:last-of-type {
-  margin-bottom: 0px;
-}
-
 .register__form-error {
   font-size: 10px;
   font-weight: 400;
   color: #FF3055;
-  margin: 6px 0 65px;
+  margin: 4px 0 8px;
 }
 
 .register__button-container {
-  margin-top: 69px;
+  position: relative;
+  margin-top: 134px;
   display: flex;
   flex-shrink: 0;
   justify-content: center;
@@ -91,6 +79,12 @@
 .register__button:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+.register__button:disabled {
+  background-color: rgba(52, 86, 243, 0.8);
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 .register__signup {
@@ -125,9 +119,41 @@
   opacity: 0.7;
 }
 
+.register__form-input_error {
+  color: #FF3055;
+  border-bottom: 1px solid #FF3055;
+}
+
+.register__error-message {
+  background-color: #FF3055;
+  box-sizing: border-box;
+  position: absolute;
+  width: fit-content;
+  color: white;
+  top: -35px;
+
+  font-size: 12px;
+  max-width: 300px;
+  max-height: 22px;
+  padding: 3px 7px;
+  border-radius: 10px;
+}
+
+.register__form-input_error {
+  margin-bottom: 0px;
+}
+
 @media screen and (max-width: 768px) {
   .register__form-input {
     margin-bottom: 25px;
+  }
+
+  .register__form-error {
+    margin: 4px 0 9px;
+  }
+
+  .register__form-input_error {
+    margin-bottom: 0px;
   }
 }
 
@@ -156,7 +182,7 @@
   }
 
   .register__button-container {
-    margin-top: 159px;
+    margin-top: 222px;
   }
 
   .register__signup {
