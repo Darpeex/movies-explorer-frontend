@@ -41,9 +41,11 @@ function App() {
   // Получение сохраненных фильмов с сервера
   useEffect(() => {
     if (loggedIn) {
+      setIsLoading(true); // прелоадер вкл
       mainApi.getMovies() // получаем фильмы с сервера
         .then((data) => {
           setSavedMovies(data); // обновляем сохраненные фильмы
+          setIsLoading(false); // прелоадер выкл
         })
         .catch((err) => console.log(`Ошибка: ${err}`));
     }
@@ -70,9 +72,11 @@ function App() {
   // Получение данных пользователя с сервера
   useEffect(() => {
     if (loggedIn) {
+      setIsLoading(true); // прелоадер вкл
       mainApi.getUserInfo() // Запрос данных пользователя с сервера
         .then((userInfo) => {
           setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
+          setIsLoading(false); // прелоадер выкл
         })
         .catch((err) => console.log(`Ошибка: ${err}`));
     }
@@ -80,8 +84,10 @@ function App() {
 
   // Обновление данных пользователя на сервере
   function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
+    setIsLoading(true); // прелоадер вкл
     mainApi.updateUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
+      setIsLoading(false); // прелоадер выкл
       setResult(true)
     })
       .catch((err) => {
@@ -112,17 +118,21 @@ function App() {
     setLoggedIn(true);
   }
 
+  // добавление и удаление фильмов в разделе Movies
   function handleLikeClick(movie) {
     const isMovieSaved = savedMovies.some(film => film.movieId === movie.id);
     const apiUrl = "https://api.nomoreparties.co";
 
     if (isMovieSaved) { // есть в БД -> удаляем
+      setIsLoading(true); // прелоадер вкл
       const movieBeingDeleted = savedMovies.find((film) => film.movieId === movie.id)
       mainApi.deleteMovie(movieBeingDeleted._id).then(() => {
         setSavedMovies((state) => state.filter((film) => film.movieId !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фильтра
+        setIsLoading(false); // прелоадер выкл
       })
         .catch((err) => console.log(`Ошибка: ${err}`));
     } else if (!isMovieSaved) { // нет в БД -> добавляем
+      setIsLoading(true); // прелоадер вкл
       mainApi.createMovie({
         country: movie.country,
         director: movie.director,
@@ -137,18 +147,22 @@ function App() {
         movieId: movie.id,
       }).then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies]);
+        setIsLoading(false); // прелоадер выкл
       })
         .catch((err) => console.log(`Ошибка: ${err}`));
     }
   }
 
+  // удаление фильмов из SavedMovies
   function handleDeleteClick(movie) {
     const isMovieSaved = savedMovies.some(film => film._id === movie._id);
 
     if (isMovieSaved) { // есть в БД -> удаляем
+      setIsLoading(true); // прелоадер вкл
       const movieBeingDeleted = savedMovies.find((film) => film._id === movie._id)
       mainApi.deleteMovie(movieBeingDeleted._id).then(() => {
         setSavedMovies((state) => state.filter((film) => film._id !== movie._id)); // обновляем savedMovies, удаляем переданный фильм при помощи фильтра
+        setIsLoading(false); // прелоадер выкл
       })
         .catch((err) => console.log(`Ошибка: ${err}`));
     }
@@ -174,8 +188,6 @@ function App() {
     ? <></>
     : <Header location={location} userData={userData} loggedIn={loggedIn} />;
 
-console.log(loggedIn)
-
   // Отрисовка компонентов
   return (
     <div className="App">
@@ -196,13 +208,13 @@ console.log(loggedIn)
                 <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
                 <Route path={HOME} element={<Main />} /> {/* Главная */}
                 <Route path={MOVIES} element={<ProtectedRouteElement
-                  element={Movies} loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} loggedIn={loggedIn} />} 
+                  element={Movies} loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} loggedIn={loggedIn} />}
                 /> {/* Фильмы */} {/* пропсы loggedIn в защещенных роутах нужны, чтобы ProtectedRouteElement взял значение и проверил */}
                 <Route path={SAVED_MOVIES} element={<ProtectedRouteElement
-                  element={SavedMovies} loadingError={loadingError} handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} />} 
+                  element={SavedMovies} loadingError={loadingError} handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} />}
                 /> {/* Сохранённые фильмы */}
                 <Route path={PROFILE} element={<ProtectedRouteElement
-                  element={Profile} onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} loggedIn={loggedIn} />} 
+                  element={Profile} onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} loggedIn={loggedIn} />}
                 /> {/* Профиль */}
                 <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Логин */}
                 <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Регистрация */}
