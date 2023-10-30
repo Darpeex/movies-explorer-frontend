@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-export const Register = ({ onInfoTooltip, onResult, error, setError }) => {
+export const Register = ({ handleLogin, onResult, error, setError }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export const Register = ({ onInfoTooltip, onResult, error, setError }) => {
             const errors = {};
             if (!values.name) {
               errors.name = 'Пожалуйста, введите имя';
-            } else if (!/^[a-zA-Zа-яА-Я\s-]+$/.test(values.name)) {
+            } else if (!/^[a-zA-Zа-яА-ЯёЁ\s-]+$/.test(values.name)) {
               errors.name = "Допустимые символы: латиница, кириллица, пробел и дефис";
             } else if (!(2 <= values.name.length)) {
               errors.name = 'Имя не может быть менее 2 символов';
@@ -45,14 +45,20 @@ export const Register = ({ onInfoTooltip, onResult, error, setError }) => {
             auth.register(values.name, values.password, values.email)
               .then((res) => {
                 onResult(true)
-                navigate('/movies', { replace: true });
+                auth.login(values.password, values.email) // сразу авторизируем и пеернаправляем пользователя на /movies
+                  .then((data) => {
+                    handleLogin();
+                    navigate('/movies', { replace: true });
+                  }).catch(err => {
+                    console.log(err)
+                  });
               })
               .catch((err) => {
                 onResult(false)
                 setError('Email зарегистрирован или данные неверны')
               })
               .finally(() => {
-                onInfoTooltip();
+                setSubmitting(false)
               })
           }}
         >
