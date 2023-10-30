@@ -1,8 +1,8 @@
 // Профиль
 import './Profile.css';
-import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
+import { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../../../context/CurrentUserContext";
 
 export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => { // чтобы проверить работу error, можно убрать из кнопки disabled={!isValid} 
@@ -13,7 +13,8 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
   const [emailError, setEmailValid] = useState(false);
   const [isNameValid, setIsNameValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
-  const currentUser = React.useContext(CurrentUserContext); // Подписка на контекст пользователя
+
+  const currentUser = useContext(CurrentUserContext); // Подписка на контекст пользователя
   const [name, setName] = useState(''); // Состояние имени
   const [email, setEmail] = useState(''); // Состояние описания
   const [initialName, setInitialName] = useState(''); // Имя записанное в БД
@@ -21,7 +22,7 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
   const [isFieldDifferent, setIsFieldDifferent] = useState(false); // Для проверки различия данных в полях
 
   // После загрузки текущего пользователя из API его данные будут использованы в управляемых компонентах.
-  React.useEffect(() => {
+  useEffect(() => {
     setName(currentUser.name ?? ''); // Если имя не успело прийти с сервера - поле пустое
     setEmail(currentUser.email ?? ''); // Если описание не успело прийти с сервера - поле пустое
   }, [currentUser]);  // При изменении контекста пользователя и, если попап меняет своё состояние открытости - состояние имени и описания меняется
@@ -39,7 +40,7 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
     } else { // если ни одно не совпало - валидно
       setIsFieldDifferent(true)
     }
-  }, [name, email, isFieldDifferent]); // отдельные стейты (isValid & setIsFieldDifferent), чтобы с валидностью самых полей не путалось
+  }, [name, email, isFieldDifferent, isEditProfileActive]); // отдельные стейты (isValid & setIsFieldDifferent), чтобы с валидностью самых полей не путалось
 
   useEffect(() => {
     // проверка имени
@@ -82,7 +83,7 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
   // и ошибка не выводится, а так сам стейт непосредственно меняется и выводится - как есть на данный момент
 
   const handleEditProfile = () => { // кнопка редактировать
-    setIsEditProfileActive(true);
+    setIsEditProfileActive(!isEditProfileActive);
   }
 
   function handleNameChange(e) { // Следим за изменениями в поле name и подставляем в стейт
@@ -95,7 +96,7 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
   const handleSubmit = (evt) => { // отправка формы
     evt.preventDefault(); // Запрещаем браузеру переходить по адресу формы
     onUpdateUser({ name, email }); // Передаём значения управляемых компонентов во внешний обработчик
-    setIsValid(false); // сразу устанавливаем false
+    setIsFieldDifferent(false); // сразу устанавливаем false
 
     if (result === true) {
       setShowMessage(true);
@@ -158,6 +159,9 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
             {isEditProfileActive && !isValid && (emailError !== '') && <span className="profile__error-text">{emailError}</span>}
             {isEditProfileActive && <button type="submit" disabled={!isValid || !isFieldDifferent} className={`profile__button profile__saved-button ${!isValid || !isFieldDifferent ? "profile__saved-button_inactive" : ""}`} >
               Сохранить
+            </button>}
+            {isEditProfileActive && <button className="profile__navigate-button" type="button" onClick={handleEditProfile}> {/* намеренно не '() => navigate(-1)' */}
+              Назад
             </button>}
           </div>
         </form>

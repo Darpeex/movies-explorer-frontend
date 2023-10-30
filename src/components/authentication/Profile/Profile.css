@@ -131,6 +131,20 @@
   border-radius: 10px;
 }
 
+.profile__navigate-button {
+  padding: 0;
+  border: none;
+  font-size: 14px;
+  color: #3456F3;
+  background: transparent;
+  margin-top: 20px;
+}
+
+.profile__navigate-button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .profile {
     margin: 236px auto 70px;
@@ -170,5 +184,9 @@
 
   .profile__saved-button {
     width: 260px;
+  }
+
+  .profile__navigate-button {
+    font-size: 12px;
   }
 }
