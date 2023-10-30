@@ -40,7 +40,7 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
     } else { // если ни одно не совпало - валидно
       setIsFieldDifferent(true)
     }
-  }, [name, email, isFieldDifferent, isEditProfileActive]); // отдельные стейты (isValid & setIsFieldDifferent), чтобы с валидностью самых полей не путалось
+  }, [name, email, initialName, initialEmail, isFieldDifferent, isEditProfileActive]); // отдельные стейты (isValid & setIsFieldDifferent), чтобы с валидностью самых полей не путалось
 
   useEffect(() => {
     // проверка имени
@@ -97,7 +97,9 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
     evt.preventDefault(); // Запрещаем браузеру переходить по адресу формы
     onUpdateUser({ name, email }); // Передаём значения управляемых компонентов во внешний обработчик
     setIsFieldDifferent(false); // сразу устанавливаем false
+  }
 
+  useEffect(() => {
     if (result === true) {
       setShowMessage(true);
       const timer = setTimeout(() => { // запускаем таймер, который скроет сообщение через 3 секунды
@@ -108,7 +110,7 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
         clearTimeout(timer);
       };
     }
-  }
+  }, [result]);
 
   const handleSignout = () => { // выходим, удаляем токен и чистим localStorage
     handleDeleteTocken();

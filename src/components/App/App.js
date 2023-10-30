@@ -31,8 +31,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState('');
+  const [result, setResult] = useState(false);
   const [movies, setMovies] = useState([]);
-  const [result, setResult] = useState('');
   const [error, setError] = useState('');
 
   const location = useLocation(); // Возвращает объект location, представляющий текущий URL
@@ -174,7 +174,6 @@ function App() {
     setLoggedIn(false);
     setUserData({});
   }
-
   // Получаем результат запроса на регистрацию
   const handleResult = setResult;
 
