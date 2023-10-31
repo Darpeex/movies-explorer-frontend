@@ -1,6 +1,6 @@
 // Профиль
 import './Profile.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
 import { useEffect, useState, useContext } from "react";
 import { CurrentUserContext } from "../../../context/CurrentUserContext";
@@ -154,7 +154,7 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
             {!isEditProfileActive && <button type="button" className="profile__button profile__edit-button" onClick={handleEditProfile}>Редактировать</button>}
             {!isEditProfileActive && <Link to={ROUTES.HOME} className="profile__button profile__signout-button" onClick={handleSignout}>Выйти из аккаунта</Link>}
 
-            {showMessage && <span className="profile__result-text">Данные успешно обновлены</span>}
+            {isEditProfileActive && showMessage && <span className="profile__result-text">Данные успешно обновлены</span>}
             {isEditProfileActive && !isValid && (error !== '') && <span className="profile__error-text">{error}</span>}
             {isEditProfileActive && !isValid && (nameError !== '') && <span className="profile__error-text">{nameError}</span>}
             {isEditProfileActive && !isValid && (emailError !== '') && <span className="profile__error-text">{emailError}</span>}

@@ -93,16 +93,20 @@ function App() {
 
   // Обновление данных пользователя на сервере
   function handleUpdateUser({ name, email }) { // данные берутся из инпутов после отправки формы (submit)
+    setResult(false)
     setIsLoading(true); // прелоадер вкл
     mainApi.updateUserInfo({ name, email }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
       setResult(true)
     })
       .catch((err) => {
-        setError('При обновлении профиля произошла ошибка.')
+        setResult(false)
         console.log(`Ошибка: ${err}`)
+        setError('При обновлении профиля произошла ошибка.')
       })
-      .finally(() => setIsLoading(false)); // прелоадер выкл;
+      .finally(() => {
+        setIsLoading(false)
+      }); // прелоадер выкл;
   }
 
   // Получение фильмов с сервера
