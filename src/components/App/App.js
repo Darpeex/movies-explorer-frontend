@@ -1,8 +1,8 @@
 import '../../index.css'; // Стили
-import { ROUTES } from '../../constants/constants';
 import Cookies from 'js-cookie'; // Импорт Cookies
+import { ROUTES } from '../../constants/constants';
 import React, { useState, useEffect } from 'react'; // Библиотеки реакт
-import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom'; // Routes для роутов
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom'; // Routes для роутов
 
 import { ProtectedRouteElement } from "../shared/ProtectedRoute"; // импортируем HOC
 import { moviesApi } from '../../utils/MoviesApi'; // Запросы на сервер
@@ -25,7 +25,7 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function App() {
   const [loadingError, setloadingError] = useState(null);
-  const [selectedCard, setSelectedCard] = useState({});
+  const [appIsReady, setAppIsReady] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +36,6 @@ function App() {
   const [error, setError] = useState('');
 
   const location = useLocation(); // Возвращает объект location, представляющий текущий URL
-  const navigate = useNavigate(); // Создаёт функцию, которая помогает пользователю перейти на определенную страницу
 
   // Получение сохраненных фильмов с сервера
   useEffect(() => {
@@ -59,14 +58,18 @@ function App() {
         }
         setLoggedIn(true); // авторизуем пользователя
         setUserData(userData)
-        navigate("/movies", { replace: true })
       }
-    }).catch((err) => console.log(`Ошибка: ${err}`));
+    }).catch((err) => {
+      setAppIsReady(true) // сделано для предотвращения перехода по ProtectedRoute при обновлении стр.
+      console.log(`Ошибка: ${err}`)
+    });
   }
 
   // Проверка наличия токена у пользователя
   useEffect(() => {
-    tokenCheck();
+    if (loggedIn !== true) { // Проверяем, что пользователь не авторизован, прежде чем выполнять проверку токена
+      tokenCheck();
+    }
   }, [loggedIn])
 
   // Получение данных пользователя с сервера
@@ -74,7 +77,8 @@ function App() {
     if (loggedIn) {
       setIsLoading(true); // прелоадер вкл
       mainApi.getUserInfo() // Запрос данных пользователя с сервера
-        .then((userInfo) => {
+        .then((userInfo) => { // данные от пользователя получены
+          setAppIsReady(true) // сделано для предотвращения перехода по ProtectedRoute при обновлении стр.
           setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
           setIsLoading(false); // прелоадер выкл
         })
@@ -171,9 +175,11 @@ function App() {
   // Удаляем токен из браузерного хранилища  
   function handleDeleteTocken() {
     Cookies.remove('jwt');
+    localStorage.clear();
     setLoggedIn(false);
     setUserData({});
   }
+
   // Получаем результат запроса на регистрацию
   const handleResult = setResult;
 
@@ -189,44 +195,48 @@ function App() {
 
   // Отрисовка компонентов
   return (
-    <div className="App">
-      <div className="page">
-        {/* Оборачиваем в провайдер всё содержимое */}
-        <CurrentUserContext.Provider value={currentUser}> {/* глобальный контекст становится доступен всем компонентам */}
-          <SavedMoviesContext.Provider value={savedMovies} > {/* больше 2-х уровней - много для пробрасывания говорят */}
-            <MoviesContext.Provider value={movies} >
-              {/* Шапка сайта */}
-              {headerClass}
+    !appIsReady ? (
+      <Preloader /> // Отображение прелоадера, если данные пользователя ещё не пришли
+    ) : (
+      <div className="App">
+        <div className="page">
+          {/* Оборачиваем в провайдер всё содержимое */}
+          <CurrentUserContext.Provider value={currentUser}> {/* глобальный контекст становится доступен всем компонентам */}
+            <SavedMoviesContext.Provider value={savedMovies} > {/* больше 2-х уровней - много для пробрасывания говорят */}
+              <MoviesContext.Provider value={movies} >
+                {/* Шапка сайта */}
+                {headerClass}
 
-              {/* Прелоадер */}
-              {isLoading && <Preloader />}
+                {/* Прелоадер */}
+                {isLoading && <Preloader />}
 
-              {/* Основное содержимое страницы */}
-              <Routes>
-                <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
-                <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
-                <Route path={HOME} element={<Main />} /> {/* Главная */}
-                <Route path={MOVIES} element={<ProtectedRouteElement
-                  element={Movies} loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} loggedIn={loggedIn} />}
-                /> {/* Фильмы */} {/* пропсы loggedIn в защещенных роутах нужны, чтобы ProtectedRouteElement взял значение и проверил */}
-                <Route path={SAVED_MOVIES} element={<ProtectedRouteElement
-                  element={SavedMovies} loadingError={loadingError} handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} />}
-                /> {/* Сохранённые фильмы */}
-                <Route path={PROFILE} element={<ProtectedRouteElement
-                  element={Profile} onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} loggedIn={loggedIn} />}
-                /> {/* Профиль */}
-                <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Логин */}
-                <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Регистрация */}
-              </Routes>
+                {/* Основное содержимое страницы */}
+                <Routes>
+                  <Route path={UNKNOWN} element={<Navigate to={ERROR} replace />} /> {/* Неизвестный путь */}
+                  <Route path={ERROR} element={<ErrorPage />} /> {/* Стравница с ошибкой */}
+                  <Route path={HOME} element={<Main />} /> {/* Главная */}
+                  <Route path={MOVIES} element={<ProtectedRouteElement
+                    element={Movies} loadMovies={loadMovies} loadingError={loadingError} handleLikeClick={handleLikeClick} loggedIn={loggedIn} />}
+                  /> {/* Фильмы */} {/* пропсы loggedIn в защещенных роутах нужны, чтобы ProtectedRouteElement взял значение и проверил */}
+                  <Route path={SAVED_MOVIES} element={<ProtectedRouteElement
+                    element={SavedMovies} loadingError={loadingError} handleDeleteClick={handleDeleteClick} loggedIn={loggedIn} />}
+                  /> {/* Сохранённые фильмы */}
+                  <Route path={PROFILE} element={<ProtectedRouteElement
+                    element={Profile} onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} loggedIn={loggedIn} />}
+                  /> {/* Профиль */}
+                  <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Логин */}
+                  <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Регистрация */}
+                </Routes>
 
-              {/* Подвал сайта */}
-              {footerClass} {/* Если у нас не Профиль, Логин, Регистр - не отрисовывать */}
+                {/* Подвал сайта */}
+                {footerClass} {/* Если у нас не Profile, Login, Registr - не отрисовывать */}
 
-            </MoviesContext.Provider>
-          </SavedMoviesContext.Provider>
-        </CurrentUserContext.Provider>
-      </div>
-    </div >
+              </MoviesContext.Provider>
+            </SavedMoviesContext.Provider>
+          </CurrentUserContext.Provider>
+        </div>
+      </div >
+    )
   );
 }
 
