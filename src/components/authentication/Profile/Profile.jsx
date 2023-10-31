@@ -154,8 +154,8 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
             {!isEditProfileActive && <button type="button" className="profile__button profile__edit-button" onClick={handleEditProfile}>Редактировать</button>}
             {!isEditProfileActive && <Link to={ROUTES.HOME} className="profile__button profile__signout-button" onClick={handleSignout}>Выйти из аккаунта</Link>}
 
-            {isEditProfileActive && showMessage && <span className="profile__result-text">Данные успешно обновлены</span>}
-            {isEditProfileActive && !isValid && (error !== '') && <span className="profile__error-text">{error}</span>}
+            {isEditProfileActive &&(error === '') && showMessage &&  <span className="profile__result-text">Данные успешно обновлены</span>}
+            {isEditProfileActive && (error !== '') && <span className="profile__error-text">{error}</span>}
             {isEditProfileActive && !isValid && (nameError !== '') && <span className="profile__error-text">{nameError}</span>}
             {isEditProfileActive && !isValid && (emailError !== '') && <span className="profile__error-text">{emailError}</span>}
             {isEditProfileActive && <button type="submit" disabled={!isValid || !isFieldDifferent} className={`profile__button profile__saved-button ${!isValid || !isFieldDifferent ? "profile__saved-button_inactive" : ""}`} >

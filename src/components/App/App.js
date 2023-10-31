@@ -93,6 +93,7 @@ function App() {
 
   // Обновление данных пользователя на сервере
   function handleUpdateUser({ name, email }) { // данные берутся из инпутов после отправки формы (submit)
+    setError('')
     setResult(false)
     setIsLoading(true); // прелоадер вкл
     mainApi.updateUserInfo({ name, email }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
