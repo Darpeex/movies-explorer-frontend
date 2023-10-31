@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'; // зависимость для взаимодействия с cookie
-export const BASE_URL = 'http://localhost:3000';
-// export const BASE_URL = 'https://api.diploma.darpeex.nomoredomainsrocks.ru';
+// export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'https://api.diploma.darpeex.nomoredomainsrocks.ru';
 
 // Проверка статуса запроса 
 function handleResponse(res) {
