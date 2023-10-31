@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import * as auth from '../../../utils/Auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik'; // критерия по запрету использования не нашёл
 
 export const Register = ({ handleLogin, onResult, error, setError }) => {
   const [isFormValid, setIsFormValid] = useState(false);
