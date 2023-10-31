@@ -1,7 +1,6 @@
 // Компонент SavedMoviesCard
 import './SavedMoviesCard.css';
-import React from "react";
-import { Card } from '../../shared/Card/Card';
+import { Card } from '../../template/Card/Card';
 
 export function SavedMoviesCard({ movie, handleDeleteClick }) {
   const image = movie.image // т.к. у карточек сервера и сохранённых разная запись картинке в объектах

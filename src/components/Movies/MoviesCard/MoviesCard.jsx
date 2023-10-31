@@ -1,12 +1,12 @@
 // Компонент MoviesCard
 import './MoviesCard.css';
-import React, { useEffect, useState } from "react";
-import { Card } from '../../shared/Card/Card';
+import { Card } from '../../template/Card/Card';
+import { useEffect, useState, useContext } from "react";
 import { SavedMoviesContext } from '../../../context/SavedMoviesContext';
 
 export function MoviesCard({ movie, handleLikeClick }) {
   const image = `https://api.nomoreparties.co${movie.image.url}` // т.к. у карточек сервера и сохранённых разная запись картинке в объектах
-  const savedMovies = React.useContext(SavedMoviesContext)
+  const savedMovies = useContext(SavedMoviesContext)
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 // Раздел для карточек с фильмами
 import './MoviesCardList.css';
-import React from 'react';
 import { MoviesCard } from '../MoviesCard/MoviesCard';
 
 export function MoviesCardList({ onCardLike, moviesToShow, handleLikeClick }) {
