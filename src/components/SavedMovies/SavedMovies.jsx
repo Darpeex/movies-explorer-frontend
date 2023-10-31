@@ -2,7 +2,7 @@
 import './SavedMovies.css';
 import React, { useState } from 'react';
 import { SearchForm } from '../Movies/SearchForm/SearchForm';
-import { MoviesCardList } from '../SavedMovies/MoviesCardList/MoviesCardList';
+import { SavedMoviesCardList } from '../SavedMovies/SavedMoviesCardList/SavedMoviesCardList';
 import { SavedMoviesContext } from '../../context/SavedMoviesContext';
 
 export function SavedMovies({ loadingError, handleDeleteClick }) {
@@ -21,7 +21,7 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
   return (
     <main className="content">
       <SearchForm initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} setIsChecked={setIsChecked} />
-      {errorСonditionsMovies && <MoviesCardList savedMovies={savedMovies} handleDeleteClick={handleDeleteClick} />}
+      {errorСonditionsMovies && <SavedMoviesCardList savedMovies={savedMovies} handleDeleteClick={handleDeleteClick} />}
       {errorСonditionsAdittionalBlock && <div className="content__additional-block">
         {!movieFound && <p className="content__additional-block_result_empty">Ничего не найдено</p>}
       </div>}
