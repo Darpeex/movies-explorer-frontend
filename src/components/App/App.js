@@ -128,6 +128,7 @@ function App() {
     }
   }
 
+  // установка состояния авторизации
   const handleLogin = () => {
     setLoggedIn(true);
   }
