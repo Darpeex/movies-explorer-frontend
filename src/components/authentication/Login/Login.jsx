@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-export const Login = ({ handleLogin, onResult, error, setError }) => {
+export const Login = ({ handleLogin, onResult, error, setError, setIsLoading }) => {
   const navigate = useNavigate();
 
   return (
@@ -24,7 +24,7 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
             }
             if (!values.password) {
               errors.password = 'Пожалуйста, введите пароль';
-            } else if (!(values.password.length < 8)) {
+            } else if (!(8 <= values.password.length)) {
               errors.password = 'Длина пароля не меньше 8 символов';
             }
             setError('')
@@ -32,6 +32,7 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
           }}
           validateOnMount // включение проверки при загрузке страницы
           onSubmit={(values, { setSubmitting }) => {
+            setIsLoading(true)
             auth.login(values.password, values.email)
               .then((res) => {
                 onResult(true)
@@ -43,6 +44,7 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
                 console.log(err)
               })
               .finally(() => {
+                setIsLoading(false)
                 setSubmitting(false)
               })
           }}

@@ -44,12 +44,11 @@ function App() {
       mainApi.getMovies() // получаем фильмы с сервера
         .then((data) => {
           setSavedMovies(data); // обновляем сохраненные фильмы
-          setIsLoading(false); // прелоадер выкл
         })
         .catch((err) => {
-          setIsLoading(false); // прелоадер выкл
           console.log(`Ошибка: ${err}`)
-        });
+        })
+        .finally(() => setIsLoading(false)); // прелоадер выкл;
     }
   }, [loggedIn]);
 
@@ -63,10 +62,10 @@ function App() {
         setUserData(userData)
       }
     }).catch((err) => {
-      setIsLoading(false); // прелоадер выкл
       setAppIsReady(true) // сделано для предотвращения перехода по ProtectedRoute при обновлении стр.
       console.log(`Ошибка: ${err}`)
-    });
+    })
+      .finally(() => setIsLoading(false)); // прелоадер выкл;
   }
 
   // Проверка наличия токена у пользователя
@@ -84,12 +83,11 @@ function App() {
         .then((userInfo) => { // данные от пользователя получены
           setAppIsReady(true) // сделано для предотвращения перехода по ProtectedRoute при обновлении стр.
           setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
-          setIsLoading(false); // прелоадер выкл
         })
         .catch((err) => {
-          setIsLoading(false); // прелоадер выкл
           console.log(`Ошибка: ${err}`)
-        });
+        })
+        .finally(() => setIsLoading(false)); // прелоадер выкл;
     }
   }, [loggedIn]);
 
@@ -98,14 +96,13 @@ function App() {
     setIsLoading(true); // прелоадер вкл
     mainApi.updateUserInfo({ name, email }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
-      setIsLoading(false); // прелоадер выкл
       setResult(true)
     })
       .catch((err) => {
-        setIsLoading(false); // прелоадер выкл
         setError('При обновлении профиля произошла ошибка.')
         console.log(`Ошибка: ${err}`)
-      });
+      })
+      .finally(() => setIsLoading(false)); // прелоадер выкл;
   }
 
   // Получение фильмов с сервера
@@ -140,12 +137,11 @@ function App() {
       const movieBeingDeleted = savedMovies.find((film) => film.movieId === movie.id)
       mainApi.deleteMovie(movieBeingDeleted._id).then(() => {
         setSavedMovies((state) => state.filter((film) => film.movieId !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фильтра
-        setIsLoading(false); // прелоадер выкл
       })
         .catch((err) => {
-          setIsLoading(false); // прелоадер выкл
           console.log(`Ошибка: ${err}`)
-        });
+        })
+        .finally(() => setIsLoading(false)); // прелоадер выкл;
     } else if (!isMovieSaved) { // нет в БД -> добавляем
       setIsLoading(true); // прелоадер вкл
       mainApi.createMovie({
@@ -162,12 +158,11 @@ function App() {
         movieId: movie.id,
       }).then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies]);
-        setIsLoading(false); // прелоадер выкл
       })
         .catch((err) => {
-          setIsLoading(false); // прелоадер выкл
           console.log(`Ошибка: ${err}`)
-        });
+        })
+        .finally(() => setIsLoading(false)); // прелоадер выкл;
     }
   }
 
@@ -180,12 +175,11 @@ function App() {
       const movieBeingDeleted = savedMovies.find((film) => film._id === movie._id)
       mainApi.deleteMovie(movieBeingDeleted._id).then(() => {
         setSavedMovies((state) => state.filter((film) => film._id !== movie._id)); // обновляем savedMovies, удаляем переданный фильм при помощи фильтра
-        setIsLoading(false); // прелоадер выкл
       })
         .catch((err) => {
-          setIsLoading(false); // прелоадер выкл
           console.log(`Ошибка: ${err}`)
-        });
+        })
+        .finally(() => setIsLoading(false)); // прелоадер выкл;
     }
   }
 
@@ -241,8 +235,8 @@ function App() {
                   <Route path={PROFILE} element={<ProtectedRouteElement
                     element={Profile} onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} loggedIn={loggedIn} />}
                   /> {/* Профиль */}
-                  <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Логин */}
-                  <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} />} /> {/* Регистрация */}
+                  <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} setIsLoading={setIsLoading} />} /> {/* Логин */}
+                  <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} setIsLoading={setIsLoading} />} /> {/* Регистрация */}
                 </Routes>
 
                 {/* Подвал сайта */}

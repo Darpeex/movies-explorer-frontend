@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
 import { Formik, Form, Field, ErrorMessage } from 'formik'; // критерия по запрету использования не нашёл
 
-export const Register = ({ handleLogin, onResult, error, setError }) => {
+export const Register = ({ handleLogin, onResult, error, setError, setIsLoading }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export const Register = ({ handleLogin, onResult, error, setError }) => {
               errors.name = 'Пожалуйста, введите имя';
             } else if (!/^[a-zA-Zа-яА-ЯёЁ\s-]+$/.test(values.name)) {
               errors.name = "Допустимые символы: латиница, кириллица, пробел и дефис";
-            } else if (values.name.length < 2) {
+            } else if (!(2 <= values.name.length)) {
               errors.name = 'Имя не может быть менее 2 символов';
             } else if ((values.name.length >= 30)) {
               errors.name = 'Имя не может быть более 30 символов';
@@ -44,6 +44,7 @@ export const Register = ({ handleLogin, onResult, error, setError }) => {
           }}
           validateOnMount // включение проверки при загрузке страницы
           onSubmit={(values, { setSubmitting }) => {
+            setIsLoading(true)
             auth.register(values.name, values.password, values.email)
               .then((res) => {
                 onResult(true)
@@ -53,13 +54,14 @@ export const Register = ({ handleLogin, onResult, error, setError }) => {
                     navigate(ROUTES.MOVIES, { replace: true });
                   }).catch(err => {
                     console.log(err)
-                  });
+                  }).finally(() => setIsLoading(false));
               })
               .catch((err) => {
                 onResult(false)
                 setError('Email зарегистрирован или данные неверны')
               })
               .finally(() => {
+                setIsLoading(false)
                 setSubmitting(false)
               })
           }}
