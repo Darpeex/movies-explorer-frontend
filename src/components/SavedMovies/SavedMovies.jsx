@@ -7,18 +7,19 @@ import { SavedMoviesCardList } from '../SavedMovies/SavedMoviesCardList/SavedMov
 
 export function SavedMovies({ loadingError, handleDeleteClick }) {
   const savedMovies = useContext(SavedMoviesContext); // сохранённые фильмы +
-  const [initialMovies, setInitialMovies] = useState([]); // все найденые фильмы по запросу
-  const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованное чекбоксом
+  const [isStorageMoviesInstalled, setIsStorageMoviesInstalled] = useState(false); // установились ли фильмы из локального хранилища? +
+  const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованное чекбоксом +
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе +
+  const [initialMovies, setInitialMovies] = useState([]); // все найденые фильмы по запросу +
   const [moviesToShow, setMoviesToShow] = useState([]); // фильмы, которые должны отрисоваться +
-  const [movieFound, setMovieFound] = useState(true); // найдены ли фильмы по запросу?
+  const [movieFound, setMovieFound] = useState(true); // найдены ли фильмы по запросу? +
   const [isChecked, setIsChecked] = useState(false); // нажат чексбокс или нет +
   const [onSubmit, setOnSubmit] = useState(false); // отслеживаем вызов submit поиска +
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации +
   const [value, setValue] = useState(""); // состояние введенной информации +
 
   useEffect(() => { // устанавливаем фильмы найденные и отфильтрованные (filteredMovies) или найденные (initialMovies)
-    if (filteredMovies.length > 0) {
+    if (isChecked) {
       setMoviesToShow(filteredMovies);
     } else {
       setMoviesToShow(initialMovies);
@@ -35,8 +36,10 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
     }
   }
 
-  useEffect(() => {
-    filmsProcessing();
+  useEffect(() => { // функция не будет вызвана, пока данные не загрузятся из localStorage
+    if (isStorageMoviesInstalled === true) { // нужно для того, чтобы не перебило стейт при перезагрузке
+      filmsProcessing();
+    }
   }, [savedMovies]);
 
   function handleSubmitForm(e) { // проверяем пустое ли поле по клику
@@ -87,7 +90,8 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
   useEffect(() => { // извлекаем последнее состояние чекбокса из localStorage 
     const localIsChecked = JSON.parse(localStorage.getItem('savedMoviesIsChecked'));
     if (localIsChecked !== null) {
-      setIsChecked(localIsChecked)
+      setIsChecked(localIsChecked);
+      setIsStorageMoviesInstalled(true);
     }
   }, []);
 
