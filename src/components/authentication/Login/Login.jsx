@@ -1,13 +1,14 @@
 import './Login.css';
-import React from 'react';
+import React, { useState } from 'react';
 import * as auth from '../../../utils/Auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
 import { Formik, Form, Field, ErrorMessage } from 'formik'; // критерия по запрету использования не нашёл, Profile форма - без сторонних библиотек
 
 export const Login = ({ handleLogin, onResult, error, setError, setIsLoading }) => {
+  const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
-
+  
   return (
     <main>
       <section className="login">
@@ -27,6 +28,7 @@ export const Login = ({ handleLogin, onResult, error, setError, setIsLoading }) 
             } else if (!(8 <= values.password.length)) {
               errors.password = 'Длина пароля не меньше 8 символов';
             }
+            setIsFormValid(Object.keys(errors).length === 0);
             setError('')
             return errors;
           }}
@@ -64,7 +66,7 @@ export const Login = ({ handleLogin, onResult, error, setError, setIsLoading }) 
 
               <div className="login__button-container">
                 {(error !== '') && <span className="login__error-message">{error}</span>}
-                <button type="submit" className="login__button" disabled={isSubmitting}>
+                <button type="submit" className="login__button" disabled={isSubmitting || !isFormValid}>
                   Войти
                 </button>
               </div>
