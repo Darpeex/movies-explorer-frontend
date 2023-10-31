@@ -46,7 +46,10 @@ function App() {
           setSavedMovies(data); // обновляем сохраненные фильмы
           setIsLoading(false); // прелоадер выкл
         })
-        .catch((err) => console.log(`Ошибка: ${err}`));
+        .catch((err) => {
+          setIsLoading(false); // прелоадер выкл
+          console.log(`Ошибка: ${err}`)
+        });
     }
   }, [loggedIn]);
 
@@ -60,6 +63,7 @@ function App() {
         setUserData(userData)
       }
     }).catch((err) => {
+      setIsLoading(false); // прелоадер выкл
       setAppIsReady(true) // сделано для предотвращения перехода по ProtectedRoute при обновлении стр.
       console.log(`Ошибка: ${err}`)
     });
@@ -82,19 +86,23 @@ function App() {
           setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
           setIsLoading(false); // прелоадер выкл
         })
-        .catch((err) => console.log(`Ошибка: ${err}`));
+        .catch((err) => {
+          setIsLoading(false); // прелоадер выкл
+          console.log(`Ошибка: ${err}`)
+        });
     }
   }, [loggedIn]);
 
   // Обновление данных пользователя на сервере
-  function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
+  function handleUpdateUser({ name, email }) { // данные берутся из инпутов после отправки формы (submit)
     setIsLoading(true); // прелоадер вкл
-    mainApi.updateUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
+    mainApi.updateUserInfo({ name, email }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
       setIsLoading(false); // прелоадер выкл
       setResult(true)
     })
       .catch((err) => {
+        setIsLoading(false); // прелоадер выкл
         setError('При обновлении профиля произошла ошибка.')
         console.log(`Ошибка: ${err}`)
       });
@@ -111,9 +119,9 @@ function App() {
         setloadingError(null); // если всё прошло успешно, очищаем ошибку
         setIsLoading(false); // прелоадер выкл
       } catch (err) {
+        setIsLoading(false); // прелоадер выкл
         console.log(`Ошибка: ${err}`)
         setloadingError("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
-        setIsLoading(false); // прелоадер выкл
       }
     }
   }
@@ -134,7 +142,10 @@ function App() {
         setSavedMovies((state) => state.filter((film) => film.movieId !== movie.id)); // обновляем savedMovies, удаляем переданный фильм при помощи фильтра
         setIsLoading(false); // прелоадер выкл
       })
-        .catch((err) => console.log(`Ошибка: ${err}`));
+        .catch((err) => {
+          setIsLoading(false); // прелоадер выкл
+          console.log(`Ошибка: ${err}`)
+        });
     } else if (!isMovieSaved) { // нет в БД -> добавляем
       setIsLoading(true); // прелоадер вкл
       mainApi.createMovie({
@@ -153,7 +164,10 @@ function App() {
         setSavedMovies([newMovie, ...savedMovies]);
         setIsLoading(false); // прелоадер выкл
       })
-        .catch((err) => console.log(`Ошибка: ${err}`));
+        .catch((err) => {
+          setIsLoading(false); // прелоадер выкл
+          console.log(`Ошибка: ${err}`)
+        });
     }
   }
 
@@ -168,7 +182,10 @@ function App() {
         setSavedMovies((state) => state.filter((film) => film._id !== movie._id)); // обновляем savedMovies, удаляем переданный фильм при помощи фильтра
         setIsLoading(false); // прелоадер выкл
       })
-        .catch((err) => console.log(`Ошибка: ${err}`));
+        .catch((err) => {
+          setIsLoading(false); // прелоадер выкл
+          console.log(`Ошибка: ${err}`)
+        });
     }
   }
 
