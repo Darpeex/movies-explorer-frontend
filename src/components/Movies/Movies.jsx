@@ -1,7 +1,8 @@
 // Раздел с фильмами
 import './Movies.css';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { SearchForm } from './SearchForm/SearchForm';
+import { MoviesContext } from '../../context/MoviesContext';
 import { MoviesCardList } from './MoviesCardList/MoviesCardList';
 
 export function Movies({ loadMovies, loadingError, handleLikeClick }) {
@@ -12,6 +13,11 @@ export function Movies({ loadMovies, loadingError, handleLikeClick }) {
   const [moviesToShow, setMoviesToShow] = useState([]); // фильмы, которые должны отрисоваться
   const [onSubmit, setOnSubmit] = useState(false); // отслеживаем вызов submit поиска
   const [isChecked, setIsChecked] = useState(false); // нажат чексбокс или нет
+  
+  const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
+  const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
+  const [value, setValue] = useState(""); // состояние введенной информации
+  const movies = useContext(MoviesContext);
 
   useEffect(() => { // устанавливаем фильмы найденные и отфильтрованные (filteredMovies) или найденные (initialMovies)
     if (filteredMovies.length > 0) {
@@ -96,6 +102,95 @@ export function Movies({ loadMovies, loadingError, handleLikeClick }) {
     }
   }, []);
 
+  // 
+
+  useEffect(() => { // извлекаем последний текст запроса из localStorage 
+    const localValue = JSON.parse(localStorage.getItem('value'));
+    if (localValue !== null && localValue !== undefined) {
+      setValue(localValue)
+    }
+  }, []);
+
+  useEffect(() => { // извлекаем последний список фильмов из localStorage
+    const localMovies = JSON.parse(localStorage.getItem('movies'));
+    if (localMovies !== null && localMovies !== undefined) {
+      setInitialMovies(localMovies)
+    }
+  }, []);
+
+  useEffect(() => { // нужно проверить поле после вывода ошибки
+    if (value !== "") { // чтобы после ввода текста сообщение убиралось*
+      setIsEmpty(false)
+    }
+  }, [value]);
+
+  function handleValueChange(e) { // по событию на элементе устанавливаем значение value
+    setValue(e.target.value); // чтобы взять значение из поля value*
+  }
+
+  const filmsProcessing = (data) => {
+    setOnSubmit(!onSubmit) // меняем состояние, при нажатии на кнопку
+    const foundMovies = searchMovies(data); // функция обратного вызова, которая будет вызвана после успешной загрузки фильмов
+    setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
+    setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
+    if (foundMovies !== null && foundMovies !== undefined) {
+      localStorage.setItem('movies', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
+    }
+  }
+
+  function handleSubmitForm(e) { // проверяем пустое ли поле по клику
+    e.preventDefault();
+    if (value === "") {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+      if (value !== null && value !== undefined) {
+        localStorage.setItem('value', JSON.stringify(value)); // сохраняем текст запроса в localStorage
+      }
+      if (movies.length === 0) { // проверяем, ести ли фильмы в массиве
+        loadMovies((moviesInfo) => {
+          filmsProcessing(moviesInfo)
+        });
+      } else {
+        filmsProcessing(movies)
+      }
+    }
+  }
+
+  const searchMovies = (movies) => { // функция поиска фильмов по введенному запросу
+    const foundMovies = movies.filter(movie => { // фильтруем фильмы по названию
+      const title = movie.nameRU || movie.nameEN;
+      return title.toLowerCase().includes(value.toLowerCase())
+    });
+    return foundMovies;
+  }
+
+  // из filterBox
+  useEffect(() => { // извлекаем последнее состояние чекбокса из localStorage 
+    const localIsChecked = JSON.parse(localStorage.getItem('isChecked'));
+    if (localIsChecked !== null) {
+      setIsChecked(localIsChecked)
+    }
+  }, []);
+
+  const handleOnChange = (e) => { // при нажатии
+    const checkboxEvent = e.target.checked // нужен, потому что иначе событие не успевает записаться, а так записывается одно и то же
+    setIsChecked(checkboxEvent); // меняем значение чекбокса на противоположное
+    if (checkboxEvent !== null && checkboxEvent !== undefined) {
+      localStorage.setItem('isChecked', JSON.stringify(checkboxEvent)); // сохраняем состояние чекбокса в localStorage
+    }
+  }
+
+  useEffect(() => {
+    if (isChecked) {
+      const shortMovies = initialMovies.filter(movie => movie.duration <= 40); // короткометражки - менее 40мин включительно
+      setFilteredMovies(shortMovies); // отсортированные фильмы
+    } else {
+      return setFilteredMovies(initialMovies); // фильмы, полученные при поиске
+    }
+  }, [isChecked, initialMovies]); // запутанно, но только сейчас заработало
+  //
+
   const errorConditions = loadingError || (loadingError !== null) || !movieFound; // условия, при которых не показываются другие блоки
   const additionalBlockConditions = movieFound && !moreMovies // обязательные условия, при которых показываться доп. блок
 
@@ -105,7 +200,7 @@ export function Movies({ loadMovies, loadingError, handleLikeClick }) {
 
   return (
     <main className="content">
-      <SearchForm loadMovies={loadMovies} initialMovies={initialMovies} setInitialMovies={setInitialMovies} setFilteredMovies={setFilteredMovies} setMovieFound={setMovieFound} onSubmit={onSubmit} setOnSubmit={setOnSubmit} isChecked={isChecked} setIsChecked={setIsChecked} />
+      <SearchForm handleSubmitForm={handleSubmitForm} value={value} setInputFocus={setInputFocus} handleValueChange={handleValueChange} isInputFocused={isInputFocused} isEmpty={isEmpty} isChecked={isChecked} handleOnChange={handleOnChange} />
       {errorСonditionsMovies && <MoviesCardList moviesToShow={moviesToShow} handleLikeClick={handleLikeClick} />}
       {errorСonditionsButtonMore && <button className="content__button-more" type="button" onClick={handleMoreMoviesClick}>Ещё</button>}
       {errorСonditionsAdittionalBlock && <div className="content__additional-block">
