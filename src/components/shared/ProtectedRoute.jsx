@@ -7,6 +7,6 @@ import { ROUTES } from '../../constants/constants';
 // он также может взять неограниченное число пропсов и передать их новому компоненту
 export const ProtectedRouteElement = ({ element: Component, ...props }) => {
   return (
-    props.loggedIn ? <Component {...props} /> : <Navigate to={ROUTES.SIGNIN} replace />
+    props.loggedIn ? <Component {...props} /> : <Navigate to={ROUTES.HOME} replace />
   )
 }
