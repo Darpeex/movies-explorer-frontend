@@ -1,5 +1,5 @@
 import './Login.css';
-import React, { useState } from 'react';
+import React from 'react';
 import * as auth from '../../../utils/Auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/constants';
@@ -14,6 +14,7 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
         <h1 className="login__welcome">Рады видеть!</h1>
         <Formik
           initialValues={{ email: '', password: '' }}
+          validateOnChange={true} // показывает ошибку при изменении поля (нет)
           validate={(values) => {
             const errors = {};
             if (!values.email) {
@@ -23,7 +24,7 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
             }
             if (!values.password) {
               errors.password = 'Пожалуйста, введите пароль';
-            } else if (!(8 <= values.password.length)) {
+            } else if (!(values.password.length < 8)) {
               errors.password = 'Длина пароля не меньше 8 символов';
             }
             setError('')

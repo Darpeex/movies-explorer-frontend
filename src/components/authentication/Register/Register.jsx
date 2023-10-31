@@ -16,13 +16,14 @@ export const Register = ({ handleLogin, onResult, error, setError }) => {
         <h1 className="register__welcome">Добро пожаловать!</h1>
         <Formik
           initialValues={{ name: '', email: '', password: '' }}
+          validateOnChange={true} // показывает ошибку при изменении поля (нет)
           validate={(values) => {
             const errors = {};
             if (!values.name) {
               errors.name = 'Пожалуйста, введите имя';
             } else if (!/^[a-zA-Zа-яА-ЯёЁ\s-]+$/.test(values.name)) {
               errors.name = "Допустимые символы: латиница, кириллица, пробел и дефис";
-            } else if (!(2 <= values.name.length)) {
+            } else if (values.name.length < 2) {
               errors.name = 'Имя не может быть менее 2 символов';
             } else if ((values.name.length >= 30)) {
               errors.name = 'Имя не может быть более 30 символов';
