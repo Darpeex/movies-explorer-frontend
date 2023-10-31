@@ -1,22 +1,12 @@
 // Компонент MoviesCard
 import './MoviesCard.css';
-import React, { useEffect, useState } from "react";
-import { SavedMoviesContext } from '../../../context/SavedMoviesContext';
+import React from "react";
 
 export function MoviesCard({ movie, handleDeleteClick }) {
-  const savedMovies = React.useContext(SavedMoviesContext)
-  const [isLiked, setIsLiked] = useState(false);
-
-  useEffect(() => {
-    if (savedMovies && savedMovies.length > 0) {
-      setIsLiked(savedMovies.some(card => card.movieId === movie.movieId)) // Определяем, есть ли фильм в БД
-    } else {
-      setIsLiked(false)
-    }
-  }, [savedMovies]);
+  const isLiked = true;  // убрал условие для повторной проверки фильмов, т.к. они уже находятся в savedMovies
 
   function onLikeClicked() {
-    handleDeleteClick(movie); // добавляем или удаляем в сохраненные фильмы
+    handleDeleteClick(movie); // удаляем фильм из сохраненных
   }
 
   const convertDurationToHourlyFormat = () => {

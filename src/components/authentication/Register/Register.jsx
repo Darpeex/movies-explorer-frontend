@@ -49,7 +49,7 @@ export const Register = ({ handleLogin, onResult, error, setError }) => {
                 auth.login(values.password, values.email) // сразу авторизируем и пеернаправляем пользователя на /movies
                   .then((data) => {
                     handleLogin();
-                    navigate('/movies', { replace: true });
+                    navigate(ROUTES.MOVIES, { replace: true });
                   }).catch(err => {
                     console.log(err)
                   });

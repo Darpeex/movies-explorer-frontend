@@ -114,7 +114,6 @@ export const Profile = ({ onUpdateUser, handleDeleteTocken, error, result }) => 
 
   const handleSignout = () => { // выходим, удаляем токен и чистим localStorage
     handleDeleteTocken();
-    localStorage.clear();
   }
 
   return (

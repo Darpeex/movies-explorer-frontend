@@ -35,7 +35,7 @@ export const Login = ({ handleLogin, onResult, error, setError }) => {
               .then((res) => {
                 onResult(true)
                 handleLogin();
-                navigate('/movies', { replace: true });
+                navigate(ROUTES.MOVIES, { replace: true });
               }).catch(err => {
                 onResult(false)
                 setError('Почта незарегистрированна или данные неверны')
