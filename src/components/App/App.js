@@ -249,8 +249,8 @@ function App() {
                   /> {/* Профиль */}
                   <Route path={SIGNOUT} element={<ProtectedRouteElement />}
                   /> {/* Выход */}
-                  <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} setIsLoading={setIsLoading} />} /> {/* Логин */}
-                  <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} setIsLoading={setIsLoading} />} /> {/* Регистрация */}
+                  {!loggedIn && <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} setIsLoading={setIsLoading} />} />} {/* Логин */}
+                  {!loggedIn && <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} setIsLoading={setIsLoading} />} />} {/* Регистрация */}
                 </Routes>
 
                 {/* Подвал сайта */}
