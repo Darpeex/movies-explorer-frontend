@@ -37,7 +37,9 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
   }
 
   useEffect(() => { // функция не будет вызвана, пока данные не загрузятся из localStorage
-    if (isStorageMoviesInstalled === true) { // нужно для того, чтобы не перебило стейт при перезагрузке
+    const localMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    // если в хранилище ещё ничего не сохранялось или из него уже что-то установилось
+    if ((localMovies === null) || (isStorageMoviesInstalled === true)) {
       filmsProcessing();
     }
   }, [savedMovies]);
@@ -78,6 +80,7 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
     const localMovies = JSON.parse(localStorage.getItem('savedMovies'));
     if (localMovies !== null && localMovies !== undefined) {
       setInitialMovies(localMovies)
+      setIsStorageMoviesInstalled(true);
     }
   }, []);
 
@@ -91,7 +94,6 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
     const localIsChecked = JSON.parse(localStorage.getItem('savedMoviesIsChecked'));
     if (localIsChecked !== null) {
       setIsChecked(localIsChecked);
-      setIsStorageMoviesInstalled(true);
     }
   }, []);
 
