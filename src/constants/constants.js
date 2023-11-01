@@ -6,6 +6,7 @@ export const ROUTES = {
   PROFILE: "/profile",
   SIGNUP: "/signup",
   SIGNIN: "/signin",
+  SIGNOUT: "/signout",
   ERROR: "/404",
   UNKNOWN: "/*",
 };

@@ -191,16 +191,22 @@ function App() {
 
   // Удаляем токен из браузерного хранилища  
   function handleDeleteTocken() {
-    Cookies.remove('jwt');
-    localStorage.clear();
-    setLoggedIn(false);
-    setUserData({});
+    setIsLoading(true); // прелоадер вкл
+    auth.logout().then(() => {
+      localStorage.clear();
+      setLoggedIn(false);
+      setUserData({});
+    })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`)
+      })
+      .finally(() => setIsLoading(false)); // прелоадер выкл
   }
 
   // Получаем результат запроса на регистрацию
   const handleResult = setResult;
 
-  const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN, ERROR, UNKNOWN } = ROUTES;
+  const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN, SIGNOUT, ERROR, UNKNOWN } = ROUTES;
   const footerComponentsPaths = [HOME, MOVIES, SAVED_MOVIES];
   const footerClass = footerComponentsPaths.includes(location.pathname) // не отрисовываем Footer
     ? <Footer />
@@ -241,6 +247,8 @@ function App() {
                   <Route path={PROFILE} element={<ProtectedRouteElement
                     element={Profile} onUpdateUser={handleUpdateUser} handleDeleteTocken={handleDeleteTocken} error={error} result={result} loggedIn={loggedIn} />}
                   /> {/* Профиль */}
+                  <Route path={SIGNOUT} element={<ProtectedRouteElement />}
+                  /> {/* Выход */}
                   <Route path={SIGNIN} element={<Login handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} setIsLoading={setIsLoading} />} /> {/* Логин */}
                   <Route path={SIGNUP} element={<Register handleLogin={handleLogin} onResult={handleResult} error={error} setError={setError} setIsLoading={setIsLoading} />} /> {/* Регистрация */}
                 </Routes>

@@ -61,3 +61,22 @@ export const checkToken = () => {
       return data;
     });
 }
+
+// • функция logout - принимает jwt, отправляет запрос на /signout и удаляет JWT из куков пользователя при выходе
+export const logout = () => {
+  return fetch(`${BASE_URL}/signout`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include', // теперь куки посылаются вместе с запросом
+  })
+    .then(handleResponse)
+    .then((data) => {
+      if (data.token) {
+        Cookies.set('jwt', data.token, { expires: 7 });
+      }
+      return data;
+    })
+};
