@@ -8,6 +8,7 @@ export function MoviesCard({ movie, handleLikeClick }) {
   const image = `https://api.nomoreparties.co${movie.image.url}` // т.к. у карточек сервера и сохранённых разная запись картинке в объектах
   const savedMovies = useContext(SavedMoviesContext)
   const [isLiked, setIsLiked] = useState(false);
+  const typeOfMovie = 'movie';
 
   useEffect(() => {
     if (savedMovies && savedMovies.length > 0) {
@@ -18,6 +19,6 @@ export function MoviesCard({ movie, handleLikeClick }) {
   }, [savedMovies]);
 
   return (
-    <Card movie={movie} isLiked={isLiked} handleLike={handleLikeClick} image={image} />
+    <Card movie={movie} isLiked={isLiked} handleLike={handleLikeClick} image={image} typeOfMovie={typeOfMovie} />
   )
 }
