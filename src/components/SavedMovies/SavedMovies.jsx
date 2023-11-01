@@ -7,7 +7,6 @@ import { SavedMoviesCardList } from '../SavedMovies/SavedMoviesCardList/SavedMov
 
 export function SavedMovies({ loadingError, handleDeleteClick }) {
   const savedMovies = useContext(SavedMoviesContext); // сохранённые фильмы +
-  const [isStorageMoviesInstalled, setIsStorageMoviesInstalled] = useState(false); // установились ли фильмы из локального хранилища? +
   const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованное чекбоксом +
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе +
   const [initialMovies, setInitialMovies] = useState([]); // все найденые фильмы по запросу +
@@ -31,17 +30,10 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
     const foundMovies = searchMovies(savedMovies);
     setInitialMovies(foundMovies); // устанавливаем найденные фильмы в стейт
     setMovieFound(foundMovies.length > 0); // изменение состояния movieFound (найден ли фильм)
-    if (foundMovies !== null && foundMovies !== undefined) {
-      localStorage.setItem('savedMovies', JSON.stringify(foundMovies)); // сохраняем список фильмов в localStorage
-    }
   }
 
-  useEffect(() => { // функция не будет вызвана, пока данные не загрузятся из localStorage
-    const localMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    // если в хранилище ещё ничего не сохранялось или из него уже что-то установилось
-    if ((localMovies === null) || (isStorageMoviesInstalled === true)) {
+  useEffect(() => {
       filmsProcessing();
-    }
   }, [savedMovies]);
 
   function handleSubmitForm(e) { // проверяем пустое ли поле по клику
@@ -50,9 +42,6 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
       setIsEmpty(true);
     } else {
       setIsEmpty(false);
-      if (value !== null && value !== undefined) {
-        localStorage.setItem('savedMoviesValue', JSON.stringify(value)); // сохраняем текст запроса в localStorage
-      }
       filmsProcessing(savedMovies)
     }
   }
@@ -69,40 +58,15 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
     setValue(e.target.value); // чтобы взять значение из поля value*
   }
 
-  useEffect(() => { // извлекаем последний текст запроса из localStorage 
-    const localValue = JSON.parse(localStorage.getItem('savedMoviesValue'));
-    if (localValue !== null && localValue !== undefined) {
-      setValue(localValue)
-    }
-  }, []);
-
-  useEffect(() => { // извлекаем последний список фильмов из localStorage
-    const localMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    if (localMovies !== null && localMovies !== undefined) {
-      setInitialMovies(localMovies)
-      setIsStorageMoviesInstalled(true);
-    }
-  }, []);
-
   useEffect(() => { // нужно проверить поле после вывода ошибки
     if (value !== "") { // чтобы после ввода текста сообщение убиралось*
       setIsEmpty(false)
     }
   }, [value]);
 
-  useEffect(() => { // извлекаем последнее состояние чекбокса из localStorage 
-    const localIsChecked = JSON.parse(localStorage.getItem('savedMoviesIsChecked'));
-    if (localIsChecked !== null) {
-      setIsChecked(localIsChecked);
-    }
-  }, []);
-
   const handleOnChange = (e) => { // при нажатии
     const checkboxEvent = e.target.checked // нужен, потому что иначе событие не успевает записаться, а так записывается одно и то же
     setIsChecked(checkboxEvent); // меняем значение чекбокса на противоположное
-    if (checkboxEvent !== null && checkboxEvent !== undefined) {
-      localStorage.setItem('savedMoviesIsChecked', JSON.stringify(checkboxEvent)); // сохраняем состояние чекбокса в localStorage
-    }
   }
 
   useEffect(() => {
