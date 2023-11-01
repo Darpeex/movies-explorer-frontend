@@ -2,8 +2,8 @@
 import './Header.css';
 import { useState, useEffect } from 'react';
 import { BurgerMenu } from './BurgerMenu/BurgerMenu';
-import { ROUTES } from '../../../constants/constants.js';
 import { Routes, Route, NavLink, Link } from 'react-router-dom';
+import { ROUTES, TABLET } from '../../../constants/constants.js';
 
 const { HOME, MOVIES, SAVED_MOVIES, PROFILE, SIGNUP, SIGNIN } = ROUTES;
 const whiteBackgroundPaths = [MOVIES, SAVED_MOVIES, PROFILE, SIGNIN, SIGNUP];
@@ -103,14 +103,14 @@ export function Header({ location, loggedIn }) {
   const headerNav = <HeaderNavigation accountButton={accountButton} isActiveLink={isActiveLink} />;
   const burgerNav = <Burger accountButton={accountButton} location={location} headerBurgerBGWhiteClass={headerBurgerBGWhiteClass} />;
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isTablet = useMediaQuery(TABLET);
 
   return (
     <header className={`header header_position ${headerOnlyHomeLogoClass ? "header_logo_position" : ""} ${loggedIn ? "header_burger_style" : ""} ${headerBackgroundWhite} ${headerOnlyHomeLogoClass}`}>
       <Routes>
         <Route path={SIGNIN} element={linkLogoHome} />
         <Route path={SIGNUP} element={linkLogoHome} />
-        {isMobile ? (
+        {isTablet ? (
           <>
             <Route path={HOME} element={loggedIn ? burgerNav : <Unauthorized />} />
             <Route path={MOVIES} element={burgerNav} />
