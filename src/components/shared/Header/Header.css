@@ -235,7 +235,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .header__burger-style { /* важно */
+  .header_burger_style { /* важно */
 		padding: 0;
 	}
 

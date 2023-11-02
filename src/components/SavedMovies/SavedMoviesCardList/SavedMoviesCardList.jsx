@@ -1,12 +1,12 @@
-// Раздел для карточек с фильмами
-import './MoviesCardList.css';
-import { MoviesCard } from '../MoviesCard/MoviesCard';
+// Раздел для карточек с сохранёнными фильмами
+import './SavedMoviesCardList.css';
+import { SavedMoviesCard } from '../SavedMoviesCard/SavedMoviesCard';
 
-export function MoviesCardList({ moviesToShow, handleLikeClick }) {
+export function SavedMoviesCardList({ moviesToShow, handleDeleteClick }) {
   return ( // Отрисовываем каждый фильм при помощи компонента Movie и возвращаем в разметку внутрь section
     <section id="elements" className="elements page__elements-position section">
       {moviesToShow && moviesToShow.map(movie => ( // Пробегаем по переданному массиву и возвращаем карточки с фильмами
-        <MoviesCard key={movie.id} movie={movie} handleLikeClick={handleLikeClick} />))}
+        <SavedMoviesCard key={`${movie.movieId}-saved`} movie={movie} handleDeleteClick={handleDeleteClick} />))}
     </section>
   )
 }
