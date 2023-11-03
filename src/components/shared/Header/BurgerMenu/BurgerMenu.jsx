@@ -12,18 +12,18 @@ export const BurgerMenu = ({ items, accountButton, isOpen, setIsOpen, location }
   }
 
   return (
-    <nav className={isOpen ? "header__navigation-burger-menu isOpen" : "header__navigation-burger-menu"} onClick={() => setIsOpen(false)}>
+    <nav className={isOpen ? "header__navigation-burger-menu isOpen" : "header__navigation-burger-menu"} onClick={onCloseButtonClick}>
       <div className="header__burger-menu-content" onClick={e => e.stopPropagation()}> {/* останавливапем всплытие - меню закрывается только по щелчку вне "header__burger-menu-content" */}
         <div className="header__burger-menu-button-close" onClick={onCloseButtonClick}></div>
         <ul className="header__burger-menu-list">
           {items.map(item => (
             <li key={item.key} className={`header__burger-menu-item ${isActive(item.href) ? 'active' : ''}`}>
-              <Link to={item.href} className="header__burger-menu-link">{item.value}</Link>
+              <Link to={item.href} className="header__burger-menu-link" onClick={onCloseButtonClick}>{item.value}</Link>
             </li>
           )
           )}
         </ul>
-        {accountButton && <div className="header__burger-menu-accaunt-btn">{accountButton}</div>}
+        {accountButton && <div className="header__burger-menu-accaunt-btn" onClick={onCloseButtonClick}>{accountButton}</div>}
       </div>
     </nav>
   )
