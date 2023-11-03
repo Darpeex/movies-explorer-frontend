@@ -33,7 +33,7 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
   }
 
   useEffect(() => {
-      filmsProcessing();
+    filmsProcessing();
   }, [savedMovies]);
 
   function handleSubmitForm(e) { // проверяем пустое ли поле по клику
@@ -95,3 +95,12 @@ export function SavedMovies({ loadingError, handleDeleteClick }) {
     </main>
   )
 };
+
+// Это стоило мне немало времени, сохраню на будущее) Т.к. ещё буду обращаться к этому проекту
+// useEffect(() => { // функция не будет вызвана, пока данные не загрузятся из localStorage
+//   const localMovies = JSON.parse(localStorage.getItem('savedMovies'));
+//   // если в хранилище ещё ничего не сохранялось или из него уже что-то установилось
+//   if ((localMovies === null) || (isStorageMoviesInstalled === true)) {
+//     filmsProcessing();
+//   }
+// }, [savedMovies]);
