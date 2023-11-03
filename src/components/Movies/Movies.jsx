@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import { SearchForm } from './SearchForm/SearchForm';
 import { MoviesContext } from '../../context/MoviesContext';
 import { MoviesCardList } from './MoviesCardList/MoviesCardList';
+import { MOBILE, TABLET, LAPTOP, SHORT_MOVIES, CARDS_PER_ROW, ROWS_TO_SHOW } from '../../constants/constants';
 
 export function Movies({ loadMovies, loadingError, handleLikeClick }) {
   const [moreMovies, setMoreMovies] = useState(false); // состояние кнопки 'Ещё'
@@ -13,7 +14,7 @@ export function Movies({ loadMovies, loadingError, handleLikeClick }) {
   const [moviesToShow, setMoviesToShow] = useState([]); // фильмы, которые должны отрисоваться
   const [onSubmit, setOnSubmit] = useState(false); // отслеживаем вызов submit поиска
   const [isChecked, setIsChecked] = useState(false); // нажат чексбокс или нет
-  
+
   const [isInputFocused, setInputFocus] = useState(false); // для подчеркивания input при фокусе
   const [isEmpty, setIsEmpty] = useState(false); // состояние введенной информации
   const [value, setValue] = useState(""); // состояние введенной информации
@@ -41,28 +42,28 @@ export function Movies({ loadMovies, loadingError, handleLikeClick }) {
     return matches; // возвращается состояние, по которому и определяется соответствие текущего состояние устройства указанному медиа-запросу
   };
 
-  const isLaptop = useMediaQuery('(max-width: 1024px)');
-  const isTablet = useMediaQuery('(max-width: 768px)');
-  const isMobile = useMediaQuery('(max-width: 550px)');
+  const isLaptop = useMediaQuery(LAPTOP);
+  const isTablet = useMediaQuery(TABLET);
+  const isMobile = useMediaQuery(MOBILE);
 
   const calculateCardsPerRow = () => { // число карточек в ряду
     if (isMobile) {
-      return 1;
+      return CARDS_PER_ROW.mobile;
     } else if (isTablet) {
-      return 2;
+      return CARDS_PER_ROW.tablet;
     } else if (isLaptop) {
-      return 3;
+      return CARDS_PER_ROW.laptop;
     } else {
-      return 4;
+      return CARDS_PER_ROW.desktop;
     }
   };
   const [moviesPerRow, setMoviesPerRow] = useState(calculateCardsPerRow());
 
   const calculateRows = () => { // сколько рядов показывать
     if (isMobile) {
-      return 5;
+      return ROWS_TO_SHOW.mobile;
     } else {
-      return 4;
+      return ROWS_TO_SHOW.others;
     }
   }
   const [rowsToShow, setRowsToShow] = useState(calculateRows()); // количество строк, которые должны отображаться
@@ -101,8 +102,6 @@ export function Movies({ loadMovies, loadingError, handleLikeClick }) {
       setRowsToShow(localRowsToShow)
     }
   }, []);
-
-  // 
 
   useEffect(() => { // извлекаем последний текст запроса из localStorage 
     const localValue = JSON.parse(localStorage.getItem('value'));
@@ -165,7 +164,7 @@ export function Movies({ loadMovies, loadingError, handleLikeClick }) {
     return foundMovies;
   }
 
-  // из filterBox
+  // из chekbox'a
   useEffect(() => { // извлекаем последнее состояние чекбокса из localStorage 
     const localIsChecked = JSON.parse(localStorage.getItem('isChecked'));
     if (localIsChecked !== null) {
@@ -183,13 +182,12 @@ export function Movies({ loadMovies, loadingError, handleLikeClick }) {
 
   useEffect(() => {
     if (isChecked) {
-      const shortMovies = initialMovies.filter(movie => movie.duration <= 40); // короткометражки - менее 40мин включительно
+      const shortMovies = initialMovies.filter(SHORT_MOVIES); // короткометражки - менее 40мин включительно
       setFilteredMovies(shortMovies); // отсортированные фильмы
     } else {
       return setFilteredMovies(initialMovies); // фильмы, полученные при поиске
     }
   }, [isChecked, initialMovies]); // запутанно, но только сейчас заработало
-  //
 
   const errorConditions = loadingError || (loadingError !== null) || !movieFound; // условия, при которых не показываются другие блоки
   const additionalBlockConditions = movieFound && !moreMovies // обязательные условия, при которых показываться доп. блок

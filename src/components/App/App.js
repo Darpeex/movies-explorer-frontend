@@ -1,5 +1,4 @@
 import '../../index.css'; // Стили
-import Cookies from 'js-cookie'; // Импорт Cookies
 import { ROUTES } from '../../constants/constants';
 import React, { useState, useEffect } from 'react'; // Библиотеки реакт
 import { Route, Routes, Navigate, useLocation } from 'react-router-dom'; // Routes для роутов
